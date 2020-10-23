@@ -33,10 +33,13 @@ const User_1 = require("./../entities/User");
 const apollo_server_express_1 = require("apollo-server-express");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const crypto_1 = __importDefault(require("crypto"));
 function genereteToken(user) {
     return jsonwebtoken_1.default.sign({
         id: user.id,
-        email: user.email
+        email: user.email,
+        photo: user.photo,
+        name: user.name
     }, 'saya-adalah-seorang-pelajar-dan-anaks', { expiresIn: '1D' });
 }
 let UserResolver = class UserResolver {
@@ -122,6 +125,28 @@ let UserResolver = class UserResolver {
             }
         });
     }
+    resetPassword({ password, passwordConfirm, tokenParams }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const hashedToken = crypto_1.default.createHash('sha256').update(tokenParams).digest('hex');
+            if (password !== passwordConfirm) {
+                throw new apollo_server_express_1.UserInputError('Password Confirm Salah', {
+                    error: {
+                        passwordConfirm: 'Password Confirm Tidak Sama Dengan Pssword'
+                    }
+                });
+            }
+            const user = yield User_1.UserModel.findOne({ passwordResetToken: hashedToken, passwordResetExpire: { $gt: Date.now() } });
+            if (!user) {
+                throw new apollo_server_express_1.AuthenticationError('Token Tidak Valid');
+            }
+            user.password = yield bcrypt_1.default.hash(password, 12);
+            user.passwordResetToken = undefined;
+            user.passwordResetExpire = undefined;
+            yield user.save();
+            const token = genereteToken(user);
+            return Object.assign(Object.assign({}, user._doc), { token });
+        });
+    }
 };
 __decorate([
     type_graphql_1.Query(() => [User_1.User]),
@@ -150,6 +175,13 @@ __decorate([
     __metadata("design:paramtypes", [typeDef_1.ForgotPassword]),
     __metadata("design:returntype", Promise)
 ], UserResolver.prototype, "forgotPassword", null);
+__decorate([
+    type_graphql_1.Mutation(() => User_1.User),
+    __param(0, type_graphql_1.Arg("data")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeDef_1.ResetPassword]),
+    __metadata("design:returntype", Promise)
+], UserResolver.prototype, "resetPassword", null);
 UserResolver = __decorate([
     type_graphql_1.Resolver()
 ], UserResolver);

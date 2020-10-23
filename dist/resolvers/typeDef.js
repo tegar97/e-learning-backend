@@ -9,8 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ForgotPassword = exports.LoginInput = exports.RegisterInput = void 0;
+exports.createTimeLine = exports.getDetailClass = exports.JoinClass = exports.createClass = exports.ResetPassword = exports.ForgotPassword = exports.LoginInput = exports.RegisterInput = void 0;
 const type_graphql_1 = require("type-graphql");
+//===================================== Type Auth ====================================
 let RegisterInput = class RegisterInput {
 };
 __decorate([
@@ -57,4 +58,101 @@ ForgotPassword = __decorate([
     type_graphql_1.InputType()
 ], ForgotPassword);
 exports.ForgotPassword = ForgotPassword;
+let ResetPassword = class ResetPassword {
+};
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], ResetPassword.prototype, "password", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], ResetPassword.prototype, "passwordConfirm", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], ResetPassword.prototype, "tokenParams", void 0);
+ResetPassword = __decorate([
+    type_graphql_1.InputType()
+], ResetPassword);
+exports.ResetPassword = ResetPassword;
+//===================================== END Type Auth ====================================
+//=====================================  Type Class ======================================
+let createClass = class createClass {
+};
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], createClass.prototype, "name", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], createClass.prototype, "subjects", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], createClass.prototype, "lesson_day", void 0);
+createClass = __decorate([
+    type_graphql_1.InputType()
+], createClass);
+exports.createClass = createClass;
+let JoinClass = class JoinClass {
+};
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], JoinClass.prototype, "code_class", void 0);
+JoinClass = __decorate([
+    type_graphql_1.InputType()
+], JoinClass);
+exports.JoinClass = JoinClass;
+let getDetailClass = class getDetailClass {
+};
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], getDetailClass.prototype, "id", void 0);
+getDetailClass = __decorate([
+    type_graphql_1.InputType()
+], getDetailClass);
+exports.getDetailClass = getDetailClass;
+//===================================== END Type Class ===================================
+let createTimeLine = class createTimeLine {
+};
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], createTimeLine.prototype, "id", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], createTimeLine.prototype, "content_title", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], createTimeLine.prototype, "file", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], createTimeLine.prototype, "content", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], createTimeLine.prototype, "type_content", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", Number)
+], createTimeLine.prototype, "point", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], createTimeLine.prototype, "due", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], createTimeLine.prototype, "created_by", void 0);
+createTimeLine = __decorate([
+    type_graphql_1.InputType()
+], createTimeLine);
+exports.createTimeLine = createTimeLine;
 //# sourceMappingURL=typeDef.js.map

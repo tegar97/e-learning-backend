@@ -1,9 +1,35 @@
-import {  UserModel } from './User';
 import { ObjectType, Field, ID} from "type-graphql";
 import { prop as Property, getModelForClass,Ref } from "@typegoose/typegoose";
 
+@ObjectType({ description: "User Data Model" })
+export class UserData {
+
+    @Field(() => ID) 
+    @Property()
+    id?: string;
+  
+    @Field() 
+    @Property()
+    name?: string;
+
+    @Field() 
+    @Property()
+    email?: string;
+
+    @Field() 
+    @Property()
+    photo?: string;
+
+    @Field() 
+    @Property()
+    isAdmin?: boolean;
+
+    @Field() 
+    @Property({default: new Date().toISOString()})
+    createdAt?: string;
+  }
 @ObjectType({ description: "The User model" })
-export class Class {
+export class Classes {
     @Field(()=> ID)
     id: string;
 
@@ -11,8 +37,14 @@ export class Class {
     @Property()
     name: string;
 
+    @Field() 
     @Property()
-    token: string;
+    code_class?: string;
+
+  
+    @Field(type => [UserData], { nullable: false })
+    @Property({type : () => [UserData]})
+    user?: UserData[]
 
     @Field()
     @Property()
@@ -20,28 +52,23 @@ export class Class {
 
     @Field()
     @Property()
-    lesson_day: string;
+    lesson_day?: string;
 
     @Field()
     @Property({default: 'default.png'})
-    photo? : Date
+    photo? : string
 
-    @Field()
-    @Property({ref: UserModel})
-    admin? : Ref<typeof UserModel>
-
-    @Field()
-    @Property()
-    passwordResetExpire? : Date
+   
 
     @Field()
     @Property({required: true,default: new Date().toISOString()})
     createdAt?: string;
 
-
+    
     
 
 
 
 }
-export const ClassModels = getModelForClass(Class);
+
+export const ClassModels = getModelForClass(Classes);

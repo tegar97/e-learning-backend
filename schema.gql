@@ -3,6 +3,24 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+"""The User model"""
+type Classes {
+  code_class: String!
+  createdAt: String!
+  id: ID!
+  lesson_day: String!
+  name: String!
+  photo: String!
+  subjects: String!
+  user: [UserData!]!
+}
+
+input createClass {
+  lesson_day: String!
+  name: String!
+  subjects: String!
+}
+
 """
 The javascript `Date` as string. Type represents date and time as the ISO Date string.
 """
@@ -12,18 +30,30 @@ input ForgotPassword {
   email: String!
 }
 
+input getDetailClass {
+  id: String!
+}
+
+input JoinClass {
+  code_class: String!
+}
+
 input LoginInput {
   email: String!
   password: String!
 }
 
 type Mutation {
+  createClass(data: createClass!): Classes!
   forgotPassword(data: ForgotPassword!): String!
+  JoinClass(data: JoinClass!): Classes!
   login(data: LoginInput!): User!
   register(data: RegisterInput!): User!
+  resetPassword(data: ResetPassword!): User!
 }
 
 type Query {
+  getDetailRoom(data: getDetailClass!): Classes!
   returnAllProduct: [User!]!
 }
 
@@ -32,6 +62,12 @@ input RegisterInput {
   email: String!
   name: String!
   password: String!
+}
+
+input ResetPassword {
+  password: String!
+  passwordConfirm: String!
+  tokenParams: String!
 }
 
 """The User model"""
@@ -46,4 +82,22 @@ type User {
   passwordResetExpire: String!
   passwordResetToken: String!
   token: String!
+  your_class: [your_class!]
+}
+
+"""User Data Model"""
+type UserData {
+  createdAt: String!
+  email: String!
+  id: ID!
+  isAdmin: Boolean!
+  name: String!
+  photo: String!
+}
+
+"""The Class Info"""
+type your_class {
+  id: ID!
+  lesson_days: String!
+  name: String!
 }

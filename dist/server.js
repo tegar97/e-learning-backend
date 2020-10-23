@@ -20,16 +20,17 @@ const dotenv_1 = __importDefault(require("dotenv"));
 // resolvers
 const userResolver_1 = require("./resolvers/userResolver");
 const server_1 = __importDefault(require("./config/server"));
+const classResolver_1 = require("./resolvers/classResolver");
 dotenv_1.default.config({ path: "../config.env" });
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     const schema = yield type_graphql_1.buildSchema({
-        resolvers: [userResolver_1.UserResolver],
+        resolvers: [userResolver_1.UserResolver, classResolver_1.classResolver],
         emitSchemaFile: true,
         validate: false,
     });
     // create mongoose connectio
     server_1.default();
-    const server = new apollo_server_express_1.ApolloServer({ schema });
+    const server = new apollo_server_express_1.ApolloServer({ schema, context: ({ req, res }) => ({ req, res }) });
     const app = express_1.default();
     server.applyMiddleware({ app });
     app.set('view engine', 'ejs');

@@ -6,6 +6,7 @@ import dotenv from 'dotenv'
 // resolvers
 import {UserResolver} from "./resolvers/userResolver";
 import connectDatabase from "./config/server";
+import { classResolver } from "./resolvers/classResolver";
 
 
 dotenv.config({path: "../config.env"})
@@ -13,16 +14,17 @@ dotenv.config({path: "../config.env"})
 const main = async () => {
 
 const schema = await buildSchema({
-    resolvers: [UserResolver],
+    resolvers: [UserResolver,classResolver],
     emitSchemaFile: true,
     validate: false,
+    
   });
 
 // create mongoose connectio
 connectDatabase()
 
 
-const server = new ApolloServer({schema});
+const server = new ApolloServer({schema,context: ({req,res})  => ({req,res})});
 const app : any = Express();
 server.applyMiddleware({app});
 app.set('view engine','ejs');
