@@ -41,6 +41,8 @@ export class UserTaskCollection {
     @Field()
     @Property({default: 0})
     point?: Number;
+
+    
     
 
 

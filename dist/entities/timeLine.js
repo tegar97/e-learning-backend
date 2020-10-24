@@ -8,8 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TimeLineModels = exports.TimeLine = exports.fileDoc = void 0;
+exports.TimeLineModels = exports.TimeLine = exports.Comments = exports.fileDoc = void 0;
 const UserTaskCollect_1 = require("./UserTaskCollect");
 const type_graphql_1 = require("type-graphql");
 const typegoose_1 = require("@typegoose/typegoose");
@@ -28,7 +31,32 @@ fileDoc = __decorate([
     type_graphql_1.ObjectType({ description: "The Time Line model" })
 ], fileDoc);
 exports.fileDoc = fileDoc;
+let Comments = class Comments {
+};
+__decorate([
+    type_graphql_1.Field(type => User_1.User, { nullable: true }),
+    typegoose_1.prop({ ref: () => User_1.User }),
+    __metadata("design:type", Object)
+], Comments.prototype, "user_id", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    typegoose_1.prop(),
+    __metadata("design:type", String)
+], Comments.prototype, "content", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    typegoose_1.prop(),
+    __metadata("design:type", Date)
+], Comments.prototype, "createdAt", void 0);
+Comments = __decorate([
+    type_graphql_1.ObjectType({ description: "The Time Line model" })
+], Comments);
+exports.Comments = Comments;
 let TimeLine = class TimeLine {
+    commentsCount(parent) {
+        console.log(parent.comments);
+        return parent.comments.length;
+    }
 };
 __decorate([
     type_graphql_1.Field(() => type_graphql_1.ID),
@@ -74,6 +102,18 @@ __decorate([
     typegoose_1.prop({ type: () => [UserTaskCollect_1.UserTaskCollection] }),
     __metadata("design:type", Array)
 ], TimeLine.prototype, "user_collect", void 0);
+__decorate([
+    type_graphql_1.Field(type => [Comments], { nullable: false }),
+    typegoose_1.prop({ type: () => [Comments] }),
+    __metadata("design:type", Array)
+], TimeLine.prototype, "comments", void 0);
+__decorate([
+    type_graphql_1.Field({ nullable: true }),
+    __param(0, type_graphql_1.Root()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [TimeLine]),
+    __metadata("design:returntype", Number)
+], TimeLine.prototype, "commentsCount", null);
 __decorate([
     type_graphql_1.Field(type => User_1.User, { nullable: false }),
     typegoose_1.prop({ ref: () => User_1.User }),

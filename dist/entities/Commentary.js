@@ -9,34 +9,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CommentaryModels = exports.Commentary = void 0;
+exports.CommentaryModels = exports.Comments = void 0;
 const User_1 = require("./User");
 const type_graphql_1 = require("type-graphql");
 const typegoose_1 = require("@typegoose/typegoose");
-let Commentary = class Commentary {
+let Comments = class Comments {
 };
 __decorate([
     type_graphql_1.Field(() => type_graphql_1.ID),
     __metadata("design:type", String)
-], Commentary.prototype, "id", void 0);
+], Comments.prototype, "id", void 0);
 __decorate([
     type_graphql_1.Field(type => User_1.User, { nullable: true }),
     typegoose_1.prop({ ref: () => User_1.User }),
     __metadata("design:type", Object)
-], Commentary.prototype, "user_id", void 0);
+], Comments.prototype, "user_id", void 0);
 __decorate([
     type_graphql_1.Field(),
     typegoose_1.prop(),
     __metadata("design:type", String)
-], Commentary.prototype, "content", void 0);
+], Comments.prototype, "content", void 0);
 __decorate([
     type_graphql_1.Field(),
     typegoose_1.prop(),
     __metadata("design:type", Date)
-], Commentary.prototype, "createdAt", void 0);
-Commentary = __decorate([
+], Comments.prototype, "createdAt", void 0);
+Comments = __decorate([
     type_graphql_1.ObjectType({ description: "The UserTaskCollection model" })
-], Commentary);
-exports.Commentary = Commentary;
+], Comments);
+exports.Comments = Comments;
 exports.CommentaryModels = typegoose_1.getModelForClass(Commentary);
 //# sourceMappingURL=Commentary.js.map

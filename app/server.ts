@@ -1,3 +1,5 @@
+import { CommentsResolver } from './resolvers/CommentaryResolver';
+import { TimeLine } from './entities/timeLine';
 import { ApolloServer } from "apollo-server-express";
 import Express from "express";
 import "reflect-metadata";
@@ -16,9 +18,18 @@ dotenv.config({path: "../config.env"})
 const main = async () => {
 
 const schema = await buildSchema({
-    resolvers: [UserResolver,classResolver,TimeLineResolver,UserTaskCollectResolver],
+    resolvers: [
+     
+      UserResolver,
+      classResolver,
+      TimeLineResolver
+      ,UserTaskCollectResolver,
+      CommentsResolver
+    ],
+    
     emitSchemaFile: true,
     validate: false,
+   
     
   });
 

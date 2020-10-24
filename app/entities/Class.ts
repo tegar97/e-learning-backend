@@ -1,5 +1,5 @@
 import { ObjectType, Field, ID} from "type-graphql";
-import { prop as Property, getModelForClass,Ref } from "@typegoose/typegoose";
+import { prop as Property, getModelForClass } from "@typegoose/typegoose";
 
 @ObjectType({ description: "User Data Model" })
 export class UserData {

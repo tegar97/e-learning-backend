@@ -20,6 +20,13 @@ input collectAssigment {
   timeLineId: String!
 }
 
+"""The Time Line model"""
+type Comments {
+  content: String!
+  createdAt: DateTime!
+  user_id: User
+}
+
 input createClass {
   lesson_day: Float!
   name: String!
@@ -76,9 +83,11 @@ input LoginInput {
 
 type Mutation {
   createClass(data: createClass!): Classes!
+  CreateComment(content: String!, id: String!): TimeLine!
   CreatePost(data: createTimeLine!): TimeLine!
   CreateUserCollect(data: collectAssigment!): UserTaskCollection!
   DeletePost(id: String!): Boolean!
+  editComment(content: String!, id: String!): Boolean!
   EditPost(data: EditTimeLine!): Boolean!
   forgotPassword(data: ForgotPassword!): String!
   JoinClass(data: JoinClass!): Classes!
@@ -111,6 +120,8 @@ input ResetPassword {
 """The Time Line model"""
 type TimeLine {
   class_id: String!
+  comments: [Comments!]!
+  commentsCount: Float
   content: String!
   content_title: String!
   created_by: User!

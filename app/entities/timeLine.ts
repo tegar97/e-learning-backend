@@ -1,5 +1,5 @@
 import { UserTaskCollection } from './UserTaskCollect';
-import { ObjectType, Field, ID} from "type-graphql";
+import { ObjectType, Field, ID, Root} from "type-graphql";
 import { prop as Property, getModelForClass,Ref } from "@typegoose/typegoose";
 import {User} from './User'
 
@@ -11,6 +11,23 @@ export class fileDoc {
 
     @Field()
     file_type: string;
+
+   
+}
+
+@ObjectType({ description: "The Time Line model" })
+export class Comments {
+    @Field(type => User, { nullable: true })
+    @Property({ ref: () => User })
+    user_id?: Ref<User>;
+
+    @Field()
+    @Property()
+    content: string;
+
+    @Field()
+    @Property()
+    createdAt: Date;
 
    
 }
@@ -52,11 +69,19 @@ export class TimeLine {
     @Property({type : () => [UserTaskCollection]})
     user_collect?: string[]
 
- 
+    @Field(type => [Comments], { nullable: false })
+    @Property({type : () => [Comments]})
+    comments : string[]
 
+    @Field({ nullable : true })
+    commentsCount(@Root() parent : TimeLine) : number{
+        console.log(parent.comments)
+        return parent.comments.length;
+    }
     @Field(type => User, { nullable: false })
     @Property({ref : () => User})
     created_by : Ref<User>
+
 
     @Field()
     @Property({required: true})
@@ -67,6 +92,7 @@ export class TimeLine {
     @Property({required: true,default: new Date().toISOString()})
     updateAt?: string;
 
+   
 
 
 

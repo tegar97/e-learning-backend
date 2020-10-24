@@ -21,30 +21,66 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TimeLineResolver = void 0;
-const Commentary_1 = require("./../entities/Commentary");
+exports.CommentsResolver = void 0;
+const timeLine_1 = require("./../entities/timeLine");
+const check_auth_1 = require("./../util/check-auth");
 const type_graphql_1 = require("type-graphql");
 const apollo_server_express_1 = require("apollo-server-express");
-let TimeLineResolver = class TimeLineResolver {
-    CreatePost(content, { req }) {
+let CommentsResolver = class CommentsResolver {
+    CreateComment(content, id, { req }) {
         return __awaiter(this, void 0, void 0, function* () {
+            const user = check_auth_1.checkAuth(req);
+            const timeLine = yield timeLine_1.TimeLineModels.findById(id);
             if (content.trim() === '') {
                 throw new apollo_server_express_1.UserInputError('Komentar Wajib Di isi', {
                     contet: "Komentar Wajib Di isi"
                 });
             }
+            if (timeLine) {
+                timeLine.comments.unshift({
+                    user_id: user.id,
+                    content: 'content',
+                    createdAt: new Date()
+                });
+                yield timeLine.save();
+                return timeLine;
+            }
+            else {
+                throw new apollo_server_express_1.UserInputError("Post TIdak Ditemukan");
+            }
+        });
+    }
+    editComment(content, id, { req }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const comments = yield timeLine_1.TimeLineModels.findById(id);
+            if (!comments) {
+                throw new apollo_server_express_1.UserInputError("Post TIdak Ditemukan");
+            }
+            comments.update({
+                content
+            }, {
+                new: true, runValidators: true
+            });
+            return true;
         });
     }
 };
 __decorate([
-    type_graphql_1.Mutation(() => Commentary_1.Commentary),
-    __param(0, type_graphql_1.Arg("content", () => String)), __param(1, type_graphql_1.Ctx()),
+    type_graphql_1.Mutation(() => timeLine_1.TimeLine),
+    __param(0, type_graphql_1.Arg("content", () => String)), __param(1, type_graphql_1.Arg("id", () => String)), __param(2, type_graphql_1.Ctx()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:paramtypes", [String, String, Object]),
     __metadata("design:returntype", Promise)
-], TimeLineResolver.prototype, "CreatePost", null);
-TimeLineResolver = __decorate([
+], CommentsResolver.prototype, "CreateComment", null);
+__decorate([
+    type_graphql_1.Mutation(() => Boolean),
+    __param(0, type_graphql_1.Arg("content", () => String)), __param(1, type_graphql_1.Arg("id", () => String)), __param(2, type_graphql_1.Ctx()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String, Object]),
+    __metadata("design:returntype", Promise)
+], CommentsResolver.prototype, "editComment", null);
+CommentsResolver = __decorate([
     type_graphql_1.Resolver()
-], TimeLineResolver);
-exports.TimeLineResolver = TimeLineResolver;
+], CommentsResolver);
+exports.CommentsResolver = CommentsResolver;
 //# sourceMappingURL=CommentaryResolver.js.map
