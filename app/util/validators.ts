@@ -2,7 +2,8 @@ interface errorInput {
     email?: string,
     password?: string,
     confirmPassword? : string,
-    include?: string
+    include?: string,
+    content? : string
 }
 export const validateRegister = (email:string,password: string,confirmPassword?: string) => {
     const errors : errorInput= {}
@@ -41,6 +42,23 @@ export const validateLogin = (email:string,password: string) => {
         errors.password = 'Password Tidak Boleh Kosong';
 
     }
+
+ 
+  return {
+    errors,
+    valid: Object.keys(errors).length < 1 
+}
+};
+
+
+
+export const validateTimeLinePost = (content?:string) => {
+    const errors : errorInput= {}
+    if(content.trim() === ''){
+        errors.content = 'Panjang Pengumuman / Postingan Wajib Di isi';
+
+    }
+
 
  
   return {

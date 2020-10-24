@@ -21,10 +21,12 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const userResolver_1 = require("./resolvers/userResolver");
 const server_1 = __importDefault(require("./config/server"));
 const classResolver_1 = require("./resolvers/classResolver");
+const TimeLineResolver_1 = require("./resolvers/TimeLineResolver");
+const userTaskCollectionResolver_1 = require("./resolvers/userTaskCollectionResolver");
 dotenv_1.default.config({ path: "../config.env" });
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     const schema = yield type_graphql_1.buildSchema({
-        resolvers: [userResolver_1.UserResolver, classResolver_1.classResolver],
+        resolvers: [userResolver_1.UserResolver, classResolver_1.classResolver, TimeLineResolver_1.TimeLineResolver, userTaskCollectionResolver_1.UserTaskCollectResolver],
         emitSchemaFile: true,
         validate: false,
     });

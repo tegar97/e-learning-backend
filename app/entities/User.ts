@@ -1,5 +1,5 @@
 import { ObjectType, Field, ID } from "type-graphql";
-import { prop as Property, getModelForClass, Ref } from "@typegoose/typegoose";
+import { prop as Property, getModelForClass } from "@typegoose/typegoose";
 import crypto from 'crypto'
 
 @ObjectType({ description: "The Class Info" })
@@ -15,7 +15,7 @@ export class your_class {
     @Field() 
     @Property()
     @Field() 
-    lesson_days?: string;
+    lesson_days?: number;
 
 
 

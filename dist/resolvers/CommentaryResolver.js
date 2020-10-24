@@ -21,43 +21,30 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.classResolver = void 0;
-const timeLine_1 = require("./../entities/timeLine");
-const typeDef_1 = require("./typeDef");
-const Class_1 = require("./../entities/Class");
+exports.TimeLineResolver = void 0;
+const Commentary_1 = require("./../entities/Commentary");
 const type_graphql_1 = require("type-graphql");
-const check_auth_1 = require("./../util/check-auth");
 const apollo_server_express_1 = require("apollo-server-express");
-const validators_1 = require("app/util/validators");
-let classResolver = class classResolver {
-    createClass({ content_title, created_by, content, type_content, file_type, file_name, point, due, file }, { req }) {
+let TimeLineResolver = class TimeLineResolver {
+    CreatePost(content, { req }) {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = check_auth_1.checkAuth(req);
-            validators_1.validateTimeLinePost;
-            const { valid, errors } = validators_1.validateTimeLinePost(content);
-            //TODO : check type time line 
-            if (type_content === 'announcement') {
-                if (!valid) {
-                    throw new apollo_server_express_1.UserInputError('Errors', { errors });
-                }
-                const TimeLine = timeLine_1.TimeLineModels.create({
-                    content,
-                    created_by: user.id,
-                    type_content: "announcement"
+            if (content.trim() === '') {
+                throw new apollo_server_express_1.UserInputError('Komentar Wajib Di isi', {
+                    contet: "Komentar Wajib Di isi"
                 });
             }
         });
     }
 };
 __decorate([
-    type_graphql_1.Mutation(() => Class_1.Classes),
-    __param(0, type_graphql_1.Arg("data")), __param(1, type_graphql_1.Ctx()),
+    type_graphql_1.Mutation(() => Commentary_1.Commentary),
+    __param(0, type_graphql_1.Arg("content", () => String)), __param(1, type_graphql_1.Ctx()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeDef_1.createTimeLine, Object]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
-], classResolver.prototype, "createClass", null);
-classResolver = __decorate([
+], TimeLineResolver.prototype, "CreatePost", null);
+TimeLineResolver = __decorate([
     type_graphql_1.Resolver()
-], classResolver);
-exports.classResolver = classResolver;
-//# sourceMappingURL=PostResolver.js.map
+], TimeLineResolver);
+exports.TimeLineResolver = TimeLineResolver;
+//# sourceMappingURL=CommentaryResolver.js.map

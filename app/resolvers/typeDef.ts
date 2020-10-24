@@ -1,6 +1,7 @@
-import { TimeLine } from './../entities/timeLine';
-import { ClassModels,Classes,UserData} from "./../entities/Class";
-import {Field, InputType,ID  } from 'type-graphql'
+import { fileDoc2, UserTaskCollection } from './../entities/UserTaskCollect';
+import { TimeLine, fileDoc } from './../entities/timeLine';
+import { Classes} from "./../entities/Class";
+import {Field, InputType  } from 'type-graphql'
 import {User} from './../entities/User'
 
 
@@ -71,7 +72,7 @@ export class createClass implements Partial<Classes>{
     subjects?: string;
 
     @Field()
-    lesson_day?: string;
+    lesson_day?: number;
     
    
 
@@ -101,28 +102,61 @@ export class getDetailClass implements Partial<Classes>{
 export class createTimeLine implements Partial<TimeLine>{
    
     @Field()
-    id!: string;
-
-    @Field()
     content_title?: string;
 
-    @Field()
-    file?: string;
+    // @Field()
+    // file_name?: string
+
+    // @Field()
+    // file_type?: string
 
     @Field()
-    content!: string;
+    content?: string;
 
     @Field()
     type_content!: string;
 
     @Field()
+    class_id!: string;
+
+    @Field()
     point?: number;
 
     @Field()
-    due?: string;
+    due?: Date;
+
+
+
+}
+
+@InputType()
+export class getDetailsData implements Partial<TimeLine>{
+    @Field()
+    id: string;
+
+}
+@InputType()
+export class EditTimeLine implements Partial<TimeLine>{
+   
+    @Field()
+    id!: string;
 
     @Field()
-    created_by?: string;
+    content?: string;
 
+}
+
+@InputType()
+export class collectAssigment implements Partial<UserTaskCollection>{
+
+
+    @Field()
+    task_message_online?: string;
+
+   
+    @Field()
+    timeLineId?: string;
+
+    
 
 }

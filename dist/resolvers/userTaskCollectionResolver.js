@@ -21,43 +21,50 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.classResolver = void 0;
+exports.UserTaskCollectResolver = void 0;
 const timeLine_1 = require("./../entities/timeLine");
-const typeDef_1 = require("./typeDef");
-const Class_1 = require("./../entities/Class");
-const type_graphql_1 = require("type-graphql");
 const check_auth_1 = require("./../util/check-auth");
+const typeDef_1 = require("./typeDef");
+const UserTaskCollect_1 = require("./../entities/UserTaskCollect");
+const type_graphql_1 = require("type-graphql");
 const apollo_server_express_1 = require("apollo-server-express");
-const validators_1 = require("app/util/validators");
-let classResolver = class classResolver {
-    createClass({ content_title, created_by, content, type_content, file_type, file_name, point, due, file }, { req }) {
+let UserTaskCollectResolver = class UserTaskCollectResolver {
+    CreateUserCollect({ task_message_online, timeLineId }, { req }) {
         return __awaiter(this, void 0, void 0, function* () {
             const user = check_auth_1.checkAuth(req);
-            validators_1.validateTimeLinePost;
-            const { valid, errors } = validators_1.validateTimeLinePost(content);
-            //TODO : check type time line 
-            if (type_content === 'announcement') {
-                if (!valid) {
-                    throw new apollo_server_express_1.UserInputError('Errors', { errors });
-                }
-                const TimeLine = timeLine_1.TimeLineModels.create({
-                    content,
-                    created_by: user.id,
-                    type_content: "announcement"
-                });
+            const TimeLine = yield timeLine_1.TimeLineModels.findById(timeLineId);
+            if (!TimeLine) {
+                throw new apollo_server_express_1.UserInputError('Post Tidak Ditemukan');
             }
+            const upload_at = new Date();
+            const isLate = upload_at > TimeLine.due;
+            try {
+                const UserTaskCollection = yield UserTaskCollect_1.UserTaskCollectionModel.create({
+                    user_id: user.id,
+                    task_message_online,
+                    upload_at,
+                    isLate
+                });
+                TimeLine.user_collect.push(UserTaskCollection);
+                yield TimeLine.save();
+            }
+            catch (error) {
+                throw new apollo_server_express_1.UserInputError('Something wrong');
+            }
+            return UserTaskCollect_1.UserTaskCollection;
         });
     }
+    ;
 };
 __decorate([
-    type_graphql_1.Mutation(() => Class_1.Classes),
+    type_graphql_1.Mutation(() => UserTaskCollect_1.UserTaskCollection),
     __param(0, type_graphql_1.Arg("data")), __param(1, type_graphql_1.Ctx()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeDef_1.createTimeLine, Object]),
+    __metadata("design:paramtypes", [typeDef_1.collectAssigment, Object]),
     __metadata("design:returntype", Promise)
-], classResolver.prototype, "createClass", null);
-classResolver = __decorate([
+], UserTaskCollectResolver.prototype, "CreateUserCollect", null);
+UserTaskCollectResolver = __decorate([
     type_graphql_1.Resolver()
-], classResolver);
-exports.classResolver = classResolver;
-//# sourceMappingURL=PostResolver.js.map
+], UserTaskCollectResolver);
+exports.UserTaskCollectResolver = UserTaskCollectResolver;
+//# sourceMappingURL=userTaskCollectionResolver.js.map

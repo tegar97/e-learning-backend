@@ -77,7 +77,7 @@ __decorate([
 __decorate([
     type_graphql_1.Field(),
     typegoose_1.prop(),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], Classes.prototype, "lesson_day", void 0);
 __decorate([
     type_graphql_1.Field(),
@@ -86,7 +86,7 @@ __decorate([
 ], Classes.prototype, "photo", void 0);
 __decorate([
     type_graphql_1.Field(),
-    typegoose_1.prop({ required: true, default: new Date().toISOString() }),
+    typegoose_1.prop({ required: true }),
     __metadata("design:type", String)
 ], Classes.prototype, "createdAt", void 0);
 Classes = __decorate([

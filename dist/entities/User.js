@@ -32,7 +32,7 @@ __decorate([
     type_graphql_1.Field(),
     typegoose_1.prop(),
     type_graphql_1.Field(),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], your_class.prototype, "lesson_days", void 0);
 your_class = __decorate([
     type_graphql_1.ObjectType({ description: "The Class Info" })

@@ -35,8 +35,7 @@ export class classResolver {
 
 
         }
-        console.log(userId)
-        console.log(user.id)
+       
         if(!userId.includes(user.id.toString())){
             throw new UserInputError('Ups Sepertinya Anda Mengakses Kelas Yang Salah ',{
                 errors : {
@@ -47,6 +46,23 @@ export class classResolver {
         return classRoom
 
     }
+    @Query(() => String)
+    // async getClassNow(@Ctx(){req} : MyContext ) : Promise<Classes>{
+    //     const user : userData  = checkAuth(req)  
+    //     const userDetail = await UserModel.findById(user.id)
+
+    //     const d = new Date()
+    //     userDetail.your_class.filter(data =>{
+    //         return data.lesson_days === 
+    //     })
+    //     // userDetail.your_class.filter(lesson)
+    //     // console.log(userDetail.your_class)
+    //     // return 'hehehe'
+
+
+
+        
+    // }
     @Mutation(() => Classes)
     async createClass(@Arg("data"){name,subjects,lesson_day}: createClass,@Ctx(){req} : MyContext ) : Promise<Classes>{
         const user : userData  = checkAuth(req)  
@@ -75,6 +91,8 @@ export class classResolver {
         code_class : class_code,
         subjects,
         lesson_day,
+        createdAt: new Date().toISOString()
+
        })  
         user2.your_class?.unshift({
            id: newClass.id,

@@ -52,16 +52,16 @@ export class Classes {
 
     @Field()
     @Property()
-    lesson_day?: string;
+    lesson_day?: number;
 
     @Field()
     @Property({default: 'default.png'})
     photo? : string
 
-   
+
 
     @Field()
-    @Property({required: true,default: new Date().toISOString()})
+    @Property({required: true})
     createdAt?: string;
 
     

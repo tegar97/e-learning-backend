@@ -8,23 +8,54 @@ type Classes {
   code_class: String!
   createdAt: String!
   id: ID!
-  lesson_day: String!
+  lesson_day: Float!
   name: String!
   photo: String!
   subjects: String!
   user: [UserData!]!
 }
 
+input collectAssigment {
+  task_message_online: String!
+  timeLineId: String!
+}
+
 input createClass {
-  lesson_day: String!
+  lesson_day: Float!
   name: String!
   subjects: String!
+}
+
+input createTimeLine {
+  class_id: String!
+  content: String!
+  content_title: String!
+  due: DateTime!
+  point: Float!
+  type_content: String!
 }
 
 """
 The javascript `Date` as string. Type represents date and time as the ISO Date string.
 """
 scalar DateTime
+
+input EditTimeLine {
+  content: String!
+  id: String!
+}
+
+"""The Time Line model"""
+type fileDoc {
+  file_name: String!
+  file_type: String!
+}
+
+"""The Time Line model"""
+type fileDoc2 {
+  file_name: String!
+  file_type: String!
+}
 
 input ForgotPassword {
   email: String!
@@ -45,6 +76,10 @@ input LoginInput {
 
 type Mutation {
   createClass(data: createClass!): Classes!
+  CreatePost(data: createTimeLine!): TimeLine!
+  CreateUserCollect(data: collectAssigment!): UserTaskCollection!
+  DeletePost(id: String!): Boolean!
+  EditPost(data: EditTimeLine!): Boolean!
   forgotPassword(data: ForgotPassword!): String!
   JoinClass(data: JoinClass!): Classes!
   login(data: LoginInput!): User!
@@ -53,7 +88,10 @@ type Mutation {
 }
 
 type Query {
+  createClass(data: createClass!): String!
   getDetailRoom(data: getDetailClass!): Classes!
+  getTimeLine(id: String!): TimeLine!
+  getTimeLines(class_id: String!): [TimeLine!]!
   returnAllProduct: [User!]!
 }
 
@@ -68,6 +106,22 @@ input ResetPassword {
   password: String!
   passwordConfirm: String!
   tokenParams: String!
+}
+
+"""The Time Line model"""
+type TimeLine {
+  class_id: String!
+  content: String!
+  content_title: String!
+  created_by: User!
+  createdAt: String!
+  due: DateTime!
+  file: [fileDoc!]
+  id: ID!
+  point: Float!
+  type_content: String!
+  updateAt: String!
+  user_collect: [UserTaskCollection!]!
 }
 
 """The User model"""
@@ -95,9 +149,20 @@ type UserData {
   photo: String!
 }
 
+"""The UserTaskCollection model"""
+type UserTaskCollection {
+  id: ID!
+  isLate: Boolean!
+  point: Float!
+  task_file: [fileDoc2!]
+  task_message_online: String!
+  upload_at: DateTime!
+  user_id: [User!]
+}
+
 """The Class Info"""
 type your_class {
   id: ID!
-  lesson_days: String!
+  lesson_days: Float!
   name: String!
 }

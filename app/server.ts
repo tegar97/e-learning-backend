@@ -7,6 +7,8 @@ import dotenv from 'dotenv'
 import {UserResolver} from "./resolvers/userResolver";
 import connectDatabase from "./config/server";
 import { classResolver } from "./resolvers/classResolver";
+import { TimeLineResolver } from "./resolvers/TimeLineResolver";
+import { UserTaskCollectResolver } from "./resolvers/userTaskCollectionResolver";
 
 
 dotenv.config({path: "../config.env"})
@@ -14,7 +16,7 @@ dotenv.config({path: "../config.env"})
 const main = async () => {
 
 const schema = await buildSchema({
-    resolvers: [UserResolver,classResolver],
+    resolvers: [UserResolver,classResolver,TimeLineResolver,UserTaskCollectResolver],
     emitSchemaFile: true,
     validate: false,
     

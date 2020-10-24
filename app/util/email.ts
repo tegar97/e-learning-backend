@@ -56,7 +56,7 @@ export class Email {
                 text : htmlToText.fromString(html)
             }
             if(process.env.NODE_ENV === 'production') {
-                mailgun.messages().send(mailOptions, function (error:any, body:any) {
+                mailgun.messages().send(mailOptions, function (error:any) {
                     if(error){
                         console.log(error)
                     }

@@ -45,8 +45,6 @@ let classResolver = class classResolver {
             for (let i = 0; i < ((_a = classRoom.user) === null || _a === void 0 ? void 0 : _a.length); i++) {
                 userId.push(classRoom.user[i].id.toString());
             }
-            console.log(userId);
-            console.log(user.id);
             if (!userId.includes(user.id.toString())) {
                 throw new apollo_server_express_1.UserInputError('Ups Sepertinya Anda Mengakses Kelas Yang Salah ', {
                     errors: {
@@ -85,6 +83,7 @@ let classResolver = class classResolver {
                 code_class: class_code,
                 subjects,
                 lesson_day,
+                createdAt: new Date().toISOString()
             });
             (_a = user2.your_class) === null || _a === void 0 ? void 0 : _a.unshift({
                 id: newClass.id,
@@ -152,6 +151,19 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], classResolver.prototype, "getDetailRoom", null);
 __decorate([
+    type_graphql_1.Query(() => String)
+    // async getClassNow(@Ctx(){req} : MyContext ) : Promise<Classes>{
+    //     const user : userData  = checkAuth(req)  
+    //     const userDetail = await UserModel.findById(user.id)
+    //     const d = new Date()
+    //     userDetail.your_class.filter(data =>{
+    //         return data.lesson_days === 
+    //     })
+    //     // userDetail.your_class.filter(lesson)
+    //     // console.log(userDetail.your_class)
+    //     // return 'hehehe'
+    // }
+    ,
     type_graphql_1.Mutation(() => Class_1.Classes),
     __param(0, type_graphql_1.Arg("data")), __param(1, type_graphql_1.Ctx()),
     __metadata("design:type", Function),

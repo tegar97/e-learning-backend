@@ -9,11 +9,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TimeLineModels = exports.TimeLine = void 0;
+exports.TimeLineModels = exports.TimeLine = exports.fileDoc = void 0;
 const UserTaskCollect_1 = require("./UserTaskCollect");
 const type_graphql_1 = require("type-graphql");
 const typegoose_1 = require("@typegoose/typegoose");
 const User_1 = require("./User");
+let fileDoc = class fileDoc {
+};
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], fileDoc.prototype, "file_name", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], fileDoc.prototype, "file_type", void 0);
+fileDoc = __decorate([
+    type_graphql_1.ObjectType({ description: "The Time Line model" })
+], fileDoc);
+exports.fileDoc = fileDoc;
 let TimeLine = class TimeLine {
 };
 __decorate([
@@ -22,41 +36,52 @@ __decorate([
 ], TimeLine.prototype, "id", void 0);
 __decorate([
     type_graphql_1.Field(),
+    typegoose_1.prop(),
     __metadata("design:type", String)
 ], TimeLine.prototype, "content_title", void 0);
 __decorate([
     type_graphql_1.Field(),
+    typegoose_1.prop(),
     __metadata("design:type", String)
-], TimeLine.prototype, "content", void 0);
+], TimeLine.prototype, "class_id", void 0);
 __decorate([
     type_graphql_1.Field(),
     typegoose_1.prop(),
+    __metadata("design:type", String)
+], TimeLine.prototype, "content", void 0);
+__decorate([
+    type_graphql_1.Field(type => [fileDoc], { nullable: true }),
+    typegoose_1.prop({ type: [fileDoc] }),
     __metadata("design:type", Array)
 ], TimeLine.prototype, "file", void 0);
 __decorate([
     type_graphql_1.Field(),
+    typegoose_1.prop(),
     __metadata("design:type", String)
 ], TimeLine.prototype, "type_content", void 0);
 __decorate([
     type_graphql_1.Field(),
-    __metadata("design:type", String)
+    typegoose_1.prop(),
+    __metadata("design:type", Date)
 ], TimeLine.prototype, "due", void 0);
 __decorate([
     type_graphql_1.Field(),
+    typegoose_1.prop(),
     __metadata("design:type", Number)
 ], TimeLine.prototype, "point", void 0);
 __decorate([
-    typegoose_1.prop({ ref: () => UserTaskCollect_1.UserTaskCollection }),
-    __metadata("design:type", Object)
+    type_graphql_1.Field(type => [UserTaskCollect_1.UserTaskCollection], { nullable: false }),
+    typegoose_1.prop({ type: () => [UserTaskCollect_1.UserTaskCollection] }),
+    __metadata("design:type", Array)
 ], TimeLine.prototype, "user_collect", void 0);
 __decorate([
-    type_graphql_1.Field(),
+    type_graphql_1.Field(type => User_1.User, { nullable: false }),
     typegoose_1.prop({ ref: () => User_1.User }),
-    __metadata("design:type", User_1.User)
-], TimeLine.prototype, "create_by", void 0);
+    __metadata("design:type", Object)
+], TimeLine.prototype, "created_by", void 0);
 __decorate([
     type_graphql_1.Field(),
-    typegoose_1.prop({ required: true, default: new Date().toISOString() }),
+    typegoose_1.prop({ required: true }),
     __metadata("design:type", String)
 ], TimeLine.prototype, "createdAt", void 0);
 __decorate([

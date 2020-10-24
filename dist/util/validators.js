@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validateLogin = exports.validateRegister = void 0;
+exports.validateTimeLinePost = exports.validateLogin = exports.validateRegister = void 0;
 exports.validateRegister = (email, password, confirmPassword) => {
     const errors = {};
     if (email.trim() === '') {
@@ -30,6 +30,16 @@ exports.validateLogin = (email, password) => {
     }
     if (password.trim() === '') {
         errors.password = 'Password Tidak Boleh Kosong';
+    }
+    return {
+        errors,
+        valid: Object.keys(errors).length < 1
+    };
+};
+exports.validateTimeLinePost = (content) => {
+    const errors = {};
+    if (content.trim() === '') {
+        errors.content = 'Panjang Pengumuman / Postingan Wajib Di isi';
     }
     return {
         errors,

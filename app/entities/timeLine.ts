@@ -3,39 +3,63 @@ import { ObjectType, Field, ID} from "type-graphql";
 import { prop as Property, getModelForClass,Ref } from "@typegoose/typegoose";
 import {User} from './User'
 
+
+@ObjectType({ description: "The Time Line model" })
+export class fileDoc {
+    @Field()
+    file_name: string;
+
+    @Field()
+    file_type: string;
+
+   
+}
 @ObjectType({ description: "The Time Line model" })
 export class TimeLine {
     @Field(()=> ID)
     id: string;
     
     @Field()
+    @Property()
     content_title?: string;
 
+       
     @Field()
-    content!: string;
+    @Property()
+    class_id!: string;
+ 
+    @Field()
+    @Property()
+    content?: string;
+
+    @Field(type => [fileDoc], { nullable: true })
+    @Property({type: [fileDoc]})
+    file?: fileDoc[]
 
     @Field()
     @Property()
-    file?: string[];
-
-    @Field()
     type_content?: string;
 
     @Field()
-    due?: string;
+    @Property()
+    due?: Date;
 
     @Field()
+    @Property()
     point?: number;
 
-    @Property({ ref: () => UserTaskCollection })
-    user_collect?: Ref<UserTaskCollection[]>;
+    @Field(type => [UserTaskCollection], { nullable: false })
+    @Property({type : () => [UserTaskCollection]})
+    user_collect?: string[]
 
-    @Field()
+ 
+
+    @Field(type => User, { nullable: false })
     @Property({ref : () => User})
-    create_by : User
+    created_by : Ref<User>
 
     @Field()
-    @Property({required: true,default: new Date().toISOString()})
+    @Property({required: true})
     createdAt?: string;
 
     
