@@ -55,10 +55,20 @@ let classResolver = class classResolver {
             return classRoom;
         });
     }
+    getClassNow({ req }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = check_auth_1.checkAuth(req);
+            const UserDetail = yield User_1.UserModel.findById(user.id);
+            const today = new Date().getDay();
+            const todayClass = UserDetail.your_class.filter(data => data.lesson_days === today);
+            return todayClass;
+        });
+    }
     createClass({ name, subjects, lesson_day }, { req }) {
         var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             const user = check_auth_1.checkAuth(req);
+            console.log(user);
             //TODO : VALIDATION NAME MUST NOT BE EMPTY
             if (!name) {
                 throw new apollo_server_express_1.UserInputError('Nama Kelas Wajib Di isi  ', {
@@ -85,14 +95,7 @@ let classResolver = class classResolver {
                 lesson_day,
                 createdAt: new Date().toISOString()
             });
-            (_a = user2.your_class) === null || _a === void 0 ? void 0 : _a.unshift({
-                id: newClass.id,
-                name: name,
-                lesson_days: lesson_day
-            });
-            yield user2.save();
-            console.log(user);
-            (_b = newClass.user) === null || _b === void 0 ? void 0 : _b.push({
+            (_a = newClass.user) === null || _a === void 0 ? void 0 : _a.push({
                 id: user2._id,
                 email: user.email,
                 photo: user.photo,
@@ -100,10 +103,17 @@ let classResolver = class classResolver {
                 isAdmin: true
             });
             yield newClass.save();
+            (_b = user2.your_class) === null || _b === void 0 ? void 0 : _b.unshift({
+                id: newClass.id,
+                name: name,
+                lesson_days: lesson_day
+            });
+            yield user2.save();
+            console.log(user);
             return newClass;
         });
     }
-    JoinClass({ code_class }, { req }) {
+    joinClass(code_class, { req }) {
         var _a, _b, _c;
         return __awaiter(this, void 0, void 0, function* () {
             const user = check_auth_1.checkAuth(req);
@@ -118,6 +128,7 @@ let classResolver = class classResolver {
             }
             for (let i = 0; i < ((_a = classRoom.user) === null || _a === void 0 ? void 0 : _a.length); i++) {
                 if (classRoom.user[i].id === user.id) {
+                    console.log(user.id);
                     throw new apollo_server_express_1.UserInputError('Anda Telah Terdaftar Sebagai Anggota Kelas', {
                         errors: {
                             code_class: 'Anda Telah Terdaftar Sebagai Anggota Kelas'
@@ -151,6 +162,13 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], classResolver.prototype, "getDetailRoom", null);
 __decorate([
+    type_graphql_1.Query(() => [User_1.your_class]),
+    __param(0, type_graphql_1.Ctx()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], classResolver.prototype, "getClassNow", null);
+__decorate([
     type_graphql_1.Query(() => String)
     // async getClassNow(@Ctx(){req} : MyContext ) : Promise<Classes>{
     //     const user : userData  = checkAuth(req)  
@@ -172,11 +190,11 @@ __decorate([
 ], classResolver.prototype, "createClass", null);
 __decorate([
     type_graphql_1.Mutation(() => Class_1.Classes),
-    __param(0, type_graphql_1.Arg("data")), __param(1, type_graphql_1.Ctx()),
+    __param(0, type_graphql_1.Arg("code_class", () => String)), __param(1, type_graphql_1.Ctx()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeDef_1.JoinClass, Object]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
-], classResolver.prototype, "JoinClass", null);
+], classResolver.prototype, "joinClass", null);
 classResolver = __decorate([
     type_graphql_1.Resolver()
 ], classResolver);

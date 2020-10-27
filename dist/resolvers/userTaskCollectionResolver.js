@@ -28,30 +28,35 @@ const typeDef_1 = require("./typeDef");
 const UserTaskCollect_1 = require("./../entities/UserTaskCollect");
 const type_graphql_1 = require("type-graphql");
 const apollo_server_express_1 = require("apollo-server-express");
+const User_1 = require("./../entities/User");
 let UserTaskCollectResolver = class UserTaskCollectResolver {
     CreateUserCollect({ task_message_online, timeLineId }, { req }) {
         return __awaiter(this, void 0, void 0, function* () {
             const user = check_auth_1.checkAuth(req);
             const TimeLine = yield timeLine_1.TimeLineModels.findById(timeLineId);
+            const newUser = yield User_1.UserModel.findById(user.id);
+            console.log(newUser);
             if (!TimeLine) {
                 throw new apollo_server_express_1.UserInputError('Post Tidak Ditemukan');
             }
             const upload_at = new Date();
             const isLate = upload_at > TimeLine.due;
             try {
+                console.log(user.id);
                 const UserTaskCollection = yield UserTaskCollect_1.UserTaskCollectionModel.create({
-                    user_id: user.id,
                     task_message_online,
+                    user_name: user.name,
+                    user_email: user.email,
                     upload_at,
                     isLate
                 });
                 TimeLine.user_collect.push(UserTaskCollection);
                 yield TimeLine.save();
+                return UserTaskCollection;
             }
             catch (error) {
                 throw new apollo_server_express_1.UserInputError('Something wrong');
             }
-            return UserTaskCollect_1.UserTaskCollection;
         });
     }
     ;

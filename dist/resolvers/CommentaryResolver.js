@@ -33,16 +33,18 @@ let CommentsResolver = class CommentsResolver {
             const timeLine = yield timeLine_1.TimeLineModels.findById(id);
             if (content.trim() === '') {
                 throw new apollo_server_express_1.UserInputError('Komentar Wajib Di isi', {
-                    contet: "Komentar Wajib Di isi"
+                    content: "Komentar Wajib Di isi"
                 });
             }
             if (timeLine) {
                 timeLine.comments.unshift({
                     user_id: user.id,
-                    content: 'content',
+                    content: content,
                     createdAt: new Date()
                 });
+                console.log(content);
                 yield timeLine.save();
+                console.log(timeLine);
                 return timeLine;
             }
             else {

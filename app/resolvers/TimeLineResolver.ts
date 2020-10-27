@@ -23,7 +23,6 @@ export class TimeLineResolver {
         checkAuth(req)  
 
         const TimeLine = await TimeLineModels.findById(id).populate({path: "created_by",select:"name", model: "User"})
-        console.log(TimeLine)
         return TimeLine
     }
     
@@ -31,7 +30,10 @@ export class TimeLineResolver {
     async getTimeLines(@Arg("class_id",() => String) class_id: string ,@Ctx(){req} : MyContext ) : Promise<TimeLine>{
         checkAuth(req)  
 
-        const TimeLine :any = await TimeLineModels.find({class_id}).sort({createdAt: -1}).populate({path: "created_by",model: "User"})
+        const TimeLine :any = await TimeLineModels.find({class_id}).sort({createdAt: -1}).populate({path: "created_by",model: "User"}).populate({path: "user_collect", Model:"UserTaskCollection",populate:{
+            path:"user_id",
+            model: "User"
+        }})
         return TimeLine
     }
     @Mutation(() => TimeLine)
@@ -46,7 +48,6 @@ export class TimeLineResolver {
         console.log(type_content ===  'announcement')
         if(type_content === 'announcement'){
           
-
             const TimeLine =  await TimeLineModels.create({
                 content ,
                 created_by: user.id,

@@ -39,7 +39,7 @@ function genereteToken(user) {
         id: user.id,
         email: user.email,
         photo: user.photo,
-        name: user.name
+        name: user.name,
     }, 'saya-adalah-seorang-pelajar-dan-anaks', { expiresIn: '1D' });
 }
 let UserResolver = class UserResolver {
@@ -49,9 +49,23 @@ let UserResolver = class UserResolver {
         });
     }
     ;
+    checkPageResetPassword(token) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const hashedToken = crypto_1.default
+                .createHash('sha256')
+                .update(token)
+                .digest('hex');
+            const user = yield User_1.UserModel.findOne({ passwordResetToken: hashedToken, passwordResetExpire: { $gt: Date.now() } });
+            if (!user) {
+                return false;
+            }
+            return true;
+        });
+    }
+    ;
     register({ name, email, password, confirmPassword }) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { valid, errors } = validators_1.validateRegister(email, password, confirmPassword);
+            const { valid, errors } = validators_1.validateRegister(name, email, password, confirmPassword);
             if (!valid) {
                 throw new apollo_server_express_1.UserInputError('Errors', { errors });
             }
@@ -68,9 +82,10 @@ let UserResolver = class UserResolver {
                 name,
                 email,
                 password,
-                confirmPassword
+                confirmPassword: undefined
             });
             const token = genereteToken(newUser);
+            console.log(newUser);
             return Object.assign(Object.assign({}, newUser._doc), { token });
         });
     }
@@ -87,7 +102,7 @@ let UserResolver = class UserResolver {
             }
             const match = yield bcrypt_1.default.compare(password, user.password);
             if (!match) {
-                errors.include = 'Wrong Password , Check Again';
+                errors.password = 'Wrong Password , Check Again';
                 throw new apollo_server_express_1.UserInputError('Wrong Password ', { errors });
             }
             const token = genereteToken(user);
@@ -137,7 +152,11 @@ let UserResolver = class UserResolver {
             }
             const user = yield User_1.UserModel.findOne({ passwordResetToken: hashedToken, passwordResetExpire: { $gt: Date.now() } });
             if (!user) {
-                throw new apollo_server_express_1.AuthenticationError('Token Tidak Valid');
+                throw new apollo_server_express_1.UserInputError('Token Tidak Valid', {
+                    error: {
+                        tokenParams: 'Token Tidak Valid'
+                    }
+                });
             }
             user.password = yield bcrypt_1.default.hash(password, 12);
             user.passwordResetToken = undefined;
@@ -154,6 +173,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UserResolver.prototype, "returnAllProduct", null);
+__decorate([
+    type_graphql_1.Query(() => Boolean),
+    __param(0, type_graphql_1.Arg("token", () => String)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UserResolver.prototype, "checkPageResetPassword", null);
 __decorate([
     type_graphql_1.Mutation(() => User_1.User),
     __param(0, type_graphql_1.Arg("data")),

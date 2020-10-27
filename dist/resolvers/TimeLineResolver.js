@@ -33,14 +33,16 @@ let TimeLineResolver = class TimeLineResolver {
         return __awaiter(this, void 0, void 0, function* () {
             check_auth_1.checkAuth(req);
             const TimeLine = yield timeLine_1.TimeLineModels.findById(id).populate({ path: "created_by", select: "name", model: "User" });
-            console.log(TimeLine);
             return TimeLine;
         });
     }
     getTimeLines(class_id, { req }) {
         return __awaiter(this, void 0, void 0, function* () {
             check_auth_1.checkAuth(req);
-            const TimeLine = yield timeLine_1.TimeLineModels.find({ class_id }).sort({ createdAt: -1 }).populate({ path: "created_by", model: "User" });
+            const TimeLine = yield timeLine_1.TimeLineModels.find({ class_id }).sort({ createdAt: -1 }).populate({ path: "created_by", model: "User" }).populate({ path: "user_collect", Model: "UserTaskCollection", populate: {
+                    path: "user_id",
+                    model: "User"
+                } });
             return TimeLine;
         });
     }

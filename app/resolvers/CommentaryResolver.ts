@@ -19,17 +19,21 @@ export class CommentsResolver {
         if(content.trim() === ''){
             throw new UserInputError('Komentar Wajib Di isi',
             {
-                contet: "Komentar Wajib Di isi"
+                content: "Komentar Wajib Di isi"
             })
         }
         if(timeLine){
             timeLine.comments.unshift({
                 user_id : user.id,
-                content: 'content',
+                content: content,
                 createdAt: new Date()
             })
 
+            console.log(content)
+
             await timeLine.save()
+
+            console.log(timeLine)
 
             return timeLine
         }else{

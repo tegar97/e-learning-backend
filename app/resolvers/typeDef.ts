@@ -1,5 +1,5 @@
-import { fileDoc2, UserTaskCollection } from './../entities/UserTaskCollect';
-import { TimeLine, fileDoc } from './../entities/timeLine';
+import {  UserTaskCollection } from './../entities/UserTaskCollect';
+import { TimeLine } from './../entities/timeLine';
 import { Classes} from "./../entities/Class";
 import {Field, InputType  } from 'type-graphql'
 import {User} from './../entities/User'

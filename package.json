@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "client" : "cd client && npm start",
     "start": "npm run serve",
     "serve": "cross-env NODE_ENV=production node dist/server.js",
     "watch-node": "cross-env NODE_ENV=development nodemon dist/server.js",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
+    "dev" : "concurrently \"npm run watch-node\" \" npm run watch-ts\"  ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -34,6 +36,7 @@
     "apollo-server-express": "^2.18.2",
     "bcrypt": "^5.0.0",
     "class-validator": "^0.12.2",
+    "concurrently": "^5.3.0",
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.5",

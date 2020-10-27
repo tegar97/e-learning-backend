@@ -24,7 +24,7 @@ export class your_class {
 @ObjectType({ description: "The User model" })
 export class User {
     @Field(()=> ID)
-    id: string;
+    _id: string;
     
     @Field() 
     @Property()
@@ -35,6 +35,10 @@ export class User {
     token?: string;
 
     @Field()
+    @Property({default: 'photo.png'})
+    photo?: string;
+
+    @Field()
     @Property({required: true})
     email!: string;
 
@@ -42,7 +46,6 @@ export class User {
     @Property({required: true})
     password!: string;
 
-    @Field()
     @Property()
     confirmPassword?: string;
 
@@ -51,7 +54,7 @@ export class User {
     @Property({required: true,default: new Date().toISOString()})
     createdAt?: string;
 
-    @Field(type => [your_class], { nullable: true })
+    @Field(type => [your_class], { nullable:true})
     @Property({type : () => [your_class]})
     your_class?: your_class[]
 
@@ -66,8 +69,8 @@ export class User {
     @Field()
     @Property()
     passwordResetExpire? : String
+
     save: any;
-    _id: string;
 
     
 

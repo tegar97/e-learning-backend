@@ -54,7 +54,7 @@ let User = class User {
 __decorate([
     type_graphql_1.Field(() => type_graphql_1.ID),
     __metadata("design:type", String)
-], User.prototype, "id", void 0);
+], User.prototype, "_id", void 0);
 __decorate([
     type_graphql_1.Field(),
     typegoose_1.prop(),
@@ -67,6 +67,11 @@ __decorate([
 ], User.prototype, "token", void 0);
 __decorate([
     type_graphql_1.Field(),
+    typegoose_1.prop({ default: 'photo.png' }),
+    __metadata("design:type", String)
+], User.prototype, "photo", void 0);
+__decorate([
+    type_graphql_1.Field(),
     typegoose_1.prop({ required: true }),
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
@@ -76,7 +81,6 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
-    type_graphql_1.Field(),
     typegoose_1.prop(),
     __metadata("design:type", String)
 ], User.prototype, "confirmPassword", void 0);

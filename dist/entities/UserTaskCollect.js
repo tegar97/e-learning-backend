@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserTaskCollectionModel = exports.UserTaskCollection = exports.fileDoc2 = void 0;
-const User_1 = require("./User");
 const type_graphql_1 = require("type-graphql");
 const typegoose_1 = require("@typegoose/typegoose");
 let fileDoc2 = class fileDoc2 {
@@ -39,10 +38,15 @@ __decorate([
     __metadata("design:type", Array)
 ], UserTaskCollection.prototype, "task_file", void 0);
 __decorate([
-    type_graphql_1.Field(type => [User_1.User], { nullable: true }),
-    typegoose_1.prop({ ref: () => User_1.User }),
-    __metadata("design:type", Object)
-], UserTaskCollection.prototype, "user_id", void 0);
+    type_graphql_1.Field(),
+    typegoose_1.prop(),
+    __metadata("design:type", String)
+], UserTaskCollection.prototype, "user_name", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    typegoose_1.prop(),
+    __metadata("design:type", String)
+], UserTaskCollection.prototype, "user_email", void 0);
 __decorate([
     type_graphql_1.Field(),
     typegoose_1.prop(),

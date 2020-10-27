@@ -14,7 +14,7 @@ function genereteToken(user: {id : string , email : string,photo:string,name : s
         id :  user.id,
         email : user.email,
         photo: user.photo,
-        name: user.name
+        name: user.name,
     },'saya-adalah-seorang-pelajar-dan-anaks',{expiresIn: '1D'});
 } 
 
@@ -26,10 +26,22 @@ export class UserResolver {
     async returnAllProduct(){
       return await UserModel.find();
     };
+    @Query(() => Boolean)
+    async checkPageResetPassword(@Arg("token",() => String) token :  string){
+        const hashedToken = crypto
+        .createHash('sha256')
+        .update(token)
+        .digest('hex')
+        const user = await UserModel.findOne({passwordResetToken : hashedToken ,passwordResetExpire :{$gt: Date.now()}})
+        if(!user){
+            return false
+        }
+        return true
+    };
 
     @Mutation(() => User)
     async register(@Arg("data"){name,email,password,confirmPassword}: RegisterInput): Promise<User> { 
-        const {valid,errors} = validateRegister(email,password,confirmPassword)
+        const {valid,errors} = validateRegister(name,email,password,confirmPassword)
         if(!valid){
             throw new UserInputError('Errors',{errors})
         }   
@@ -48,10 +60,12 @@ export class UserResolver {
             name,
             email,
             password,
-            confirmPassword
+            confirmPassword : undefined
         }) 
        
         const token = genereteToken(newUser)
+
+        console.log(newUser)
        return {
             ...newUser._doc,
            token
@@ -74,7 +88,7 @@ export class UserResolver {
         }
         const match = await bcrypt.compare(password , user.password)
         if(!match) {
-            errors.include = 'Wrong Password , Check Again';
+            errors.password = 'Wrong Password , Check Again';
             throw new UserInputError('Wrong Password ',{errors})
         }
         const token = genereteToken(user)
@@ -126,7 +140,11 @@ export class UserResolver {
         }
         const user:any = await UserModel.findOne({passwordResetToken: hashedToken,passwordResetExpire: {$gt: Date.now()}})
         if(!user){
-            throw new AuthenticationError('Token Tidak Valid')
+            throw new UserInputError('Token Tidak Valid',{
+                error:{
+                    tokenParams: 'Token Tidak Valid'
+                }
+            })
         }
         user.password = await bcrypt.hash(password,12)
         user.passwordResetToken = undefined;

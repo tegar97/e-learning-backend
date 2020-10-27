@@ -1,25 +1,28 @@
 interface errorInput {
+    name?: string,
     email?: string,
     password?: string,
     confirmPassword? : string,
     include?: string,
     content? : string
 }
-export const validateRegister = (email:string,password: string,confirmPassword?: string) => {
+export const validateRegister = (name: string,email:string,password: string,confirmPassword?: string) => {
     const errors : errorInput= {}
-
-  if(email.trim() === '' ){
-    errors.email = 'Email Must Not Be empty';
+    if(name.trim() == '' ){
+        errors.name = 'Nama Harus Di isi';
+    }
+  if(email.trim() ==  '' ){
+    errors.email = 'Email tidak boleh kosong';
  }else{
     const regEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if(!email.match(regEx)) {
-        errors.email = 'Email Must Be a valid email address';
+        errors.email = 'Gunakan format email yang benar';
     }
  }
- if(password.trim() === ''){
+ if(password.trim() == ''){
     errors.password = 'Password Wajib Di isi'
  }
- if(confirmPassword !== password) {
+ if(confirmPassword != password) {
     errors.confirmPassword = "Password Tidak Sama Dengan Confirm Password"
 
  }

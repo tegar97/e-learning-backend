@@ -1,9 +1,8 @@
 import { MyContext } from './../util/types';
 import { createClass, JoinClass, getDetailClass } from './typeDef';
-import { User, UserModel } from './../entities/User';
+import { User, UserModel, your_class } from './../entities/User';
 import { Classes, ClassModels } from './../entities/Class';
 import { Arg, Ctx, Mutation,Resolver,Query } from "type-graphql";
-import crypto from 'crypto'
 import {checkAuth} from "./../util/check-auth"
 import { UserInputError } from 'apollo-server-express';
 
@@ -14,6 +13,12 @@ export interface userData {
     name : string
     iat : number
     exp: number
+}
+interface classNow {
+    _id: string | number,
+     id: string | number,
+     name: string,
+     lesson_days: number
 }
 @Resolver()
 export class classResolver {
@@ -46,6 +51,18 @@ export class classResolver {
         return classRoom
 
     }
+   
+    @Query(() => [your_class])
+    async getClassNow(@Ctx(){req} : MyContext  ) : Promise<[your_class]>{
+        const user : userData  = checkAuth(req) 
+        const UserDetail = await UserModel.findById(user.id)
+        const today = new Date().getDay()
+        const todayClass : any  = UserDetail.your_class.filter(data => data.lesson_days === today)
+
+        return todayClass
+
+        
+    }
     @Query(() => String)
     // async getClassNow(@Ctx(){req} : MyContext ) : Promise<Classes>{
     //     const user : userData  = checkAuth(req)  
@@ -66,6 +83,7 @@ export class classResolver {
     @Mutation(() => Classes)
     async createClass(@Arg("data"){name,subjects,lesson_day}: createClass,@Ctx(){req} : MyContext ) : Promise<Classes>{
         const user : userData  = checkAuth(req)  
+        console.log(user)
         //TODO : VALIDATION NAME MUST NOT BE EMPTY
        if(!name) {
         throw new UserInputError('Nama Kelas Wajib Di isi  ',{
@@ -94,6 +112,15 @@ export class classResolver {
         createdAt: new Date().toISOString()
 
        })  
+
+       newClass.user?.push({
+        id: user2._id,
+        email : user.email,
+        photo : user.photo,
+        name: user.name,
+        isAdmin: true
+    })
+     await newClass.save()
         user2.your_class?.unshift({
            id: newClass.id,
            name : name,
@@ -102,20 +129,13 @@ export class classResolver {
        await user2.save()
        console.log(user)
        
-        newClass.user?.push({
-            id: user2._id,
-            email : user.email,
-            photo : user.photo,
-            name: user.name,
-            isAdmin: true
-        })
-       await newClass.save()
+ 
        
         return newClass
     }
     
     @Mutation(() => Classes)
-    async JoinClass(@Arg("data"){code_class} : JoinClass ,@Ctx(){req} : MyContext) : Promise<Classes>{
+    async joinClass(@Arg("code_class",() => String) code_class :  string,@Ctx(){req} : MyContext) : Promise<Classes>{
         const user : userData  = checkAuth(req)  
         let user2 : User  = await  UserModel.findById(user.id)
 
@@ -131,6 +151,7 @@ export class classResolver {
         for(let i = 0 ; i < classRoom.user?.length;i ++){
 
             if(classRoom.user[i].id === user.id){
+                console.log(user.id)
                 throw new UserInputError('Anda Telah Terdaftar Sebagai Anggota Kelas',{
                     errors : {
                         code_class : 'Anda Telah Terdaftar Sebagai Anggota Kelas'

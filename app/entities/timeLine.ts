@@ -2,6 +2,7 @@ import { UserTaskCollection } from './UserTaskCollect';
 import { ObjectType, Field, ID, Root} from "type-graphql";
 import { prop as Property, getModelForClass,Ref } from "@typegoose/typegoose";
 import {User} from './User'
+import { type } from 'express/lib/response';
 
 
 @ObjectType({ description: "The Time Line model" })
@@ -26,7 +27,7 @@ export class Comments {
     content: string;
 
     @Field()
-    @Property()
+    @Property({type: Date})
     createdAt: Date;
 
    
@@ -85,7 +86,7 @@ export class TimeLine {
 
     @Field()
     @Property({required: true})
-    createdAt?: string;
+    createdAt?: Date;
 
     
     @Field()

@@ -45,7 +45,7 @@ __decorate([
 ], Comments.prototype, "content", void 0);
 __decorate([
     type_graphql_1.Field(),
-    typegoose_1.prop(),
+    typegoose_1.prop({ type: Date }),
     __metadata("design:type", Date)
 ], Comments.prototype, "createdAt", void 0);
 Comments = __decorate([
@@ -122,7 +122,7 @@ __decorate([
 __decorate([
     type_graphql_1.Field(),
     typegoose_1.prop({ required: true }),
-    __metadata("design:type", String)
+    __metadata("design:type", Date)
 ], TimeLine.prototype, "createdAt", void 0);
 __decorate([
     type_graphql_1.Field(),

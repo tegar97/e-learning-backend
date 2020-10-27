@@ -72,10 +72,6 @@ input getDetailClass {
   id: String!
 }
 
-input JoinClass {
-  code_class: String!
-}
-
 input LoginInput {
   email: String!
   password: String!
@@ -90,14 +86,16 @@ type Mutation {
   editComment(content: String!, id: String!): Boolean!
   EditPost(data: EditTimeLine!): Boolean!
   forgotPassword(data: ForgotPassword!): String!
-  JoinClass(data: JoinClass!): Classes!
+  joinClass(code_class: String!): Classes!
   login(data: LoginInput!): User!
   register(data: RegisterInput!): User!
   resetPassword(data: ResetPassword!): User!
 }
 
 type Query {
+  checkPageResetPassword(token: String!): Boolean!
   createClass(data: createClass!): String!
+  getClassNow: [your_class!]!
   getDetailRoom(data: getDetailClass!): Classes!
   getTimeLine(id: String!): TimeLine!
   getTimeLines(class_id: String!): [TimeLine!]!
@@ -125,7 +123,7 @@ type TimeLine {
   content: String!
   content_title: String!
   created_by: User!
-  createdAt: String!
+  createdAt: DateTime!
   due: DateTime!
   file: [fileDoc!]
   id: ID!
@@ -137,15 +135,15 @@ type TimeLine {
 
 """The User model"""
 type User {
-  confirmPassword: String!
+  _id: ID!
   createdAt: String!
   email: String!
-  id: ID!
   name: String!
   password: String!
   passwordChangeAt: DateTime!
   passwordResetExpire: String!
   passwordResetToken: String!
+  photo: String!
   token: String!
   your_class: [your_class!]
 }
@@ -168,7 +166,8 @@ type UserTaskCollection {
   task_file: [fileDoc2!]
   task_message_online: String!
   upload_at: DateTime!
-  user_id: [User!]
+  user_email: String!
+  user_name: String!
 }
 
 """The Class Info"""

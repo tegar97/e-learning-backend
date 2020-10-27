@@ -22,9 +22,15 @@ export class UserTaskCollection {
     task_file?: fileDoc2[];
 
   
-    @Field(type => [User], { nullable: true })
-    @Property({ ref: () => User })
-    user_id?: Ref<User>;
+    @Field()
+    @Property()
+    user_name?: string;
+
+    
+    @Field()
+    @Property()
+    user_email?: string;
+
 
     @Field()
     @Property()
@@ -38,7 +44,7 @@ export class UserTaskCollection {
     @Property()
     isLate?: Boolean;
     
-    @Field()
+    @Field() 
     @Property({default: 0})
     point?: Number;
 
