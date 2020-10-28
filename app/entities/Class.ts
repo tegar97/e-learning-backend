@@ -39,6 +39,10 @@ export class Classes {
 
     @Field() 
     @Property()
+    description: string;
+
+    @Field() 
+    @Property()
     code_class?: string;
 
   

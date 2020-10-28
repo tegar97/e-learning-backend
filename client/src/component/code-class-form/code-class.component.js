@@ -39,9 +39,9 @@ const CodeClass = ({history}) => {
     return (
         <CodeClassContainer>
             <CodeClassHeader onSubmit={handleSubmit}> 
-                <Typography variant="h4" component="span" style={{color: '#000'}}>Kode kelas
-                </Typography>
-                {error && <Alert variant="filled"  severity="error"  style={{marginBottom : '1rem',marginTop: '1rem'}}><Typography>{error.code_class}</Typography></Alert>}
+            
+            {error && <Alert variant="filled"  severity="error"  style={{marginBottom : '1rem',marginTop: '1rem'}}><Typography>{error.code_class}</Typography></Alert>}
+                <Typography variant="h4" component="span" style={{color: '#000'}}>Kode kelas</Typography>
                 <Typography variant="h6" component="span"  style={{color: 'rgba(0,0,0,.8)'}} >Mintalah kode kelas kepada pengajar, lalu masukkan kode di sini.</Typography>
                 <FormInput type="text" variant="secondary"   maxlength={6}  name="code"  placeholder="Kode Kelas" value={code_class} onChange={handleChange}/>
                 {code_class.length > 5 ?  <Button  type="submit" variant="contained" color="primary" fullWidth size="large" style={{color: '#fff',height: '4rem',fontSize: '1.3rem',fontWeight: "400"}}>Submit</Button>

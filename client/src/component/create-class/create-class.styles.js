@@ -11,7 +11,7 @@ export const  CodeClassHeader = styled.form`
     flex-direction: column;
     background-color: #fff;
     border: 1px solid rgba(0,0,0,.2);
-    padding: 1rem 1rem;
+    padding: 2rem 1rem;
 `
 
 export const CodeClassBody = styled.ul`
@@ -27,5 +27,14 @@ export const SelectForm = styled.select`
     padding: .8rem .5rem;
     border: 1px solid rgba(0,0,0,.3);
     margin-bottom: 1.5rem;
+
+`
+
+export const FormGroup = styled.div`
+    margin: 1.2rem 0;
+
+   
+    
+    
 
 `

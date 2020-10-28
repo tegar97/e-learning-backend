@@ -38,7 +38,7 @@ export class TimeLine {
     id: string;
     
     @Field()
-    @Property()
+    @Property({required: false})
     content_title?: string;
 
        

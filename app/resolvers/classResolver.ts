@@ -23,7 +23,7 @@ interface classNow {
 @Resolver()
 export class classResolver {
     @Query(() => Classes)
-    async getDetailRoom(@Arg("data"){id} :getDetailClass,@Ctx(){req} : MyContext  ) : Promise<Classes>{
+    async getDetailRoom(@Arg("id",() => String) id :  string,@Ctx(){req} : MyContext  ) : Promise<Classes>{
         const user : userData  = checkAuth(req)  
         const classRoom = await ClassModels.findById(id) 
         if(!classRoom){
@@ -44,7 +44,7 @@ export class classResolver {
         if(!userId.includes(user.id.toString())){
             throw new UserInputError('Ups Sepertinya Anda Mengakses Kelas Yang Salah ',{
                 errors : {
-                    code_class : 'Ups Sepertinya Anda Mengakses Kelas Yang Salah '
+                    id : 'Ups Sepertinya Anda Mengakses Kelas Yang Salah '
                 }
             })  
         }
@@ -58,6 +58,7 @@ export class classResolver {
         const UserDetail = await UserModel.findById(user.id)
         const today = new Date().getDay()
         const todayClass : any  = UserDetail.your_class.filter(data => data.lesson_days === today)
+        console.log(todayClass)
 
         return todayClass
 
@@ -81,7 +82,7 @@ export class classResolver {
         
     // }
     @Mutation(() => Classes)
-    async createClass(@Arg("data"){name,subjects,lesson_day}: createClass,@Ctx(){req} : MyContext ) : Promise<Classes>{
+    async createClass(@Arg("data"){name,subjects,lesson_day,description}: createClass,@Ctx(){req} : MyContext ) : Promise<Classes>{
         const user : userData  = checkAuth(req)  
         console.log(user)
         //TODO : VALIDATION NAME MUST NOT BE EMPTY
@@ -101,12 +102,12 @@ export class classResolver {
             })
        }
        let user2 : User  = await  UserModel.findById(user.id)
-       console.log(user2)
        const class_code = Math.random().toString(36).substring(7);
 
        const newClass = await ClassModels.create({
         name,
         code_class : class_code,
+        description,
         subjects,
         lesson_day,
         createdAt: new Date().toISOString()

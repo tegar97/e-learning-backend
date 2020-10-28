@@ -87,6 +87,10 @@ __decorate([
 __decorate([
     type_graphql_1.Field(),
     __metadata("design:type", String)
+], createClass.prototype, "description", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
 ], createClass.prototype, "subjects", void 0);
 __decorate([
     type_graphql_1.Field(),
@@ -120,7 +124,7 @@ exports.getDetailClass = getDetailClass;
 let createTimeLine = class createTimeLine {
 };
 __decorate([
-    type_graphql_1.Field(),
+    type_graphql_1.Field({ nullable: true }),
     __metadata("design:type", String)
 ], createTimeLine.prototype, "content_title", void 0);
 __decorate([
@@ -128,7 +132,7 @@ __decorate([
     __metadata("design:type", String)
 ], createTimeLine.prototype, "content", void 0);
 __decorate([
-    type_graphql_1.Field(),
+    type_graphql_1.Field({ nullable: true }),
     __metadata("design:type", String)
 ], createTimeLine.prototype, "type_content", void 0);
 __decorate([
@@ -136,11 +140,11 @@ __decorate([
     __metadata("design:type", String)
 ], createTimeLine.prototype, "class_id", void 0);
 __decorate([
-    type_graphql_1.Field(),
+    type_graphql_1.Field({ nullable: true }),
     __metadata("design:type", Number)
 ], createTimeLine.prototype, "point", void 0);
 __decorate([
-    type_graphql_1.Field(),
+    type_graphql_1.Field({ nullable: true }),
     __metadata("design:type", Date)
 ], createTimeLine.prototype, "due", void 0);
 createTimeLine = __decorate([

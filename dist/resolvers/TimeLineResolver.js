@@ -55,8 +55,7 @@ let TimeLineResolver = class TimeLineResolver {
                 throw new apollo_server_express_1.UserInputError('Errors', { errors });
             }
             //TODO : check type time line 
-            console.log(type_content === 'announcement');
-            if (type_content === 'announcement') {
+            if (type_content == 'announcement') {
                 const TimeLine = yield timeLine_1.TimeLineModels.create({
                     content,
                     created_by: user.id,

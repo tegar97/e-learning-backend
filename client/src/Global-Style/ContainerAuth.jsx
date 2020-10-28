@@ -20,9 +20,9 @@ export const ContainerAuth = styled.div`
 `
 
 export const ContainerController = styled.div`
-   padding: 8rem 4rem;
-     display: flex;
-    flex-direction: row;
+   padding: 8rem 6rem;
+   width: 100%;
+    
 
     @media only screen and (max-width:900px) {
         padding: 0 0 !important;
@@ -43,28 +43,26 @@ export const Header = styled.div`
 
 export const Content = styled.div`
     padding: 3rem 0;
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    @media only screen and (max-width:900px) {
+    flex-direction: row;
+    
+    @media only screen and (max-width:960px) {
         flex-direction: column;
         background-color: #fff;
         padding: 4rem 1rem;
         border-radius: 30px 30px 0 0;
         height: 100%;
-
-        
-        
-     
-
     }
 
 `
 
 
-export const Content2 = styled.div`
+export const ContentRight = styled.div`
     display: flex;
     flex-direction: column;
-    flex-basis: 65%;
+    width: 100%;
+    flex-basis: 70% !important;
     @media only screen and (max-width:900px) {
         display: flex;
         flex-direction: column;
@@ -79,3 +77,21 @@ export const Content2 = styled.div`
 `
 
 
+
+export const ContentLeft = styled.div`
+     display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex-basis: 90% !important;
+    @media only screen and (max-width:900px) {
+        display: flex;
+        flex-direction: column;
+
+
+        
+        
+     
+
+    }
+
+`

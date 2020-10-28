@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import SidePageLoginRegister from '../../side-page-login-register/side-page-login-register.component';
 import {  Form } from './register.styles';
 import FormInput from '../../component/form/form-input';
@@ -9,6 +9,7 @@ import { Paragraph } from '../../Global-Style/Typography';
 import {useMutation} from '@apollo/client'
 import { REGISTER_USER } from '../../graphql/register';
 import Alert from '@material-ui/lab/Alert';
+import { AuthContext } from '../../context/auth';
 
 
 function Register({history}) {
@@ -18,11 +19,15 @@ function Register({history}) {
       confirmPassword:'',
       name : ''
    }
+   const context = useContext(AuthContext)
+
    const {value,onChange,onSubmit} = useForm(registerUser, initialState)
    const [errors,setErrors] = useState('')
 
    const [addUser,{loading}] = useMutation(REGISTER_USER,{
       update(proxy,{data : userData}){
+         context.auth(userData.login)
+
          history.push('/')
       },
       onError(err) {

@@ -29,7 +29,7 @@ const type_graphql_1 = require("type-graphql");
 const check_auth_1 = require("./../util/check-auth");
 const apollo_server_express_1 = require("apollo-server-express");
 let classResolver = class classResolver {
-    getDetailRoom({ id }, { req }) {
+    getDetailRoom(id, { req }) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const user = check_auth_1.checkAuth(req);
@@ -48,7 +48,7 @@ let classResolver = class classResolver {
             if (!userId.includes(user.id.toString())) {
                 throw new apollo_server_express_1.UserInputError('Ups Sepertinya Anda Mengakses Kelas Yang Salah ', {
                     errors: {
-                        code_class: 'Ups Sepertinya Anda Mengakses Kelas Yang Salah '
+                        id: 'Ups Sepertinya Anda Mengakses Kelas Yang Salah '
                     }
                 });
             }
@@ -61,10 +61,11 @@ let classResolver = class classResolver {
             const UserDetail = yield User_1.UserModel.findById(user.id);
             const today = new Date().getDay();
             const todayClass = UserDetail.your_class.filter(data => data.lesson_days === today);
+            console.log(todayClass);
             return todayClass;
         });
     }
-    createClass({ name, subjects, lesson_day }, { req }) {
+    createClass({ name, subjects, lesson_day, description }, { req }) {
         var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
             const user = check_auth_1.checkAuth(req);
@@ -86,11 +87,11 @@ let classResolver = class classResolver {
                 });
             }
             let user2 = yield User_1.UserModel.findById(user.id);
-            console.log(user2);
             const class_code = Math.random().toString(36).substring(7);
             const newClass = yield Class_1.ClassModels.create({
                 name,
                 code_class: class_code,
+                description,
                 subjects,
                 lesson_day,
                 createdAt: new Date().toISOString()
@@ -156,9 +157,9 @@ let classResolver = class classResolver {
 };
 __decorate([
     type_graphql_1.Query(() => Class_1.Classes),
-    __param(0, type_graphql_1.Arg("data")), __param(1, type_graphql_1.Ctx()),
+    __param(0, type_graphql_1.Arg("id", () => String)), __param(1, type_graphql_1.Ctx()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeDef_1.getDetailClass, Object]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], classResolver.prototype, "getDetailRoom", null);
 __decorate([

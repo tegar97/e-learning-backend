@@ -69,6 +69,9 @@ export class createClass implements Partial<Classes>{
     name?: string;
 
     @Field()
+    description?: string;
+
+    @Field()
     subjects?: string;
 
     @Field()
@@ -101,28 +104,22 @@ export class getDetailClass implements Partial<Classes>{
 @InputType()
 export class createTimeLine implements Partial<TimeLine>{
    
-    @Field()
-    content_title?: string;
-
-    // @Field()
-    // file_name?: string
-
-    // @Field()
-    // file_type?: string
+    @Field({nullable: true})
+    content_title: string;
 
     @Field()
     content?: string;
 
-    @Field()
+    @Field({nullable: true})
     type_content!: string;
 
     @Field()
     class_id!: string;
 
-    @Field()
+    @Field({nullable: true})
     point?: number;
 
-    @Field()
+    @Field({nullable: true})
     due?: Date;
 
 

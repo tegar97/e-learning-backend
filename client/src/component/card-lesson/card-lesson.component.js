@@ -7,47 +7,50 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ClassIcon from '@material-ui/icons/Class';
+import { Button, Typography } from '@material-ui/core';
+import { Paragraph, TextPrimary } from '../../Global-Style/Typography';
 
-const CardLesson = ({theory,assignment,isClass,classData}) => {
+const CardLesson = ({theory,assignment,isClass,classData,data}) => {
     const lg = useMediaQuery('(min-width:961px)');
     const md = useMediaQuery('(max-width:960px)');
 
   
 
     return(
-        <Link to={isClass ? `/group/$1` : ''}>
+     
         <CardLessonContainer>
             <CardIconContainer>
-                {theory && <MenuBookIcon style={{color: '#fff'}}/> }
+                {theory && <MenuBookIcon style={{color: '#fff' }} fontSize="small"  /> }
                 {assignment && <AssignmentTurnedInIcon style={{color: '#fff'}}/> }
-                {isClass && <ClassIcon style={{color: '#fff'}}/> }
+                {isClass &&  <ClassIcon style={{color: '#fff',fontSize: lg ? '4rem' : ''}}  /> }
             </CardIconContainer>
-            
-            <CardContainerText>
-
-                <CardLessonTitle>{isClass ? 'Matematika'  : 'Belajar Python'}</CardLessonTitle>
-                {!isClass && <CardLessonDetail>
-                    <CardLesonDetailText>Pemograman Java</CardLesonDetailText>
-                    <CardLesonDetailText>27 agustus 2019</CardLesonDetailText>
-                </CardLessonDetail>}
                 {lg && isClass && 
-                <CardLessonDetail>
-                    <CardLesonDetailText></CardLesonDetailText>
-                    <CardLesonDetailText>27 agustus</CardLesonDetailText>
-                </CardLessonDetail>}
-                {
-                    
-                    isClass && md && !lg &&  
-                    <div style={{marginTop: '0.5rem'}}>
-                        <LessonProgressText>3/8 Tugas selesai (30%) | Senin, 08:00 - 9:00</LessonProgressText>
-                        <LessonProgress value={30} variant="determinate" color="secondary" />
-                    </div>
-                }
-            </CardContainerText>
+                    <CardContainerText>
+                        <Paragraph size="1.4rem" >Tegar Akmal</Paragraph>
+                        <TextPrimary size="2rem">{data.name}</TextPrimary>
+                        <CardLessonDetail>
+                            <Paragraph size="1.2rem">Tugas Hari ini : Belum Ada Tugas</Paragraph>
+                        </CardLessonDetail>
+                    </CardContainerText>
+
+                 }
+                 {md && isClass && 
+                    <CardContainerText>
+                        <Paragraph size="1rem" >Tegar Akmal</Paragraph>
+                        <TextPrimary size="1.3rem">Matematika</TextPrimary>
+                        <CardLessonDetail>
+                            <Paragraph size="1.2rem">Tugas Hari ini : Belum Ada Tugas</Paragraph>
+                        </CardLessonDetail>
+                    </CardContainerText>
+
+                 }
+        
+        
+                {lg && !md && <Link to={`/class/${data.id}`} style={{display: 'flex',alignItems: 'center',marginTop: '5rem',marginRight: '2rem'}}><Button  color="primary" variant="contained" style={{color: '#fff',fontSize:"1rem",padding: '1rem 2rem'}}>Lihat Kelas </Button></Link>}
                 {md && !lg && <ChevronRightIcon style={{color: 'var(--color-primary)'}}/>}
         </CardLessonContainer>
         
-        </Link>
+      
     )
 }
 

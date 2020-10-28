@@ -63,6 +63,11 @@ __decorate([
     type_graphql_1.Field(),
     typegoose_1.prop(),
     __metadata("design:type", String)
+], Classes.prototype, "description", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    typegoose_1.prop(),
+    __metadata("design:type", String)
 ], Classes.prototype, "code_class", void 0);
 __decorate([
     type_graphql_1.Field(type => [UserData], { nullable: false }),

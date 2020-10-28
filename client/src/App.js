@@ -40,7 +40,7 @@ function App() {
             <PrivateRoute  exact path="/"  layout={RouteWithNavbar} component={Dasboard}/>
             <Route exact path="/detailTimeLine" component={DetailTimeLine}/>
             <Route exact path="/class" component={Classes}/>
-            <Route exact path="/class-room" component={ClassRoom}/>
+            <PrivateRoute  path="/class/:id" layout={RouteWithNavbar} component={ClassRoom}/>
             <Route exact path="/menu-mobile" component={MenuMobile}/>
             <Route exact path="/forgot-password" component={ForgotPassword}/>
             <Route exact path="/reset-password/:token" component={ResetPassword}/>

@@ -7,6 +7,7 @@
 type Classes {
   code_class: String!
   createdAt: String!
+  description: String!
   id: ID!
   lesson_day: Float!
   name: String!
@@ -28,6 +29,7 @@ type Comments {
 }
 
 input createClass {
+  description: String!
   lesson_day: Float!
   name: String!
   subjects: String!
@@ -36,10 +38,10 @@ input createClass {
 input createTimeLine {
   class_id: String!
   content: String!
-  content_title: String!
-  due: DateTime!
-  point: Float!
-  type_content: String!
+  content_title: String
+  due: DateTime
+  point: Float
+  type_content: String
 }
 
 """
@@ -68,10 +70,6 @@ input ForgotPassword {
   email: String!
 }
 
-input getDetailClass {
-  id: String!
-}
-
 input LoginInput {
   email: String!
   password: String!
@@ -96,7 +94,7 @@ type Query {
   checkPageResetPassword(token: String!): Boolean!
   createClass(data: createClass!): String!
   getClassNow: [your_class!]!
-  getDetailRoom(data: getDetailClass!): Classes!
+  getDetailRoom(id: String!): Classes!
   getTimeLine(id: String!): TimeLine!
   getTimeLines(class_id: String!): [TimeLine!]!
   returnAllProduct: [User!]!

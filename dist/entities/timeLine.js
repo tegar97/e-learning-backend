@@ -64,7 +64,7 @@ __decorate([
 ], TimeLine.prototype, "id", void 0);
 __decorate([
     type_graphql_1.Field(),
-    typegoose_1.prop(),
+    typegoose_1.prop({ required: false }),
     __metadata("design:type", String)
 ], TimeLine.prototype, "content_title", void 0);
 __decorate([

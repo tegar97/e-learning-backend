@@ -76,7 +76,7 @@ const  PageJoinAndCreateClass = ({history}) => {
       </TabPanel>
       <TabPanel  as="div" value={value} index={1}>
         <Container maxWidth="sm">
-            <CreateClass/>
+            <CreateClass history={history}/>
 
         </Container>
       </TabPanel>

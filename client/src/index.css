@@ -58,7 +58,7 @@ body{
     line-height: 1.7;
     color: var(--color-grey-dark);
     font-display: swap;
-    background-color: var(--primary-bg);
+    background-color: #F9FBFE
 }
 
 .textToCenter{

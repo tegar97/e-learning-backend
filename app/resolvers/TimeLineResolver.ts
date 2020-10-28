@@ -45,9 +45,8 @@ export class TimeLineResolver {
             throw new UserInputError('Errors',{errors})
         }   
         //TODO : check type time line 
-        console.log(type_content ===  'announcement')
-        if(type_content === 'announcement'){
-          
+        if(type_content == 'announcement'){
+            
             const TimeLine =  await TimeLineModels.create({
                 content ,
                 created_by: user.id,
