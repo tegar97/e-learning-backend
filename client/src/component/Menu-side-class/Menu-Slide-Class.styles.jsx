@@ -11,10 +11,6 @@ export const MenuSideContainer = styled.div`
 export const MenuCard = styled(Card)`
     box-shadow: 0 2px 10px rgba(0,0,0,0.04) !important;
 
-
-
-
-
 `
 
 export const ListContainer = styled.ul`

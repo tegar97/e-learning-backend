@@ -1,66 +1,40 @@
 import React,{useState} from 'react'
-import { useMutation, useQuery } from '@apollo/client'
 import { GET_CLASS } from '../../graphql/Class'
 import { Container, useMediaQuery } from '@material-ui/core'
 import Page404 from './../../assets/404.png'
 import { TextPrimary } from '../../Global-Style/Typography'
 import { Content, ContentRight } from '../../Global-Style/ContainerAuth'
-import { useForm } from '../../utils/hooks'
-import { CREATE_ANNOUCMENT,GET_TIMELINES } from '../../graphql/TimeLine'
+import { useMutation, useQuery } from '@apollo/client'
+
 import ProfileCardMobile from '../../component/profile-card-mobile/profile-card-mobile'
 import { SectionCenter, SectionLeft, SectionRight } from './class-room-styles'
 import MenuCardClass from './../../component/Menu-side-class/Menu-Side-Class.component'
 import TimeLine from '../../component/Time-Line/time-line.component'
+import { TimeLinePost } from '../../component/Timeline-Post-Box/Timeline-post.styled'
+import { GET_TIMELINES } from '../../graphql/TimeLine'
+import ReactHtmlParser from 'react-html-parser';
+
 function ClassRoom({match}) {
     //Initial value / state
     const lg = useMediaQuery('(min-width:961px)');
     const md = useMediaQuery('(max-width:960px)');
-    
-    const id = match.params.id
-    const InitialState ={
-        content: '',
-        type_content: 'announcement',
-        class_id : id,
-
-    }
-
-    //USE STATE 
-    const {value,onChange,onSubmit} = useForm(CreatePostCallBack,InitialState)
     const [error,setError] = useState('')
-    
-    //GRAPHQL MUTATIN & QUERY 
-    const [CreatePost] = useMutation(CREATE_ANNOUCMENT,{
-        update(proxy,result){
-            const data = proxy.readQuery({
-                query: GET_TIMELINES,
-                variables: {id}
-            })
-            proxy.writeQuery({
-                query: GET_TIMELINES,
-                variables: {id},
 
-                data:{
-                    getTimeLines : [result.data.CreatePost,...data.getTimeLines]
-                }
-            })
-        },
-        variables: value
-    
-    })
+    const id = match.params.id
     const {data,loading} = useQuery(GET_TIMELINES,{
         variables: {id}
     })
+    console.log(data)
     useQuery(GET_CLASS,{
         onError(err){
             setError(err.graphQLErrors[0].extensions.exception.errors)
         },
         variables: {id}
     })
-    //callBack
-    function CreatePostCallBack() {
-        CreatePost()
-    }
-    const {content} = value
+
+
+ 
+ 
     let  classPage;
     if(error.id){
         classPage = <div>
@@ -79,7 +53,14 @@ function ClassRoom({match}) {
                     <MenuCardClass match={match}/>
                 </SectionLeft>
                 <SectionCenter>
-                    <TimeLine  />
+                    <TimeLine match={match} />
+                    {
+                        loading ? 'loading ...' :
+                        data.getTimeLines.map(data =>(
+                            <p>{ReactHtmlParser(data.content)}</p>
+                        ))
+                    }
+                   
                 </SectionCenter>
                 <SectionRight>3</SectionRight>
             </Content>

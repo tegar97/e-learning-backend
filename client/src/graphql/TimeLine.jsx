@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
 export const CREATE_ANNOUCMENT = gql`
-      mutation CreatePost($content:String!,$type_content: String!,$class_id:String! ){
-        CreatePost(data:{content : $content,type_content: $type_content,class_id: $class_id}){
+      mutation CreatePost($content:String!,$content_title:String!,$type_content: String!,$class_id:String! ){
+        CreatePost(data:{content : $content,content_title:$content_title,type_content: $type_content,class_id: $class_id}){
             id
             content
         }

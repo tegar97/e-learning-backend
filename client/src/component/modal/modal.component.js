@@ -31,8 +31,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function ModalCostum({ButtonComponent,HeaderTitle,children,size,...otherProps}) {
-    console.log(otherProps)
+export default function ModalCostum({ButtonComponent,HeaderTitle,children,size,width,...otherProps}) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -47,7 +46,7 @@ export default function ModalCostum({ButtonComponent,HeaderTitle,children,size,.
   return (
     <div>
     <div onClick={handleClickOpen}>{ButtonComponent}</div>
-        <Dialog   {...otherProps} open={open} onClose={handleClose} TransitionComponent={Transition}>
+        <Dialog  maxWidth={width ? width : 'lg'} {...otherProps} open={open} onClose={handleClose} TransitionComponent={Transition}>
             <AppBar style={{backgroundColor: '#fff',boxShadow: 'none',borderBottom: '1px solid rgba(0,0,0,.2)'}} className={classes.appBar}>
                 <Toolbar>
                     <IconButton edge="start" style={{color: '#000'}} onClick={handleClose} aria-label="close">

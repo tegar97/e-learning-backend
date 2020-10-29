@@ -5,17 +5,22 @@ import InfoIcon from '@material-ui/icons/Info';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import ModalCostum from '../modal/modal.component';
-function TimeLinePostBox() {
+import FormInfo from './../Form-Info/form-info.compoenent'
+function TimeLinePostBox({match}) {
+
+
     return (
         <TimeLinePost>
         <Paragraph size="1rem">Bagikan Sesuatu Ke Kelas Anda</Paragraph>
         <BoxContainer>
-            <ModalCostum HeaderTitle="Buat Tugas"  size="false" maxWidth="lg" ButtonComponent={
+            <ModalCostum fullWidth HeaderTitle="Buat Tugas"  size="false" width="sm" ButtonComponent={
                 <BoxItem>
                     <InfoIcon style={{color: 'var(--color-primary)',fontSize: "4rem"}}/>
                     <Paragraph size='1.1rem'> Pengumuman</Paragraph>
                 </BoxItem>
-            }>holaholaholaholaholaholaholaholaholaholaholaholaholaholaholaholaholaholaholaholaholaholaholaZ</ModalCostum>
+            }>
+                <FormInfo match={match}/>
+            </ModalCostum>
 
              
              <BoxItem>
