@@ -1,23 +1,30 @@
 import React from 'react'
-import { Paragraph } from '../../Global-Style/Typography'
+import { Paragraph, TextPrimary } from '../../Global-Style/Typography'
 import {PostBoxContainer,PostHeader,PostBoxBody,PostBoxFooter,Postinfo,UserImage} from './post-boxt.styles'
 import ReactHtmlParser from 'react-html-parser';
+import moment from 'moment-timezone'
+import  PostBoxComment  from '../Post-box-comment/post-box-comment.component';
+import PostBoxCommentInput from '../post-box-comment-input/post-box-comment-input.component';
 
-function PostBox({match}) {
+
+function PostBox({data : {content,content_title,created_by,createdAt}}) {
 
     return (
         <PostBoxContainer>
             <PostHeader>
                 <UserImage src={'https://image.freepik.com/free-vector/man-avatar-profile-round-icon_24640-14044.jpg'}  alt="user photo" />
                 <Postinfo>
-                    <Paragraph>Tegar Akmal <small>Menambahkan Informasi</small></Paragraph>
-                    <span>18 jam yang lalu</span>
+                    <Paragraph>{created_by.name} <small>Menambahkan Informasi</small></Paragraph>
+                    <span>{moment.tz(createdAt,"Asia/Jakarta").fromNow()}</span>
                 </Postinfo>
             </PostHeader>
             <PostBoxBody>
-           
+                <Paragraph size="1.3rem"  bold="700" >{content_title}</Paragraph>
+                <Paragraph style={{marginTop: '1rem'}}size="1.1rem">{ReactHtmlParser(content)}</Paragraph>
             </PostBoxBody>
             <PostBoxFooter>
+                <PostBoxComment/>
+                <PostBoxCommentInput/>
 
             </PostBoxFooter>
         </PostBoxContainer>

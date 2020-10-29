@@ -113,11 +113,14 @@ input ResetPassword {
   tokenParams: String!
 }
 
+type Subscription {
+  subscription: String!
+}
+
 """The Time Line model"""
 type TimeLine {
   class_id: String!
   comments: [Comments!]!
-  commentsCount: Float
   content: String!
   content_title: String!
   created_by: User!

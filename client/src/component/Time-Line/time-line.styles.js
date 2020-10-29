@@ -21,3 +21,9 @@ export const TimeLineContent = styled.div`
     flex-direction: column;
 
 `
+
+export const TimeLineFooter = styled.div`
+    display: flex;
+    flex-direction: column;
+
+`

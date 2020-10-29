@@ -24,6 +24,7 @@ const server_1 = __importDefault(require("./config/server"));
 const classResolver_1 = require("./resolvers/classResolver");
 const TimeLineResolver_1 = require("./resolvers/TimeLineResolver");
 const userTaskCollectionResolver_1 = require("./resolvers/userTaskCollectionResolver");
+const pubsub = new apollo_server_express_1.PubSub();
 dotenv_1.default.config({ path: "../config.env" });
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     const schema = yield type_graphql_1.buildSchema({
@@ -39,7 +40,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     });
     // create mongoose connectio
     server_1.default();
-    const server = new apollo_server_express_1.ApolloServer({ schema, context: ({ req, res }) => ({ req, res }) });
+    const server = new apollo_server_express_1.ApolloServer({ schema, context: ({ req, res }) => ({ req, res, pubsub }) });
     const app = express_1.default();
     server.applyMiddleware({ app });
     app.set('view engine', 'ejs');

@@ -8,6 +8,7 @@ export const PostBoxContainer = styled.div`
     border-radius: 10px;
     padding: 1rem;
     box-shadow: 0 2px 10px rgba(0,0,0,0.04) !important;
+    margin-top: 1.5rem;
 
 
 `
@@ -18,7 +19,10 @@ export const PostHeader = styled.div`
 `
 
 export const PostBoxBody = styled.div`
-    
+    margin-top: 1rem;
+    padding: 1rem 1.45rem;
+    border-bottom: 1px solid rgba(0,0,0,.1)
+
 
 `
 

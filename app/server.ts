@@ -1,6 +1,6 @@
 import { CommentsResolver } from './resolvers/CommentaryResolver';
 import { TimeLine } from './entities/timeLine';
-import { ApolloServer } from "apollo-server-express";
+import { ApolloServer,PubSub } from "apollo-server-express";
 import Express from "express";
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
@@ -11,6 +11,7 @@ import connectDatabase from "./config/server";
 import { classResolver } from "./resolvers/classResolver";
 import { TimeLineResolver } from "./resolvers/TimeLineResolver";
 import { UserTaskCollectResolver } from "./resolvers/userTaskCollectionResolver";
+const pubsub = new PubSub();
 
 
 dotenv.config({path: "../config.env"})
@@ -26,6 +27,7 @@ const schema = await buildSchema({
       ,UserTaskCollectResolver,
       CommentsResolver
     ],
+  
     
     emitSchemaFile: true,
     validate: false,
@@ -37,7 +39,7 @@ const schema = await buildSchema({
 connectDatabase()
 
 
-const server = new ApolloServer({schema,context: ({req,res})  => ({req,res})});
+const server = new ApolloServer({schema,context: ({req,res})  => ({req,res,pubsub})});
 const app : any = Express();
 server.applyMiddleware({app});
 app.set('view engine','ejs');

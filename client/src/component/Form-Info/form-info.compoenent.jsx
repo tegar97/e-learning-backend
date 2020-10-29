@@ -11,7 +11,7 @@ import { SetModalContext } from '../../context/setModal';
 function FormInfo({match}) {
     const id = match.params.id
      //USE STATE  And Context
-    const [contentTitle,setContentTitle] = useState('')
+    const [content_title,setContentTitle] = useState('')
     const [content,setContent] = useState('')
      const [error,setError] = useState('')
      const context = useContext(SetModalContext)
@@ -37,7 +37,7 @@ function FormInfo({match}) {
 
         },
         variables: {
-            content_title : contentTitle,
+            content_title,
             content,
             type_content: 'announcement',
             class_id: id
@@ -58,7 +58,7 @@ function FormInfo({match}) {
         <FormContaiener onSubmit={onSubmit}> 
             <FormGroup>
                 <Paragraph   Paragraph>Judul Pengumuman?</Paragraph> 
-               <TextField  id="content_title" value={contentTitle} onChange={e => setContentTitle(e.target.value)} name="content_title" style={{marginTop: '1rem'}} size="medium" id="standard-basic" variant="outlined"  label="Judul"     inputProps={{style: {fontSize: 15}}} // font size of input text
+               <TextField  id="content_title" value={content_title} onChange={e => setContentTitle(e.target.value)} name="content_title" style={{marginTop: '1rem'}} size="medium" id="standard-basic" variant="outlined"  label="Judul"     inputProps={{style: {fontSize: 15}}} // font size of input text
                 InputLabelProps={{
                 style: {
                  fontSize: '1.3rem'

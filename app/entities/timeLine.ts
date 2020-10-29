@@ -74,11 +74,6 @@ export class TimeLine {
     @Property({type : () => [Comments]})
     comments : string[]
 
-    @Field({ nullable : true })
-    commentsCount(@Root() parent : TimeLine) : number{
-        console.log(parent.comments)
-        return parent.comments.length;
-    }
     @Field(type => User, { nullable: false })
     @Property({ref : () => User})
     created_by : Ref<User>

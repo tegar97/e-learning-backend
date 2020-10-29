@@ -1,17 +1,21 @@
 import { Comments, TimeLine, TimeLineModels } from './../entities/timeLine';
 import { checkAuth } from './../util/check-auth';
 import { MyContext } from '../util/types';
-import { Arg, Ctx, Mutation,Resolver,Query,ID, Root, Int } from "type-graphql";
+import { Arg, Ctx, Mutation,Resolver,Query,ID, Root, Int, Subscription } from "type-graphql";
 import { UserInputError } from 'apollo-server-express';
 
 
 
 @Resolver()
 export class CommentsResolver {
-   
-   
+    @Subscription(() => String, {
+        topics: "COMMENTS"
+    })
+    async subscription(@Ctx(){req} : MyContext): Promise<any> {
+        return "something";
+    }
     @Mutation(() => TimeLine)
-    async CreateComment(@Arg("content",() => String) content: string,@Arg("id",() => String) id: string,@Ctx(){req} : MyContext ) : Promise<TimeLine>{
+    async CreateComment(@Arg("content",() => String) content: string,@Arg("id",() => String) id: string,@Ctx(){req,pubsub} : MyContext ) : Promise<TimeLine>{
         const user= checkAuth(req)
         const timeLine = await TimeLineModels.findById(id)
 
@@ -33,7 +37,7 @@ export class CommentsResolver {
 
             await timeLine.save()
 
-            console.log(timeLine)
+            await pubsub.publish('COMMENTS');
 
             return timeLine
         }else{

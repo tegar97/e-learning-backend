@@ -15,10 +15,13 @@ export const GET_TIMELINES = gql`
       query GetTimeLines($id: String! ){
         getTimeLines(class_id:$id){
             id
-            content
+            content,
+            content_title
             created_by{
                 name
             }
+            createdAt
+            
         }
     }
 

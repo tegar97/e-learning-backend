@@ -40,15 +40,17 @@ export class TimeLineResolver {
     async CreatePost(@Arg("data"){content,type_content,class_id,content_title,point,due}: createTimeLine,@Ctx(){req} : MyContext ) : Promise<TimeLine>{
         const user : userData  = checkAuth(req)  
         const {valid,errors} = validateTimeLinePost(content)
-        console.log(content)
+        console.log(content_title)
         if(!valid){
             throw new UserInputError('Errors',{errors})
         }   
         //TODO : check type time line 
         if(type_content == 'announcement'){
-            
+            console.log('1')
+ 
             const TimeLine =  await TimeLineModels.create({
                 content ,
+                content_title,
                 created_by: user.id,
                 type_content,
                 class_id,

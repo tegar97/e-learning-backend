@@ -27,7 +27,12 @@ const check_auth_1 = require("./../util/check-auth");
 const type_graphql_1 = require("type-graphql");
 const apollo_server_express_1 = require("apollo-server-express");
 let CommentsResolver = class CommentsResolver {
-    CreateComment(content, id, { req }) {
+    subscription({ req }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return "something";
+        });
+    }
+    CreateComment(content, id, { req, pubsub }) {
         return __awaiter(this, void 0, void 0, function* () {
             const user = check_auth_1.checkAuth(req);
             const timeLine = yield timeLine_1.TimeLineModels.findById(id);
@@ -44,7 +49,7 @@ let CommentsResolver = class CommentsResolver {
                 });
                 console.log(content);
                 yield timeLine.save();
-                console.log(timeLine);
+                yield pubsub.publish('COMMENTS');
                 return timeLine;
             }
             else {
@@ -67,6 +72,15 @@ let CommentsResolver = class CommentsResolver {
         });
     }
 };
+__decorate([
+    type_graphql_1.Subscription(() => String, {
+        topics: "COMMENTS"
+    }),
+    __param(0, type_graphql_1.Ctx()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], CommentsResolver.prototype, "subscription", null);
 __decorate([
     type_graphql_1.Mutation(() => timeLine_1.TimeLine),
     __param(0, type_graphql_1.Arg("content", () => String)), __param(1, type_graphql_1.Arg("id", () => String)), __param(2, type_graphql_1.Ctx()),

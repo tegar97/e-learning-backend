@@ -50,14 +50,16 @@ let TimeLineResolver = class TimeLineResolver {
         return __awaiter(this, void 0, void 0, function* () {
             const user = check_auth_1.checkAuth(req);
             const { valid, errors } = validators_1.validateTimeLinePost(content);
-            console.log(content);
+            console.log(content_title);
             if (!valid) {
                 throw new apollo_server_express_1.UserInputError('Errors', { errors });
             }
             //TODO : check type time line 
             if (type_content == 'announcement') {
+                console.log('1');
                 const TimeLine = yield timeLine_1.TimeLineModels.create({
                     content,
+                    content_title,
                     created_by: user.id,
                     type_content,
                     class_id,
