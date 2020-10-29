@@ -3,16 +3,13 @@ import { GET_CLASS } from '../../graphql/Class'
 import { Container, useMediaQuery } from '@material-ui/core'
 import Page404 from './../../assets/404.png'
 import { TextPrimary } from '../../Global-Style/Typography'
-import { Content, ContentRight } from '../../Global-Style/ContainerAuth'
-import { useMutation, useQuery } from '@apollo/client'
+import { Content } from '../../Global-Style/ContainerAuth'
+import {useQuery } from '@apollo/client'
 
 import ProfileCardMobile from '../../component/profile-card-mobile/profile-card-mobile'
 import { SectionCenter, SectionLeft, SectionRight } from './class-room-styles'
 import MenuCardClass from './../../component/Menu-side-class/Menu-Side-Class.component'
 import TimeLine from '../../component/Time-Line/time-line.component'
-import { TimeLinePost } from '../../component/Timeline-Post-Box/Timeline-post.styled'
-import { GET_TIMELINES } from '../../graphql/TimeLine'
-import ReactHtmlParser from 'react-html-parser';
 
 function ClassRoom({match}) {
     //Initial value / state
@@ -21,10 +18,7 @@ function ClassRoom({match}) {
     const [error,setError] = useState('')
 
     const id = match.params.id
-    const {data,loading} = useQuery(GET_TIMELINES,{
-        variables: {id}
-    })
-    console.log(data)
+  
     useQuery(GET_CLASS,{
         onError(err){
             setError(err.graphQLErrors[0].extensions.exception.errors)
@@ -54,12 +48,7 @@ function ClassRoom({match}) {
                 </SectionLeft>
                 <SectionCenter>
                     <TimeLine match={match} />
-                    {
-                        loading ? 'loading ...' :
-                        data.getTimeLines.map(data =>(
-                            <p>{ReactHtmlParser(data.content)}</p>
-                        ))
-                    }
+                 
                    
                 </SectionCenter>
                 <SectionRight>3</SectionRight>

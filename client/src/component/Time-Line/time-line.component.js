@@ -3,7 +3,16 @@ import { Paragraph } from '../../Global-Style/Typography'
 import { TimeLineContainer,TimeLineHeader,TimeLineContent } from './time-line.styles'
 import TimelineIcon from '@material-ui/icons/Timeline';
 import TimeLinePostBox from '../Timeline-Post-Box/Timeline-Post-Box.component';
+import PostBox from '../Post-box/post-box.component';
+
+import { useMutation, useQuery } from '@apollo/client'
+import { GET_TIMELINES } from '../../graphql/TimeLine'
 function TimeLine({match}) {
+    const id = match.params.id
+
+    const {data,loading} = useQuery(GET_TIMELINES,{
+        variables: {id}
+    })
     return (
         <TimeLineContainer>
             <TimeLineHeader>
@@ -12,6 +21,13 @@ function TimeLine({match}) {
             </TimeLineHeader>
             <TimeLineContent>
                   <TimeLinePostBox match={match}/>
+                  {
+                    loading ? 'loading ...' :
+                    data.getTimeLines.map(data =>(
+                        <PostBox key={data.id} data={data}/>
+
+                    ))
+                }
             </TimeLineContent>
 
         </TimeLineContainer>

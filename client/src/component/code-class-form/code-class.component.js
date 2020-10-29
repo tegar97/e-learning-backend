@@ -10,7 +10,6 @@ import { JOIN_CLASS } from '../../graphql/Class'
 const CodeClass = ({history}) => {
     const [code_class,setCode] = useState('')
     const [error,setError] = useState('')
-    console.log(history)
 
     const [JoinClass] = useMutation(JOIN_CLASS,{
         update(proxy,{data}){

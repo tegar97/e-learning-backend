@@ -12,6 +12,7 @@ import Spinner from './component/spinner/spinner'
 import { AuthProvider } from './context/auth';
 import PrivateRoute from './route/PrivateRoute';
 import RouteWithNavbar from './route/RouteWithNavbar';
+import { ModalProvider } from './context/setModal';
 
 function App() {
   //Lazy React Component
@@ -28,29 +29,30 @@ function App() {
 
 
   return (
-    <AuthProvider>
-   <Router>
-
-   <ThemeProvider theme={theme}>
+    <Router>
+    
+    <ThemeProvider theme={theme}>
       <Suspense fallback={<Spinner/>}>
-
-        <Switch>
-            <Route exact path="/login" component={Login}/>
-            <Route exact path="/register" component={Register}/>
-            <PrivateRoute  exact path="/"  layout={RouteWithNavbar} component={Dasboard}/>
-            <Route exact path="/detailTimeLine" component={DetailTimeLine}/>
-            <Route exact path="/class" component={Classes}/>
-            <PrivateRoute  path="/class/:id" layout={RouteWithNavbar} component={ClassRoom}/>
-            <Route exact path="/menu-mobile" component={MenuMobile}/>
-            <Route exact path="/forgot-password" component={ForgotPassword}/>
-            <Route exact path="/reset-password/:token" component={ResetPassword}/>
-         </Switch>
-
+     <AuthProvider>
+      <ModalProvider>
+      
+      <Switch>
+          <Route exact path="/login" component={Login}/>
+          <Route exact path="/register" component={Register}/>
+          <PrivateRoute  exact path="/"  layout={RouteWithNavbar} component={Dasboard}/>
+          <Route exact path="/detailTimeLine" component={DetailTimeLine}/>
+          <Route exact path="/class" component={Classes}/>
+          <PrivateRoute  path="/class/:id" layout={RouteWithNavbar} component={ClassRoom}/>
+          <Route exact path="/menu-mobile" component={MenuMobile}/>
+          <Route exact path="/forgot-password" component={ForgotPassword}/>
+          <Route exact path="/reset-password/:token" component={ResetPassword}/>
+       </Switch>
+      </ModalProvider>
+         </AuthProvider>
       </Suspense> 
     </ThemeProvider>
     
     </Router>
-    </AuthProvider>
   );
 }
 

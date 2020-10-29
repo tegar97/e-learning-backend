@@ -1,23 +1,21 @@
-import React,{useState} from 'react'
+import React,{useContext, useState} from 'react'
 import { Button, TextField } from '@material-ui/core'
 import { Paragraph } from '../../Global-Style/Typography'
 import FormInput from '../form/form-input'
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import {FormContaiener,FormGroup} from './form-info.styles'
-import { useForm } from '../../utils/hooks'
 import { CREATE_ANNOUCMENT,GET_TIMELINES } from '../../graphql/TimeLine'
 import { useMutation, useQuery } from '@apollo/client'
-
+import { SetModalContext } from '../../context/setModal';
 function FormInfo({match}) {
     const id = match.params.id
-
-  
-
-     //USE STATE 
+     //USE STATE  And Context
     const [contentTitle,setContentTitle] = useState('')
     const [content,setContent] = useState('')
      const [error,setError] = useState('')
+     const context = useContext(SetModalContext)
+
      
     //GRAPHQL MUTATIN & QUERY 
     const [CreatePost] = useMutation(CREATE_ANNOUCMENT,{
@@ -34,6 +32,9 @@ function FormInfo({match}) {
                     getTimeLines : [result.data.CreatePost,...data.getTimeLines]
                 }
             })
+
+            context.toggleModal(false)
+
         },
         variables: {
             content_title : contentTitle,
@@ -48,7 +49,7 @@ function FormInfo({match}) {
    const onSubmit =(e ) =>{
        e.preventDefault();
        
-    CreatePost()
+        CreatePost()
 
    }
 

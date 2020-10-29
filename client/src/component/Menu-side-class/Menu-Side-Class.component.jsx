@@ -8,8 +8,7 @@ import ListIcon from '@material-ui/icons/List';
 import PeopleIcon from '@material-ui/icons/People';
 function MenuSideClass({match}) {
         const location = useLocation()
-    console.log(location)
-    console.log(match)
+  
     return (
         <MenuSideContainer>
             <MenuHeader >

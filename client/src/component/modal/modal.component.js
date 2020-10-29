@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext ,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -9,6 +9,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 
 import IconButton from '@material-ui/core/IconButton';
+import { SetModal, SetModalContext } from '../../context/setModal';
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: 'relative',
@@ -33,20 +34,22 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function ModalCostum({ButtonComponent,HeaderTitle,children,size,width,...otherProps}) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const context  = useContext(SetModalContext)
+
 
   const handleClickOpen = () => {
-    setOpen(true);
+    context.toggleModal(true)
   };
 
   const handleClose = () => {
-    setOpen(false);
+    context.toggleModal(false)
+
   };
 
   return (
     <div>
     <div onClick={handleClickOpen}>{ButtonComponent}</div>
-        <Dialog  maxWidth={width ? width : 'lg'} {...otherProps} open={open} onClose={handleClose} TransitionComponent={Transition}>
+        <Dialog  maxWidth={width ? width : 'lg'} {...otherProps} open={context.setModal} onClose={handleClose} TransitionComponent={Transition}>
             <AppBar style={{backgroundColor: '#fff',boxShadow: 'none',borderBottom: '1px solid rgba(0,0,0,.2)'}} className={classes.appBar}>
                 <Toolbar>
                     <IconButton edge="start" style={{color: '#000'}} onClick={handleClose} aria-label="close">
