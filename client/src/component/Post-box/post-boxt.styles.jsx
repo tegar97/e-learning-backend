@@ -21,7 +21,7 @@ export const PostHeader = styled.div`
 export const PostBoxBody = styled.div`
     margin-top: 1rem;
     padding: 1rem 1.45rem;
-    border-bottom: 1px solid rgba(0,0,0,.1)
+    border-bottom: 1px solid rgba(0,0,0,.1);
 
 
 `
@@ -42,5 +42,22 @@ export const UserImage = styled.img`
 export const Postinfo = styled.div`
     display: flex;
     flex-direction: column;
+
+`
+
+export const PostTaskContainer = styled.div`
+    padding: 2rem;
+    border: 1px solid rgba(0,0,0,.1);
+    display: flex;
+    flex-direction: row;
+
+` 
+
+export const PostTaskInfo = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+    margin-right: auto;
+    
 
 `

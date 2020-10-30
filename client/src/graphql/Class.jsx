@@ -41,10 +41,18 @@ export const GET_CLASS = gql`
             name
             user{
                 name
+                id
+                isAdmin
             }
         }
     }
        
     
 
+`
+
+export const CHECK_ADMIN = gql`
+    query CheckAdmin($id:String!){
+        CheckAdmin(id:$id)
+    }
 `

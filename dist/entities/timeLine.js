@@ -95,9 +95,9 @@ __decorate([
     __metadata("design:type", String)
 ], TimeLine.prototype, "type_content", void 0);
 __decorate([
-    type_graphql_1.Field(),
+    type_graphql_1.Field({ nullable: true }),
     typegoose_1.prop(),
-    __metadata("design:type", Date)
+    __metadata("design:type", String)
 ], TimeLine.prototype, "due", void 0);
 __decorate([
     type_graphql_1.Field(),

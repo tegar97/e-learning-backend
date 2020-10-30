@@ -41,7 +41,7 @@ function PostBoxCommentInput({id,match}) {
         <CommentInputContainer onSubmit={onSubmit}>
              <PostBoxCommentImage src={'https://image.freepik.com/free-vector/man-avatar-profile-round-icon_24640-14044.jpg'}  alt="user photo" />
              <FormControl style={{marginLeft: '1rem'}} variant="outlined" fullWidth> 
-             <OutlinedInput 
+             <OutlinedInput   multiline
                id="filled-adornment-weight"
                value={comment}
                onChange={e => setComment(e.target.value)}

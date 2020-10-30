@@ -1,13 +1,17 @@
 import { Comments, TimeLine, TimeLineModels } from './../entities/timeLine';
 import { checkAuth } from './../util/check-auth';
 import { MyContext } from '../util/types';
-import { Arg, Ctx, Mutation,Resolver } from "type-graphql";
+import { Arg, Ctx, FieldResolver, Int, Mutation,Resolver, Root } from "type-graphql";
 import { UserInputError } from 'apollo-server-express';
 
 
 
-@Resolver()
+@Resolver(TimeLine)
 export class CommentsResolver {
+    @FieldResolver(type => Int)
+    async commentsCount(@Root() parent: TimeLine) : Promise<number>{
+        return await parent._doc.comments.length;
+    }
    
     @Mutation(() => TimeLine)
     async CreateComment(@Arg("content",() => String) content: string,@Arg("id",() => String) id: string,@Ctx(){req} : MyContext ) : Promise<TimeLine>{

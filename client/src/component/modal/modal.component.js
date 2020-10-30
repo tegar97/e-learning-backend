@@ -38,11 +38,11 @@ export default function ModalCostum({ButtonComponent,HeaderTitle,children,size,w
 
 
   const handleClickOpen = () => {
-    context.toggleModal(true)
+    context.toggleModal(!!true)
   };
 
   const handleClose = () => {
-    context.toggleModal(false)
+    context.toggleModal(!!false)
 
   };
 

@@ -19,7 +19,7 @@ function ClassRoom({match}) {
 
     const id = match.params.id
   
-    useQuery(GET_CLASS,{
+    const {data,loading} = useQuery(GET_CLASS,{
         onError(err){
             setError(err.graphQLErrors[0].extensions.exception.errors)
         },
@@ -42,10 +42,15 @@ function ClassRoom({match}) {
         classPage = (
             <React.Fragment>
             {md && <ProfileCardMobile/>}
-            <Content>
-                <SectionLeft >
+            <Content> 
+            {
+                lg  &&  (
+                    <SectionLeft >
                     <MenuCardClass match={match}/>
                 </SectionLeft>
+                )
+            }
+               
                 <SectionCenter>
                     <TimeLine match={match} />
                  

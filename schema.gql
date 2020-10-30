@@ -42,7 +42,7 @@ input createTimeLine {
   class_id: String!
   content: String!
   content_title: String
-  due: DateTime
+  due: String
   point: Float
   type_content: String
 }
@@ -94,6 +94,7 @@ type Mutation {
 }
 
 type Query {
+  CheckAdmin(id: String!): Boolean!
   checkPageResetPassword(token: String!): Boolean!
   createClass(data: createClass!): String!
   getClassNow: [your_class!]!
@@ -120,11 +121,12 @@ input ResetPassword {
 type TimeLine {
   class_id: String!
   comments: [Comments!]!
+  commentsCount: Int!
   content: String!
   content_title: String!
   created_by: User!
   createdAt: DateTime!
-  due: DateTime!
+  due: String
   file: [fileDoc!]
   id: ID!
   point: Float!

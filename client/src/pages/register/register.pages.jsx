@@ -26,11 +26,12 @@ function Register({history}) {
 
    const [addUser,{loading}] = useMutation(REGISTER_USER,{
       update(proxy,{data : userData}){
-         context.auth(userData.login)
+         context.auth(userData.register)
 
          history.push('/')
       },
       onError(err) {
+         console.log(err)
          setErrors(err.graphQLErrors[0].extensions.exception.errors)
       },
       variables: value

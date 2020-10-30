@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import { Paragraph } from '../../Global-Style/Typography'
 import { TimeLineContainer,TimeLineHeader,TimeLineContent,TimeLineFooter } from './time-line.styles'
 import TimelineIcon from '@material-ui/icons/Timeline';
@@ -8,12 +8,21 @@ import Grow from '@material-ui/core/Grow';
 
 import { useMutation, useQuery } from '@apollo/client'
 import { GET_TIMELINES } from '../../graphql/TimeLine'
-function TimeLine({match}) {
+import { AuthContext } from '../../context/auth';
+import { CHECK_ADMIN } from '../../graphql/Class';
+function TimeLine({match,classDetail,classLoading}) {
     const id = match.params.id
 
     const {data,loading} = useQuery(GET_TIMELINES,{
         variables: {id}
     })
+    const {data: CheckAdmin,loading : loadingCheckAuth} = useQuery(CHECK_ADMIN,{
+        variables: {id}
+
+    })
+    console.log(loadingCheckAuth ? '' : CheckAdmin.CheckAdmin)
+
+    const {user} = useContext(AuthContext)
     return (
         <TimeLineContainer>
             <TimeLineHeader>
@@ -21,7 +30,12 @@ function TimeLine({match}) {
                 <Paragraph size="1.5rem" style={{marginLeft: '1rem'}}>TimeLine</Paragraph>
             </TimeLineHeader>
             <TimeLineContent>
-                  <TimeLinePostBox match={match}/>
+            {
+                loadingCheckAuth ? <p>Loading ..</p> :
+                CheckAdmin.CheckAdmin  ? <TimeLinePostBox match={match}/> : ''
+
+            }
+
                   {
                     loading ? 'loading ...' :
                     data.getTimeLines.map(data =>(

@@ -71,9 +71,9 @@ export class TimeLine {
     @Property()
     type_content?: string;
 
-    @Field()
+    @Field({nullable: true})
     @Property()
-    due?: Date;
+    due?: String;
 
     @Field()
     @Property()
@@ -86,6 +86,8 @@ export class TimeLine {
     @Field(type => [Comments], { nullable: false })
     @Property({type : () => [Comments]})
     comments : string[]
+
+   
 
     @Field(type => User, { nullable: false })
     @Property({ref : () => User})
@@ -100,6 +102,7 @@ export class TimeLine {
     @Field()
     @Property({required: true,default: new Date().toISOString()})
     updateAt?: string;
+    private _doc: any;
 
    
 

@@ -64,6 +64,27 @@ export class classResolver {
 
         
     }
+
+    @Query(() => Boolean)
+    async CheckAdmin(@Arg("id") id: string,@Ctx(){req} : MyContext  ) : Promise<Boolean>{
+        const user = checkAuth(req)
+        const classRoom = await ClassModels.findById(id)
+
+        const adminId = []
+        const userClass =  classRoom.user.filter(data =>{
+            return data.id === user.id && data.isAdmin
+        })
+        if(userClass.length > 0) {
+            return true
+        }
+        return false
+       
+
+        
+
+
+        
+    }
     @Query(() => String)
     // async getClassNow(@Ctx(){req} : MyContext ) : Promise<Classes>{
     //     const user : userData  = checkAuth(req)  

@@ -65,6 +65,20 @@ let classResolver = class classResolver {
             return todayClass;
         });
     }
+    CheckAdmin(id, { req }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = check_auth_1.checkAuth(req);
+            const classRoom = yield Class_1.ClassModels.findById(id);
+            const adminId = [];
+            const userClass = classRoom.user.filter(data => {
+                return data.id === user.id && data.isAdmin;
+            });
+            if (userClass.length > 0) {
+                return true;
+            }
+            return false;
+        });
+    }
     createClass({ name, subjects, lesson_day, description }, { req }) {
         var _a, _b;
         return __awaiter(this, void 0, void 0, function* () {
@@ -169,6 +183,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], classResolver.prototype, "getClassNow", null);
+__decorate([
+    type_graphql_1.Query(() => Boolean),
+    __param(0, type_graphql_1.Arg("id")), __param(1, type_graphql_1.Ctx()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], classResolver.prototype, "CheckAdmin", null);
 __decorate([
     type_graphql_1.Query(() => String)
     // async getClassNow(@Ctx(){req} : MyContext ) : Promise<Classes>{

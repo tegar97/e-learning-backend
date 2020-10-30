@@ -145,7 +145,7 @@ __decorate([
 ], createTimeLine.prototype, "point", void 0);
 __decorate([
     type_graphql_1.Field({ nullable: true }),
-    __metadata("design:type", Date)
+    __metadata("design:type", String)
 ], createTimeLine.prototype, "due", void 0);
 createTimeLine = __decorate([
     type_graphql_1.InputType()

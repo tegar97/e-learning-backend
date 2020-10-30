@@ -9,18 +9,31 @@ export const CREATE_ANNOUCMENT = gql`
     }
 
 `
+export const CREATE_TASK = gql`
+      mutation CreateTask($content:String!,$content_title:String!,$type_content: String!,$class_id:String!,$point:Float!,$due: String! ){
+        CreatePost(data:{content : $content,content_title:$content_title,type_content: $type_content,class_id: $class_id,point:$point,due:$due}){
+            id
+            content
+        }
+    }
+
+`
 
 
 export const GET_TIMELINES = gql`
       query GetTimeLines($id: String! ){
         getTimeLines(class_id:$id){
             id
-            content,
+            content
             content_title
+            type_content
+            due
             created_by{
+                _id
                 name
             }
             createdAt
+            commentsCount
             comments{
                 id
                 content

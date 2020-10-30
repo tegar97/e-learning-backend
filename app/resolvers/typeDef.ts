@@ -120,7 +120,7 @@ export class createTimeLine implements Partial<TimeLine>{
     point?: number;
 
     @Field({nullable: true})
-    due?: Date;
+    due?: String;
 
 
 

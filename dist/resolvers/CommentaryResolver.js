@@ -27,6 +27,11 @@ const check_auth_1 = require("./../util/check-auth");
 const type_graphql_1 = require("type-graphql");
 const apollo_server_express_1 = require("apollo-server-express");
 let CommentsResolver = class CommentsResolver {
+    commentsCount(parent) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield parent._doc.comments.length;
+        });
+    }
     CreateComment(content, id, { req }) {
         return __awaiter(this, void 0, void 0, function* () {
             const user = check_auth_1.checkAuth(req);
@@ -68,6 +73,13 @@ let CommentsResolver = class CommentsResolver {
     }
 };
 __decorate([
+    type_graphql_1.FieldResolver(type => type_graphql_1.Int),
+    __param(0, type_graphql_1.Root()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [timeLine_1.TimeLine]),
+    __metadata("design:returntype", Promise)
+], CommentsResolver.prototype, "commentsCount", null);
+__decorate([
     type_graphql_1.Mutation(() => timeLine_1.TimeLine),
     __param(0, type_graphql_1.Arg("content", () => String)), __param(1, type_graphql_1.Arg("id", () => String)), __param(2, type_graphql_1.Ctx()),
     __metadata("design:type", Function),
@@ -82,7 +94,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], CommentsResolver.prototype, "editComment", null);
 CommentsResolver = __decorate([
-    type_graphql_1.Resolver()
+    type_graphql_1.Resolver(timeLine_1.TimeLine)
 ], CommentsResolver);
 exports.CommentsResolver = CommentsResolver;
 //# sourceMappingURL=CommentaryResolver.js.map

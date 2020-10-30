@@ -12,6 +12,7 @@ function setModalReducer(state, action) {
         ...state,
         setModal: action.payload
       };
+    
     default:
       return state;
   }

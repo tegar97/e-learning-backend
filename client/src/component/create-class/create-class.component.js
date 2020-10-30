@@ -3,7 +3,7 @@ import React,{useState} from 'react'
 import {CodeClassContainer,CodeClassHeader,CodeClassBody,FormGroup} from './create-class.styles'
 
 import { useMutation } from '@apollo/client'
-import { CREATE_CLASS } from '../../graphql/Class'
+import { CREATE_CLASS, GET_CLASS_TODAY } from '../../graphql/Class'
 import { useForm } from '../../utils/hooks'
 import Alert from '@material-ui/lab/Alert';
 
@@ -24,6 +24,7 @@ const CreateClass = ({history}) => {
         onError(err){
             setErrors(err.graphQLErrors[0].extensions.exception.errors)
         },
+        refetchQueries: [{query : GET_CLASS_TODAY}],
         variables : value
     })
     function CreateClassCallBack() {
