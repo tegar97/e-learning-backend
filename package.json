@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "client" : "cd client && npm start",
+    "client": "cd client && npm start",
     "start": "npm run serve",
     "serve": "cross-env NODE_ENV=production node dist/server.js",
     "watch-node": "cross-env NODE_ENV=development nodemon dist/server.js",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
-    "dev" : "concurrently \"npm run watch-node\" \" npm run watch-ts\"  ",
+    "dev": "concurrently \"npm run watch-node\" \" npm run watch-ts\"  ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -48,6 +48,7 @@
     "mongoose": "^5.10.9",
     "nodemailer": "^6.4.14",
     "reflect-metadata": "^0.1.13",
+    "subscriptions-transport-ws": "^0.9.18",
     "type-graphql": "^1.1.0"
   }
 }

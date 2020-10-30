@@ -5,6 +5,7 @@ import {User} from './User'
 import { type } from 'express/lib/response';
 
 
+
 @ObjectType({ description: "The Time Line model" })
 export class fileDoc {
     @Field()
@@ -18,9 +19,21 @@ export class fileDoc {
 
 @ObjectType({ description: "The Time Line model" })
 export class Comments {
-    @Field(type => User, { nullable: true })
-    @Property({ ref: () => User })
-    user_id?: Ref<User>;
+
+    @Field(()=> ID)
+    id: string;
+    
+    @Field()
+    @Property()
+    user_id?: string;
+
+    @Field()
+    @Property()
+    user_name?: string;
+
+    @Field()
+    @Property()
+    user_photo?: string;
 
     @Field()
     @Property()

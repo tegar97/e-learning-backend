@@ -39,10 +39,7 @@ let TimeLineResolver = class TimeLineResolver {
     getTimeLines(class_id, { req }) {
         return __awaiter(this, void 0, void 0, function* () {
             check_auth_1.checkAuth(req);
-            const TimeLine = yield timeLine_1.TimeLineModels.find({ class_id }).sort({ createdAt: -1 }).populate({ path: "created_by", model: "User" }).populate({ path: "user_collect", Model: "UserTaskCollection", populate: {
-                    path: "user_id",
-                    model: "User"
-                } });
+            const TimeLine = yield timeLine_1.TimeLineModels.find({ class_id }).sort({ createdAt: -1 }).populate({ path: "created_by", model: "User" });
             return TimeLine;
         });
     }

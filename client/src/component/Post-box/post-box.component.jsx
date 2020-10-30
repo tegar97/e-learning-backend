@@ -7,7 +7,7 @@ import  PostBoxComment  from '../Post-box-comment/post-box-comment.component';
 import PostBoxCommentInput from '../post-box-comment-input/post-box-comment-input.component';
 
 
-function PostBox({data : {content,content_title,created_by,createdAt}}) {
+function PostBox({match,data : {id,content,content_title,created_by,createdAt,comments}}) {
 
     return (
         <PostBoxContainer>
@@ -23,8 +23,13 @@ function PostBox({data : {content,content_title,created_by,createdAt}}) {
                 <Paragraph style={{marginTop: '1rem'}}size="1.1rem">{ReactHtmlParser(content)}</Paragraph>
             </PostBoxBody>
             <PostBoxFooter>
-                <PostBoxComment/>
-                <PostBoxCommentInput/>
+                {
+                    comments.map(data => (
+                        <PostBoxComment key={data.id} data={data}/>
+
+                    ))
+                }
+            <PostBoxCommentInput  id={id} match={match}/>
 
             </PostBoxFooter>
         </PostBoxContainer>

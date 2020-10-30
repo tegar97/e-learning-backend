@@ -5,12 +5,15 @@ import Express from "express";
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
 import dotenv from 'dotenv'
+import { SubscriptionServer } from 'subscriptions-transport-ws';
+import { execute, subscribe } from 'graphql';
 // resolvers
 import {UserResolver} from "./resolvers/userResolver";
 import connectDatabase from "./config/server";
 import { classResolver } from "./resolvers/classResolver";
 import { TimeLineResolver } from "./resolvers/TimeLineResolver";
 import { UserTaskCollectResolver } from "./resolvers/userTaskCollectionResolver";
+import { createServer } from 'http';
 const pubsub = new PubSub();
 
 
@@ -20,7 +23,6 @@ const main = async () => {
 
 const schema = await buildSchema({
     resolvers: [
-     
       UserResolver,
       classResolver,
       TimeLineResolver
@@ -46,6 +48,9 @@ app.set('view engine','ejs');
 app.listen({ port: 5000 }, () =>
   console.log(`🚀 Server ready and listening at ==> http://localhost:5000${server.graphqlPath}`))
 };
+
+
+
 main().catch((error)=>{
     console.log(error, 'error');
 })

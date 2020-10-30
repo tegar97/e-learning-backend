@@ -26,7 +26,7 @@ function TimeLine({match}) {
                     loading ? 'loading ...' :
                     data.getTimeLines.map(data =>(
                       
-                           <PostBox   key={data.id} data={data}/>
+                           <PostBox  match={match}  key={data.id} data={data}/>
 
                     ))
                 }

@@ -13,7 +13,6 @@ function FormInfo({match}) {
      //USE STATE  And Context
     const [content_title,setContentTitle] = useState('')
     const [content,setContent] = useState('')
-     const [error,setError] = useState('')
      const context = useContext(SetModalContext)
 
      

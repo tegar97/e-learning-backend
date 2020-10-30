@@ -25,7 +25,10 @@ input collectAssigment {
 type Comments {
   content: String!
   createdAt: DateTime!
-  user_id: User
+  id: ID!
+  user_id: String!
+  user_name: String!
+  user_photo: String!
 }
 
 input createClass {
@@ -111,10 +114,6 @@ input ResetPassword {
   password: String!
   passwordConfirm: String!
   tokenParams: String!
-}
-
-type Subscription {
-  subscription: String!
 }
 
 """The Time Line model"""

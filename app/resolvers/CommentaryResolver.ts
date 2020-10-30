@@ -1,23 +1,18 @@
 import { Comments, TimeLine, TimeLineModels } from './../entities/timeLine';
 import { checkAuth } from './../util/check-auth';
 import { MyContext } from '../util/types';
-import { Arg, Ctx, Mutation,Resolver,Query,ID, Root, Int, Subscription } from "type-graphql";
+import { Arg, Ctx, Mutation,Resolver } from "type-graphql";
 import { UserInputError } from 'apollo-server-express';
 
 
 
 @Resolver()
 export class CommentsResolver {
-    @Subscription(() => String, {
-        topics: "COMMENTS"
-    })
-    async subscription(@Ctx(){req} : MyContext): Promise<any> {
-        return "something";
-    }
+   
     @Mutation(() => TimeLine)
-    async CreateComment(@Arg("content",() => String) content: string,@Arg("id",() => String) id: string,@Ctx(){req,pubsub} : MyContext ) : Promise<TimeLine>{
+    async CreateComment(@Arg("content",() => String) content: string,@Arg("id",() => String) id: string,@Ctx(){req} : MyContext ) : Promise<TimeLine>{
         const user= checkAuth(req)
-        const timeLine = await TimeLineModels.findById(id)
+        const timeLine : any= await TimeLineModels.findById(id)
 
         
         if(content.trim() === ''){
@@ -27,17 +22,18 @@ export class CommentsResolver {
             })
         }
         if(timeLine){
-            timeLine.comments.unshift({
-                user_id : user.id,
+            timeLine.comments.push({
+                user_id: user.id,
+                user_name: user.name,
+                user_photo: user.photo,
                 content: content,
                 createdAt: new Date()
             })
-
-            console.log(content)
+           
+           
 
             await timeLine.save()
 
-            await pubsub.publish('COMMENTS');
 
             return timeLine
         }else{

@@ -21,6 +21,39 @@ export const GET_TIMELINES = gql`
                 name
             }
             createdAt
+            comments{
+                id
+                content
+                user_id
+                user_name
+                user_photo
+                createdAt
+            }
+            
+        }
+    }
+
+`
+
+
+export const GET_TIMELINE = gql`
+      query GetTimeLine($id: String! ){
+        getTimeLine(id:$id){
+            id
+            content,
+            content_title
+            created_by{
+                name
+            }
+            createdAt
+            comments{
+                id
+                content
+                user_id
+                user_name
+                user_photo
+                createdAt
+            }
             
         }
     }

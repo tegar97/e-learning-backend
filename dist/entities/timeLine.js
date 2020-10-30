@@ -31,10 +31,24 @@ exports.fileDoc = fileDoc;
 let Comments = class Comments {
 };
 __decorate([
-    type_graphql_1.Field(type => User_1.User, { nullable: true }),
-    typegoose_1.prop({ ref: () => User_1.User }),
-    __metadata("design:type", Object)
+    type_graphql_1.Field(() => type_graphql_1.ID),
+    __metadata("design:type", String)
+], Comments.prototype, "id", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    typegoose_1.prop(),
+    __metadata("design:type", String)
 ], Comments.prototype, "user_id", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    typegoose_1.prop(),
+    __metadata("design:type", String)
+], Comments.prototype, "user_name", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    typegoose_1.prop(),
+    __metadata("design:type", String)
+], Comments.prototype, "user_photo", void 0);
 __decorate([
     type_graphql_1.Field(),
     typegoose_1.prop(),

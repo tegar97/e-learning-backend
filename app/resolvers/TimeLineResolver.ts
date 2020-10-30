@@ -30,10 +30,7 @@ export class TimeLineResolver {
     async getTimeLines(@Arg("class_id",() => String) class_id: string ,@Ctx(){req} : MyContext ) : Promise<TimeLine>{
         checkAuth(req)  
 
-        const TimeLine :any = await TimeLineModels.find({class_id}).sort({createdAt: -1}).populate({path: "created_by",model: "User"}).populate({path: "user_collect", Model:"UserTaskCollection",populate:{
-            path:"user_id",
-            model: "User"
-        }})
+        const TimeLine :any = await TimeLineModels.find({class_id}).sort({createdAt: -1}).populate({path: "created_by",model: "User"})
         return TimeLine
     }
     @Mutation(() => TimeLine)
