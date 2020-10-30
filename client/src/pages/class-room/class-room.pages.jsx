@@ -26,9 +26,6 @@ function ClassRoom({match}) {
         variables: {id}
     })
 
-
- 
- 
     let  classPage;
     if(error.id){
         classPage = <div>
@@ -46,8 +43,8 @@ function ClassRoom({match}) {
             {
                 lg  &&  (
                     <SectionLeft >
-                    <MenuCardClass match={match}/>
-                </SectionLeft>
+                        <MenuCardClass match={match}/>
+                     </SectionLeft>
                 )
             }
                

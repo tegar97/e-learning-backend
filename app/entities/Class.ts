@@ -3,6 +3,9 @@ import { prop as Property, getModelForClass } from "@typegoose/typegoose";
 
 @ObjectType({ description: "User Data Model" })
 export class UserData {
+    filter(data: any) {
+        throw new Error('Method not implemented.');
+    }
 
     @Field(() => ID) 
     @Property()

@@ -13,6 +13,9 @@ exports.ClassModels = exports.Classes = exports.UserData = void 0;
 const type_graphql_1 = require("type-graphql");
 const typegoose_1 = require("@typegoose/typegoose");
 let UserData = class UserData {
+    filter(data) {
+        throw new Error('Method not implemented.');
+    }
 };
 __decorate([
     type_graphql_1.Field(() => type_graphql_1.ID),
