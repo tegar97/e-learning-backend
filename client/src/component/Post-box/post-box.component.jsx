@@ -44,12 +44,10 @@ function PostBox({match,data : {id,content,content_title,created_by,createdAt,co
                                 <Paragraph style={{marginTop: '1rem'}}size="1.1rem">{ReactHtmlParser(content, {replace})}</Paragraph>
                             </PostTaskInfo>
                             <div>
-                            {
-                                created_by._id === user.id ? 
-                               <Link to={`${match.url}/d/${id}`}><Button  style={{color : '#fff'}} variant="contained"  color='primary' >Lihat Hasil</Button></Link> 
-                                : 
-                                <Button style={{color : '#fff'}} variant="contained"  color='primary'>Kumpulkan</Button> 
-                            }
+                            
+                           
+                               <Link to={`${match.url}/d/${id}`}><Button  style={{color : '#fff'}} variant="contained"  color='primary' >{     created_by._id === user.id ? 'Lihat Hasil' : 'Kumpulkan'}</Button></Link> 
+                            
                             </div>
                     </PostTaskContainer> 
                 : (

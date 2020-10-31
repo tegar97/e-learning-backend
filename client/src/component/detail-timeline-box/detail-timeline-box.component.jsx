@@ -4,6 +4,7 @@ import DetailTimeLineBoxAdmin from '../detail-timeline-box-admin/detail-timeline
 import { CHECK_ADMIN } from '../../graphql/Class'
 import { useQuery } from '@apollo/client'
 import UserCollect from '../user-collect/user-collect.component'
+import DetailTimeLineBoxUser from '../Detail-timeline-box-user/DetailTimeLineBoxUser.component'
 
 function DetailTimeLineBox({post,match}) {
     console.log(post)
@@ -20,9 +21,10 @@ function DetailTimeLineBox({post,match}) {
                        <DetailTimeLineBoxAdmin post={post} match={match}/>
                        <UserCollect post={post} />
                     </React.Fragment>
-              :  ''
+              :  <React.Fragment> 
+                <DetailTimeLineBoxUser post={post} match={match}/>
+              </React.Fragment>
          }
-           {post.isActive ? `true` : 'sudah berakhir'}
         
         </PostCardContainer>
     )
