@@ -28,6 +28,7 @@ export class UserTaskCollectResolver {
             const UserTaskCollection= await UserTaskCollectionModel.create({
             task_message_online,
             user_name : user.name,
+            user_photo : user.photo,
             user_email: user.email,
             upload_at,
             isLate

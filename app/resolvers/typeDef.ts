@@ -138,8 +138,22 @@ export class EditTimeLine implements Partial<TimeLine>{
     @Field()
     id!: string;
 
-    @Field()
+    @Field({nullable: true})
+    content_title?: string;
+
+    @Field({nullable: true})
     content?: string;
+
+
+    @Field({nullable: true})
+    point?: number;
+
+    @Field({nullable: true})
+    due?: String;
+
+    
+    @Field({nullable: true})
+    isActive?: Boolean;
 
 }
 

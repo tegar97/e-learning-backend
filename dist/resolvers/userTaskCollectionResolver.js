@@ -46,6 +46,7 @@ let UserTaskCollectResolver = class UserTaskCollectResolver {
                 const UserTaskCollection = yield UserTaskCollect_1.UserTaskCollectionModel.create({
                     task_message_online,
                     user_name: user.name,
+                    user_photo: user.photo,
                     user_email: user.email,
                     upload_at,
                     isLate

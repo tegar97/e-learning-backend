@@ -75,6 +75,10 @@ export class TimeLine {
     @Property()
     due?: String;
 
+    @Field({nullable: true})
+    @Property({default: true})
+    isActive?: Boolean;
+
     @Field()
     @Property()
     point?: number;

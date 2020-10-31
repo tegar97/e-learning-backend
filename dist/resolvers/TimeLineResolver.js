@@ -74,16 +74,18 @@ let TimeLineResolver = class TimeLineResolver {
                     class_id,
                     point,
                     due,
+                    isActive: true,
                     createdAt: new Date().toISOString()
                 });
                 return TimeLine;
             }
         });
     }
-    EditPost({ id, content }, { req }) {
+    EditPost({ id, content, content_title, point, due, isActive }, { req }) {
         return __awaiter(this, void 0, void 0, function* () {
             const user = check_auth_1.checkAuth(req);
-            const TimeLine = yield timeLine_1.TimeLineModels.findById(id);
+            const TimeLine = yield timeLine_1.TimeLineModels.findById(id).populate({ path: "created_by", model: "User" });
+            console.log(TimeLine);
             if (!TimeLine) {
                 throw new apollo_server_express_1.UserInputError('Invalid Id', {
                     id: 'Post Not Found  '
@@ -93,8 +95,13 @@ let TimeLineResolver = class TimeLineResolver {
                 throw new apollo_server_express_1.UserInputError('Post Not Found');
             }
             //Cek If User === TimeLine.user , if not same dont't allow action
-            if (TimeLine.created_by.toString() === user.id.toString()) {
-                yield TimeLine.update({ content }, { new: true, runValidators: true });
+            if (TimeLine.created_by._id.toString() === user.id.toString()) {
+                if (TimeLine.type_content === 'announcement') {
+                    yield TimeLine.update({ content, content_title }, { new: true, runValidators: true });
+                }
+                else {
+                    yield TimeLine.update({ content, content_title, isActive, point, due }, { new: true, runValidators: true });
+                }
                 yield TimeLine.save();
                 return true;
             }

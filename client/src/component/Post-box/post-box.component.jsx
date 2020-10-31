@@ -9,6 +9,7 @@ import PostBoxCommentInput from '../post-box-comment-input/post-box-comment-inpu
 import BookIcon from '@material-ui/icons/Book';
 import { Button } from '@material-ui/core';
 import { AuthContext } from '../../context/auth';
+import {Link} from 'react-router-dom'
 const replace = domNode => {
     if (domNode.type === 'tag' && domNode.name === 'b') {
       return null
@@ -45,7 +46,7 @@ function PostBox({match,data : {id,content,content_title,created_by,createdAt,co
                             <div>
                             {
                                 created_by._id === user.id ? 
-                                <Button style={{color : '#fff'}} variant="contained"  color='primary'>Lihat Hasil</Button>
+                               <Link to={`${match.url}/d/${id}`}><Button  style={{color : '#fff'}} variant="contained"  color='primary' >Lihat Hasil</Button></Link> 
                                 : 
                                 <Button style={{color : '#fff'}} variant="contained"  color='primary'>Kumpulkan</Button> 
                             }

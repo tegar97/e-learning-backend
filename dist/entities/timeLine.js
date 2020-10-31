@@ -100,6 +100,11 @@ __decorate([
     __metadata("design:type", String)
 ], TimeLine.prototype, "due", void 0);
 __decorate([
+    type_graphql_1.Field({ nullable: true }),
+    typegoose_1.prop({ default: true }),
+    __metadata("design:type", Boolean)
+], TimeLine.prototype, "isActive", void 0);
+__decorate([
     type_graphql_1.Field(),
     typegoose_1.prop(),
     __metadata("design:type", Number)

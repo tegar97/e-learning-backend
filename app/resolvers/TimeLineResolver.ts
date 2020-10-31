@@ -65,6 +65,7 @@ export class TimeLineResolver {
                 class_id,
                 point,
                 due,
+                isActive: true,
                 createdAt: new Date().toISOString()
             })
 
@@ -73,9 +74,10 @@ export class TimeLineResolver {
        
     }
     @Mutation(() => Boolean)
-    async EditPost(@Arg("data"){id,content}: EditTimeLine,@Ctx(){req} : MyContext ) : Promise<Boolean>{
+    async EditPost(@Arg("data"){id,content,content_title,point,due,isActive}: EditTimeLine,@Ctx(){req} : MyContext ) : Promise<Boolean>{
         const user = checkAuth(req)  
-        const TimeLine = await TimeLineModels.findById(id)
+        const TimeLine = await TimeLineModels.findById(id).populate({path: "created_by",model: "User"})
+        console.log(TimeLine)
         if(!TimeLine) {
             throw new UserInputError('Invalid Id',{
                 id : 'Post Not Found  '
@@ -86,8 +88,14 @@ export class TimeLineResolver {
 
         }
         //Cek If User === TimeLine.user , if not same dont't allow action
-        if(TimeLine.created_by.toString() === user.id.toString()){
-            await TimeLine.update({ content },{  new: true,runValidators: true})
+        if(TimeLine.created_by._id.toString() === user.id.toString()){
+            if(TimeLine.type_content === 'announcement'){
+
+                await TimeLine.update({ content ,content_title},{  new: true,runValidators: true})
+            }else{
+                await TimeLine.update({ content ,content_title,isActive,point,due},{  new: true,runValidators: true})
+
+            }
             await TimeLine.save()
             return true
         }else{

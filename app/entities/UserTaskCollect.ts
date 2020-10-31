@@ -20,11 +20,16 @@ export class UserTaskCollection {
     @Field(type => [fileDoc2], { nullable: true })
     @Property({type: [fileDoc2]})
     task_file?: fileDoc2[];
-
+    
   
     @Field()
     @Property()
     user_name?: string;
+
+    @Field()
+    @Property()
+    user_photo?: string;
+
 
     
     @Field()
@@ -44,8 +49,8 @@ export class UserTaskCollection {
     @Property()
     isLate?: Boolean;
     
-    @Field() 
-    @Property({default: 0})
+    @Field({nullable: true}) 
+    @Property({default: null})
     point?: Number;
 
     

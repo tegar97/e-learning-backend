@@ -53,8 +53,12 @@ The javascript `Date` as string. Type represents date and time as the ISO Date s
 scalar DateTime
 
 input EditTimeLine {
-  content: String!
+  content: String
+  content_title: String
+  due: String
   id: String!
+  isActive: Boolean
+  point: Float
 }
 
 """The Time Line model"""
@@ -129,6 +133,7 @@ type TimeLine {
   due: String
   file: [fileDoc!]
   id: ID!
+  isActive: Boolean
   point: Float!
   type_content: String!
   updateAt: String!
@@ -164,12 +169,13 @@ type UserData {
 type UserTaskCollection {
   id: ID!
   isLate: Boolean!
-  point: Float!
+  point: Float
   task_file: [fileDoc2!]
   task_message_online: String!
   upload_at: DateTime!
   user_email: String!
   user_name: String!
+  user_photo: String!
 }
 
 """The Class Info"""

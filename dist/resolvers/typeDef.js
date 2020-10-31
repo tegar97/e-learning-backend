@@ -168,9 +168,25 @@ __decorate([
     __metadata("design:type", String)
 ], EditTimeLine.prototype, "id", void 0);
 __decorate([
-    type_graphql_1.Field(),
+    type_graphql_1.Field({ nullable: true }),
+    __metadata("design:type", String)
+], EditTimeLine.prototype, "content_title", void 0);
+__decorate([
+    type_graphql_1.Field({ nullable: true }),
     __metadata("design:type", String)
 ], EditTimeLine.prototype, "content", void 0);
+__decorate([
+    type_graphql_1.Field({ nullable: true }),
+    __metadata("design:type", Number)
+], EditTimeLine.prototype, "point", void 0);
+__decorate([
+    type_graphql_1.Field({ nullable: true }),
+    __metadata("design:type", String)
+], EditTimeLine.prototype, "due", void 0);
+__decorate([
+    type_graphql_1.Field({ nullable: true }),
+    __metadata("design:type", Boolean)
+], EditTimeLine.prototype, "isActive", void 0);
 EditTimeLine = __decorate([
     type_graphql_1.InputType()
 ], EditTimeLine);

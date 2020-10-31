@@ -6,6 +6,7 @@ import { Content } from '../../Global-Style/ContainerAuth';
 import { useMediaQuery } from '@material-ui/core';
 import MenuCardClass from './../../component/Menu-side-class/Menu-Side-Class.component'
 import { GET_TIMELINE } from '../../graphql/TimeLine';
+import DetailTimeLineBox from '../../component/detail-timeline-box/detail-timeline-box.component';
 
 function DetailTimeLine({match}) {
     const lg = useMediaQuery('(min-width:961px)');
@@ -16,7 +17,7 @@ function DetailTimeLine({match}) {
         }
     })
 
-    console.log(loading ? ''  :data.getTimeLine/content)
+    
     return (
         <React.Fragment>
         {md && <ProfileCardMobile/>}
@@ -31,9 +32,10 @@ function DetailTimeLine({match}) {
            
             <SectionCenter>
             {
-                loading ? <p>Loading ....</p> : 's'
+                loading ? 'loading ...' : 
+                <DetailTimeLineBox match={match} post={data.getTimeLine}/>
+     
             }
-                
              
                
             </SectionCenter>
