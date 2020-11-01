@@ -40,12 +40,12 @@ const schema = await buildSchema({
 // create mongoose connectio
 connectDatabase()
 
-
+const PORT = process.env.PORT || 5000
 const server = new ApolloServer({schema,context: ({req,res})  => ({req,res,pubsub})});
 const app : any = Express();
 server.applyMiddleware({app});
 app.set('view engine','ejs');
-app.listen({ port: 5000 }, () =>
+app.listen({ port: PORT }, () =>
   console.log(`🚀 Server ready and listening at ==> http://localhost:5000${server.graphqlPath}`))
 };
 
