@@ -43,7 +43,7 @@ const CodeClass = ({history}) => {
                 <Typography variant="h4" component="span" style={{color: '#000'}}>Kode kelas</Typography>
                 <Typography variant="h6" component="span"  style={{color: 'rgba(0,0,0,.8)'}} >Mintalah kode kelas kepada pengajar, lalu masukkan kode di sini.</Typography>
                 <FormInput type="text" variant="secondary"   maxlength={6}  name="code"  placeholder="Kode Kelas" value={code_class} onChange={handleChange}/>
-                {code_class.length > 5 ?  <Button  type="submit" variant="contained" color="primary" fullWidth size="large" style={{color: '#fff',height: '4rem',fontSize: '1.3rem',fontWeight: "400"}}>Submit</Button>
+                {code_class.length > 4 ?  <Button  type="submit" variant="contained" color="primary" fullWidth size="large" style={{color: '#fff',height: '4rem',fontSize: '1.3rem',fontWeight: "400"}}>Submit</Button>
                 :  <Button  variant="contained" disabled fullWidth size="large"  style={{height: '4rem',fontSize: '1.3rem',fontWeight: "400"}}>Gabung</Button>}
             </CodeClassHeader>
             <CodeClassBody>

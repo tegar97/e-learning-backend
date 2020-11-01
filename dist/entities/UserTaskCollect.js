@@ -41,6 +41,11 @@ __decorate([
     type_graphql_1.Field(),
     typegoose_1.prop(),
     __metadata("design:type", String)
+], UserTaskCollection.prototype, "user_id", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    typegoose_1.prop(),
+    __metadata("design:type", String)
 ], UserTaskCollection.prototype, "user_name", void 0);
 __decorate([
     type_graphql_1.Field(),

@@ -20,6 +20,10 @@ export class UserTaskCollection {
     @Field(type => [fileDoc2], { nullable: true })
     @Property({type: [fileDoc2]})
     task_file?: fileDoc2[];
+
+    @Field()
+    @Property()
+    user_id?: string;
     
   
     @Field()

@@ -65,6 +65,7 @@ export const GET_TIMELINE = gql`
             due
             isActive
             user_collect{
+                user_id
                 user_name
                 user_email
                 task_file{file_name }

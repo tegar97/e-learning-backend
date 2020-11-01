@@ -13,3 +13,9 @@ export const LOGIN_USER = gql`
     }
 
 `
+
+export const CHECK_FINISH_TASK = gql`
+    query CheckFinishTask($id:String!){
+        CheckFinishTask(id:$id)
+    }
+`

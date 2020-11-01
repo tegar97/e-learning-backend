@@ -70,7 +70,6 @@ export class classResolver {
         const user = checkAuth(req)
         const classRoom = await ClassModels.findById(id)
 
-        const adminId = []
         const userClass =  classRoom.user.filter(data =>{
             return data.id === user.id && data.isAdmin
         })

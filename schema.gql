@@ -99,6 +99,7 @@ type Mutation {
 
 type Query {
   CheckAdmin(id: String!): Boolean!
+  CheckFinishTask(id: String!): Boolean!
   checkPageResetPassword(token: String!): Boolean!
   createClass(data: createClass!): String!
   getClassNow: [your_class!]!
@@ -174,6 +175,7 @@ type UserTaskCollection {
   task_message_online: String!
   upload_at: DateTime!
   user_email: String!
+  user_id: String!
   user_name: String!
   user_photo: String!
 }

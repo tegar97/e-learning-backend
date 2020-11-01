@@ -7,7 +7,6 @@ import UserCollect from '../user-collect/user-collect.component'
 import DetailTimeLineBoxUser from '../Detail-timeline-box-user/DetailTimeLineBoxUser.component'
 
 function DetailTimeLineBox({post,match}) {
-    console.log(post)
     const {data: CheckAdmin,loading : loadingCheckAuth} = useQuery(CHECK_ADMIN,{
         variables: {id : match.params.id}
 

@@ -69,7 +69,6 @@ let classResolver = class classResolver {
         return __awaiter(this, void 0, void 0, function* () {
             const user = check_auth_1.checkAuth(req);
             const classRoom = yield Class_1.ClassModels.findById(id);
-            const adminId = [];
             const userClass = classRoom.user.filter(data => {
                 return data.id === user.id && data.isAdmin;
             });

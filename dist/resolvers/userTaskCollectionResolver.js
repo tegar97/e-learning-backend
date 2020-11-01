@@ -45,6 +45,7 @@ let UserTaskCollectResolver = class UserTaskCollectResolver {
                 console.log(user.id);
                 const UserTaskCollection = yield UserTaskCollect_1.UserTaskCollectionModel.create({
                     task_message_online,
+                    user_id: user.id,
                     user_name: user.name,
                     user_photo: user.photo,
                     user_email: user.email,
@@ -61,6 +62,19 @@ let UserTaskCollectResolver = class UserTaskCollectResolver {
         });
     }
     ;
+    CheckFinishTask(id, { req }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = check_auth_1.checkAuth(req);
+            const Task = yield timeLine_1.TimeLineModels.findById(id);
+            const userClass = Task.user_collect.filter(data => {
+                return data.user_id === user.id;
+            });
+            if (userClass.length > 0) {
+                return true;
+            }
+            return false;
+        });
+    }
 };
 __decorate([
     type_graphql_1.Mutation(() => UserTaskCollect_1.UserTaskCollection),
@@ -69,6 +83,13 @@ __decorate([
     __metadata("design:paramtypes", [typeDef_1.collectAssigment, Object]),
     __metadata("design:returntype", Promise)
 ], UserTaskCollectResolver.prototype, "CreateUserCollect", null);
+__decorate([
+    type_graphql_1.Query(() => Boolean),
+    __param(0, type_graphql_1.Arg("id")), __param(1, type_graphql_1.Ctx()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], UserTaskCollectResolver.prototype, "CheckFinishTask", null);
 UserTaskCollectResolver = __decorate([
     type_graphql_1.Resolver()
 ], UserTaskCollectResolver);

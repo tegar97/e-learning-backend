@@ -3,7 +3,7 @@ import { checkAuth } from './../util/check-auth';
 import { MyContext } from './../util/types';
 import { collectAssigment } from './typeDef';
 import { UserTaskCollection, UserTaskCollectionModel } from './../entities/UserTaskCollect';
-import {Resolver,Mutation,Arg,Ctx} from 'type-graphql'
+import {Resolver,Mutation,Arg,Ctx,Query} from 'type-graphql'
 import { UserInputError } from 'apollo-server-express';
 import {UserModel} from './../entities/User'
 
@@ -15,6 +15,7 @@ export class UserTaskCollectResolver {
         const user = checkAuth(req)
         const TimeLine = await TimeLineModels.findById(timeLineId)
      const newUser = await UserModel.findById(user.id)
+     
      console.log(newUser)
       if(!TimeLine){
           throw new UserInputError('Post Tidak Ditemukan')
@@ -27,6 +28,7 @@ export class UserTaskCollectResolver {
           console.log(user.id)
             const UserTaskCollection= await UserTaskCollectionModel.create({
             task_message_online,
+            user_id : user.id,
             user_name : user.name,
             user_photo : user.photo,
             user_email: user.email,
@@ -46,6 +48,23 @@ export class UserTaskCollectResolver {
     
 
     };
+    @Query(() => Boolean)
+    async CheckFinishTask(@Arg("id") id: string,@Ctx(){req} : MyContext  ) : Promise<Boolean>{
+        const user = checkAuth(req)
+        const Task = await TimeLineModels.findById(id)
 
-  
+        const userClass =  Task.user_collect.filter(data =>{
+            return data.user_id === user.id 
+        })
+        if(userClass.length > 0) {
+            return true
+        }
+        return false
+       
+
+        
+
+
+        
+    }
 }
