@@ -5,7 +5,7 @@ import { NameText, Paragraph, TextPrimary } from '../../Global-Style/Typography'
 import {Card,CardContent,ProfileImage,CardItem,CardItemText,CardInfoContainer,CardInfoBody,CardFooterBody} from './profile-card.styles'
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import MenuBookIcon from '@material-ui/icons/MenuBook'
-function ProfileCardDekstop() {
+function ProfileCardDekstop({data,loading}) {
     const {user} = useContext(AuthContext)
     return (
         <Card>
@@ -21,7 +21,7 @@ function ProfileCardDekstop() {
                         <CardInfoContainer>
                             <CardInfoBody>
                                 <MenuBookIcon fontSize="large" color="primary"/>
-                                <TextPrimary size="3.5rem" style={{marginLeft: '1rem'}}>3</TextPrimary>
+                                <TextPrimary size="3.5rem" style={{marginLeft: '1rem'}}></TextPrimary>
 
                             </CardInfoBody>
                             <CardFooterBody>
@@ -34,7 +34,7 @@ function ProfileCardDekstop() {
                         <CardInfoContainer>
                         <CardInfoBody>
                             <AssignmentIcon fontSize="large" color="primary"/>
-                            <TextPrimary size="3.5rem" style={{marginLeft: '1rem'}}>3</TextPrimary>
+                            <TextPrimary size="3.5rem" style={{marginLeft: '1rem'}}>0</TextPrimary>
 
                         </CardInfoBody>
                         <CardFooterBody>

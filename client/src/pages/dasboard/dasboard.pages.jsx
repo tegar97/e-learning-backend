@@ -18,10 +18,6 @@ function Dasboard({history}) {
      const md = useMediaQuery('(max-width:960px)');
      const { loading, error, data } = useQuery(GET_CLASS_TODAY);
 
- 
-
-
-
     return (
         <React.Fragment>
         <ModalCostum  HeaderTitle="Buat Tugas" fullScreen size="false" ButtonComponent={<ToolTipIcon/>}><PageJoinAndCreateClass history={history}/> </ModalCostum>
@@ -29,7 +25,7 @@ function Dasboard({history}) {
            {md && <ProfileCardMobile/>}
            <Content>
               <ContentRight>
-                {lg && <ProfileCardDekstop/>}
+                {lg && <ProfileCardDekstop data={data} loading={loading}/>}
 
                 <ContentInfo>
                     <Paragraph size="1.8rem" style={{marginBottom: '1rem'}}>Kelas Hari ini</Paragraph>

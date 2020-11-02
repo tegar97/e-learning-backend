@@ -58,7 +58,6 @@ export class classResolver {
         const UserDetail = await UserModel.findById(user.id)
         const today = new Date().getDay()
         const todayClass : any  = UserDetail.your_class.filter(data => data.lesson_days === today)
-        console.log(todayClass)
 
         return todayClass
 
@@ -124,7 +123,7 @@ export class classResolver {
        let user2 : User  = await  UserModel.findById(user.id)
        const class_code = Math.random().toString(36).substring(7);
 
-       const newClass = await ClassModels.create({
+       const newClass :any = await ClassModels.create({
         name,
         code_class : class_code,
         description,
@@ -160,7 +159,7 @@ export class classResolver {
         const user : userData  = checkAuth(req)  
         let user2 : User  = await  UserModel.findById(user.id)
 
-        const classRoom = await ClassModels.findOne({code_class: code_class})
+        const classRoom  :any= await ClassModels.findOne({code_class: code_class})
         
         if(!classRoom){
             throw new UserInputError('Kelas Tidak Diteumakan ',{

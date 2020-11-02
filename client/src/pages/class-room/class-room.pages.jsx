@@ -53,7 +53,7 @@ function ClassRoom({match}) {
                  
                    
                 </SectionCenter>
-                <SectionRight>3</SectionRight>
+                <SectionRight>{loading ? '' : data.getDetailRoom.code_class}</SectionRight>
             </Content>
             </React.Fragment>
         )

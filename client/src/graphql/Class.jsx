@@ -39,6 +39,7 @@ export const GET_CLASS = gql`
         getDetailRoom(id: $id){
             id
             name
+            code_class
             user{
                 name
                 id

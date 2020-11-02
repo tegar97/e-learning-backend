@@ -61,7 +61,6 @@ let classResolver = class classResolver {
             const UserDetail = yield User_1.UserModel.findById(user.id);
             const today = new Date().getDay();
             const todayClass = UserDetail.your_class.filter(data => data.lesson_days === today);
-            console.log(todayClass);
             return todayClass;
         });
     }

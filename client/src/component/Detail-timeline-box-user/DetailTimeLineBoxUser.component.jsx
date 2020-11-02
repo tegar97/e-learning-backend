@@ -60,7 +60,7 @@ function DetailTimeLineBoxUser({match,post}) {
                 }
             </BoxContainer>
             {
-                loading ? 'loading' :  data.CheckFinishTask && post.isActive  && moment(Date.now()).format() > moment(post.due).format()? 'Selesai' :  <BoxContainer>
+                loading ? 'loading' :  data.CheckFinishTask || post.isActive === false?  'Selesai' :  <BoxContainer>
                 <BoxContainerHeader>
                     <Paragraph>Jawaban</Paragraph>
                 </BoxContainerHeader>

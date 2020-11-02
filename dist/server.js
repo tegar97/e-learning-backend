@@ -44,7 +44,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     const app = express_1.default();
     server.applyMiddleware({ app });
     app.set('view engine', 'ejs');
-    app.listen({ port: 5000 }, () => console.log(`🚀 Server ready and listening at ==> http://localhost:5000${server.graphqlPath}`));
+    app.listen({ port: process.env.PORT || 5000 }, () => console.log(`🚀 Server ready and listening at ==> http://localhost:5000${server.graphqlPath}`));
 });
 main().catch((error) => {
     console.log(error, 'error');

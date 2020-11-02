@@ -22,6 +22,7 @@ function genereteToken(user: {id : string , email : string,photo:string,name : s
 
 @Resolver()
 export class UserResolver {
+    
     @Query(() => [User])
     async returnAllProduct(){
       return await UserModel.find();
