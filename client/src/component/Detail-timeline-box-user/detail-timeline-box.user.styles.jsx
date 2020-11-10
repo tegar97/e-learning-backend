@@ -18,3 +18,15 @@ export const BoxContainerHeader = styled.div`
     border-bottom: 1px solid rgba(0,0,0,.1);
     padding: 1rem;
 `
+
+export const BoxScore = styled.div`
+    width: 10rem;
+    color: #ffff;
+
+    height: 10rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-primary)
+`

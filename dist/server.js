@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const uploadResolver_1 = require("./resolvers/uploadResolver");
 const CommentaryResolver_1 = require("./resolvers/CommentaryResolver");
 const apollo_server_express_1 = require("apollo-server-express");
 const express_1 = __importDefault(require("express"));
@@ -23,6 +24,7 @@ const userResolver_1 = require("./resolvers/userResolver");
 const server_1 = __importDefault(require("./config/server"));
 const classResolver_1 = require("./resolvers/classResolver");
 const TimeLineResolver_1 = require("./resolvers/TimeLineResolver");
+const cors_1 = __importDefault(require("cors"));
 const userTaskCollectionResolver_1 = require("./resolvers/userTaskCollectionResolver");
 const pubsub = new apollo_server_express_1.PubSub();
 dotenv_1.default.config({ path: "../config.env" });
@@ -33,7 +35,8 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
             classResolver_1.classResolver,
             TimeLineResolver_1.TimeLineResolver,
             userTaskCollectionResolver_1.UserTaskCollectResolver,
-            CommentaryResolver_1.CommentsResolver
+            CommentaryResolver_1.CommentsResolver,
+            uploadResolver_1.UploadResolver
         ],
         emitSchemaFile: true,
         validate: false,
@@ -44,6 +47,8 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     const app = express_1.default();
     server.applyMiddleware({ app });
     app.set('view engine', 'ejs');
+    app.use(express_1.default.static(__dirname + '/public'));
+    app.use(cors_1.default());
     app.listen({ port: process.env.PORT || 5000 }, () => console.log(`🚀 Server ready and listening at ==> http://localhost:5000${server.graphqlPath}`));
 });
 main().catch((error) => {

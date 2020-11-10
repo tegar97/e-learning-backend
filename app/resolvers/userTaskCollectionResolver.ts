@@ -11,10 +11,10 @@ import {UserModel} from './../entities/User'
 @Resolver()
 export class UserTaskCollectResolver {
     @Mutation(() => UserTaskCollection)
-    async CreateUserCollect(@Arg("data"){task_message_online,timeLineId}: collectAssigment,@Ctx(){req} : MyContext ) : Promise<Classes>{
+    async CreateUserCollect(@Arg("data"){task_message_online,timeLineId,file}: collectAssigment,@Ctx(){req} : MyContext ) : Promise<Classes>{
         const user = checkAuth(req)
         const TimeLine = await TimeLineModels.findById(timeLineId)
-     const newUser = await UserModel.findById(user.id)
+     const newUser  = await UserModel.findById(user.id)
      
      console.log(newUser)
       if(!TimeLine){
@@ -25,10 +25,10 @@ export class UserTaskCollectResolver {
       try {
         
 
-          console.log(user.id)
-            const UserTaskCollection= await UserTaskCollectionModel.create({
+            const UserTaskCollection : any= await UserTaskCollectionModel.create({
             task_message_online,
             user_id : user.id,
+            file: file,
             user_name : user.name,
             user_photo : user.photo,
             user_email: user.email,
@@ -48,6 +48,8 @@ export class UserTaskCollectResolver {
     
 
     };
+
+    
     @Query(() => Boolean)
     async CheckFinishTask(@Arg("id") id: string,@Ctx(){req} : MyContext  ) : Promise<Boolean>{
         const user = checkAuth(req)
@@ -60,11 +62,38 @@ export class UserTaskCollectResolver {
             return true
         }
         return false
-       
+        
+    }
+
+     
+    @Mutation(() => Boolean)
+    async GiveScore(@Arg("timeLineId") timeLineId: string,@Arg("userCollectionId") userCollectionId: string,@Arg("point") point: number,@Arg("feedBack") feedBack: string,@Ctx(){req} : MyContext  ) : Promise<Boolean>{
+        const user = checkAuth(req)
+        const Task = await TimeLineModels.findById(timeLineId)
+        console.log(user.id)
+        console.log(user.id)
+        const newTask : any =  Task.user_collect.filter(data =>{
+            return data.id == userCollectionId
+        })
+        console.log(newTask)
+        newTask[0].point = point
+        Object.assign(newTask[0], {feedBack : feedBack});
+        await Task.save()
+        console.log(newTask)
+        return true
+    }
+
+    @Query(() => UserTaskCollection)
+    async GetScore(@Arg("timeLineId") timeLineId: string,@Ctx(){req} : MyContext  ) : Promise<UserTaskCollection>{
+        const user = checkAuth(req)
+        const Task = await TimeLineModels.findById(timeLineId)
+
+        const newTask : any =  Task.user_collect.filter(data =>{
+            return data.user_id == user.id 
+        })
 
         
 
-
-        
+        return newTask[0]
     }
 }

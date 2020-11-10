@@ -21,7 +21,7 @@ function ProfileCardDekstop({data,loading}) {
                         <CardInfoContainer>
                             <CardInfoBody>
                                 <MenuBookIcon fontSize="large" color="primary"/>
-                                <TextPrimary size="3.5rem" style={{marginLeft: '1rem'}}></TextPrimary>
+                                <TextPrimary size="3.5rem" style={{marginLeft: '1rem'}}>{loading ? '' : data.getClassNow.length}</TextPrimary>
 
                             </CardInfoBody>
                             <CardFooterBody>

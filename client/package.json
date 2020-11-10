@@ -13,6 +13,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "apollo-link-context": "^1.0.20",
+    "apollo-upload-client": "^14.1.2",
     "draft-js": "^0.11.7",
     "graphql": "^15.3.0",
     "jwt-decode": "^3.0.0",
@@ -28,7 +29,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && move build ../dist//public",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -50,4 +51,5 @@
       "last 1 safari version"
     ]
   }
+
 }

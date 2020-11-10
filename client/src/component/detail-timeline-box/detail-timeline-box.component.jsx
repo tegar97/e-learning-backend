@@ -6,7 +6,7 @@ import { useQuery } from '@apollo/client'
 import UserCollect from '../user-collect/user-collect.component'
 import DetailTimeLineBoxUser from '../Detail-timeline-box-user/DetailTimeLineBoxUser.component'
 
-function DetailTimeLineBox({post,match}) {
+function DetailTimeLineBox({history,post,match}) {
     const {data: CheckAdmin,loading : loadingCheckAuth} = useQuery(CHECK_ADMIN,{
         variables: {id : match.params.id}
 
@@ -17,7 +17,7 @@ function DetailTimeLineBox({post,match}) {
             loadingCheckAuth ? 'Loading ...' : 
             CheckAdmin.CheckAdmin  ? 
                     <React.Fragment>
-                       <DetailTimeLineBoxAdmin post={post} match={match}/>
+                       <DetailTimeLineBoxAdmin history={history} post={post} match={match}/>
                        <UserCollect post={post} />
                     </React.Fragment>
               :  <React.Fragment> 

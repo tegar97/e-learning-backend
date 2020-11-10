@@ -57,6 +57,14 @@ export class UserTaskCollection {
     @Property({default: null})
     point?: Number;
 
+    @Field({nullable: true}) 
+    @Property({default: null})
+    feedBack?: string;
+
+    @Field({nullable: true}) 
+    @Property()
+    file?: string;
+
     
     
 

@@ -134,6 +134,10 @@ __decorate([
 __decorate([
     type_graphql_1.Field({ nullable: true }),
     __metadata("design:type", String)
+], createTimeLine.prototype, "file", void 0);
+__decorate([
+    type_graphql_1.Field({ nullable: true }),
+    __metadata("design:type", String)
 ], createTimeLine.prototype, "type_content", void 0);
 __decorate([
     type_graphql_1.Field(),
@@ -201,6 +205,10 @@ __decorate([
     type_graphql_1.Field(),
     __metadata("design:type", String)
 ], collectAssigment.prototype, "timeLineId", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], collectAssigment.prototype, "file", void 0);
 collectAssigment = __decorate([
     type_graphql_1.InputType()
 ], collectAssigment);

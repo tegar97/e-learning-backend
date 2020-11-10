@@ -1,19 +1,18 @@
+import { UploadResolver } from './resolvers/uploadResolver';
 import { CommentsResolver } from './resolvers/CommentaryResolver';
-import { TimeLine } from './entities/timeLine';
 import { ApolloServer,PubSub } from "apollo-server-express";
-import Express from "express";
+import express from "express";
 import "reflect-metadata";
 import { buildSchema } from "type-graphql";
 import dotenv from 'dotenv'
-import { SubscriptionServer } from 'subscriptions-transport-ws';
-import { execute, subscribe } from 'graphql';
 // resolvers
 import {UserResolver} from "./resolvers/userResolver";
 import connectDatabase from "./config/server";
 import { classResolver } from "./resolvers/classResolver";
 import { TimeLineResolver } from "./resolvers/TimeLineResolver";
+import cors from 'cors'
+import path from 'path'
 import { UserTaskCollectResolver } from "./resolvers/userTaskCollectionResolver";
-import { createServer } from 'http';
 const pubsub = new PubSub();
 
 
@@ -27,7 +26,8 @@ const schema = await buildSchema({
       classResolver,
       TimeLineResolver
       ,UserTaskCollectResolver,
-      CommentsResolver
+      CommentsResolver,
+      UploadResolver
     ],
   
     
@@ -41,9 +41,14 @@ const schema = await buildSchema({
 connectDatabase()
 
 const server = new ApolloServer({schema,context: ({req,res})  => ({req,res,pubsub})});
-const app : any = Express();
+const app : any = express();
+
 server.applyMiddleware({app});
 app.set('view engine','ejs');
+app.use(express.static(__dirname+'/public'))
+
+app.use(cors())
+
 app.listen({ port:  process.env.PORT || 5000  }, () =>
   console.log(`🚀 Server ready and listening at ==> http://localhost:5000${server.graphqlPath}`))
 };

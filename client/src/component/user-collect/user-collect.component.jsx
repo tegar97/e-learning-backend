@@ -23,7 +23,7 @@ function UserCollect({post}) {
                         id="test-table-xls-button"
                         className="download-table-xls-button"
                         table="table-to-xls"
-                        filename="tablexls"
+                        filename="Data Nilai"
                         sheet="tablexls"
                         buttonText="Download as XLS"/>
                     </div>

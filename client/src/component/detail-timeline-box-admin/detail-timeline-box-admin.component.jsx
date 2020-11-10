@@ -12,16 +12,17 @@ import ReactHtmlParser from 'react-html-parser';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { useMutation } from '@apollo/client';
-import {GET_TIMELINE, UPDATE_TASK} from './../../graphql/TimeLine'
-function DetailTimeLineBoxAdmin({match,post}) {
+import {GET_TIMELINE, UPDATE_TASK,DELETE_TASK} from './../../graphql/TimeLine'
+function DetailTimeLineBoxAdmin({match,post,history}) {
     const postId = post.id
     const [onEdit,setOnEDIT] = useState(false)    
     const [state, setState] = React.useState({
         checkedA: false,
         checkedB: post.isActive,
       });
+
+    const [deletePost] = useMutation(DELETE_TASK)
     
-    console.log(post.id)
     const [description,setDescription] = useState('')
     const [content_title,setContentTitle] = useState(`${post.content_title}`)
     const [due,setDue] = useState(`${post.due}`)
@@ -46,7 +47,23 @@ function DetailTimeLineBoxAdmin({match,post}) {
         },
         refetchQueries: [{query : GET_TIMELINE,variables : {id : postId}}]
     })
+    const DeleteAction = () => {
+        
+        var r = window.confirm("Delete Tugas Ini ( Tidak Bisa Di restore)");
 
+        if(r == true) {
+
+            deletePost({update(){
+                history.push(`/class/${match.params.id}`)
+    
+            },variables: {
+                id: postId
+            }})
+        }else{
+            
+        }
+  
+    }
 
 
     const BeforerClickEdit = (
@@ -54,7 +71,7 @@ function DetailTimeLineBoxAdmin({match,post}) {
             <CardTaskDetailAdminHeader>
                 <Paragraph style={{marginRight: 'auto'}}><Link component={RouterLink} to={`/class/${match.params.id}`}>Kembali</Link></Paragraph>
                 <Button  onClick={() => setOnEDIT(true)} style={{marginRight: '1rem'}} variant="outlined"  startIcon={<EditIcon style={{color: '#209cee'}} />}>   <Paragraph size="1.1rem" style={{color: '#209cee'}} >Edit</Paragraph></Button>
-                <Button variant="outlined"  startIcon={<DeleteIcon style={{color: 'red'}} />}><Paragraph size="1.1rem" style={{color: 'red'}} >Delete</Paragraph></Button>       
+                <Button onClick={DeleteAction} variant="outlined"  startIcon={<DeleteIcon style={{color: 'red'}} />}><Paragraph size="1.1rem" style={{color: 'red'}} >Delete</Paragraph></Button>       
             </CardTaskDetailAdminHeader>
             <CardTaskDetailAdminContent >
                 <FormGroup>

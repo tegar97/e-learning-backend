@@ -28,6 +28,7 @@ function TimeLinePostBox({match}) {
              <BoxItem>
                 <AssignmentIndIcon style={{color: 'var(--color-primary)',fontSize: "4rem"}}/>
                 <Paragraph size='1.1rem'> Absensi </Paragraph>
+                
              </BoxItem>
            
         </BoxContainer>

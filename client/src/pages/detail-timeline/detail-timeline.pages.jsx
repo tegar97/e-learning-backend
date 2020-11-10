@@ -5,10 +5,13 @@ import ProfileCardMobile from '../../component/profile-card-mobile/profile-card-
 import { Content } from '../../Global-Style/ContainerAuth';
 import { useMediaQuery } from '@material-ui/core';
 import MenuCardClass from './../../component/Menu-side-class/Menu-Side-Class.component'
-import { GET_TIMELINE } from '../../graphql/TimeLine';
+import { GET_TIMELINE, GET_TIMELINES } from '../../graphql/TimeLine';
 import DetailTimeLineBox from '../../component/detail-timeline-box/detail-timeline-box.component';
+import ClassInfo from '../../component/class-info/class-info.component';
+import CodeClassBox from '../../component/code-class-box/code-class-box.component';
+import { GET_CLASS } from '../../graphql/Class';
 
-function DetailTimeLine({match}) {
+function DetailTimeLine({match,history}) {
     const lg = useMediaQuery('(min-width:961px)');
     const md = useMediaQuery('(max-width:960px)');
     const {data,loading} = useQuery(GET_TIMELINE,{
@@ -16,7 +19,10 @@ function DetailTimeLine({match}) {
             id: match.params.postId
         }
     })
-
+    const {data : timelines,loading : loadingTimeLines} = useQuery(GET_CLASS,{
+     
+        variables: {id : match.params.id}
+    })
     
     return (
         <React.Fragment>
@@ -33,13 +39,16 @@ function DetailTimeLine({match}) {
             <SectionCenter>
             {
                 loading ? 'loading ...' : 
-                <DetailTimeLineBox match={match} post={data.getTimeLine}/>
+                <DetailTimeLineBox history={history} match={match} post={data.getTimeLine}/>
      
             }
              
                
             </SectionCenter>
-            <SectionRight>3</SectionRight>
+            <SectionRight>
+            <ClassInfo classDetail={timelines} loading={loadingTimeLines}/>
+            <CodeClassBox  classDetail={timelines} loading={loadingTimeLines} />
+            </SectionRight>
         </Content>
         </React.Fragment>
     )

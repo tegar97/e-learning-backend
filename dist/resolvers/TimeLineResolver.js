@@ -22,7 +22,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TimeLineResolver = void 0;
-const timeLine_1 = require("../entities/timeLine");
+const timeLine_1 = require("./../entities/timeLine");
+const timeLine_2 = require("../entities/timeLine");
 const typeDef_1 = require("./typeDef");
 const type_graphql_1 = require("type-graphql");
 const check_auth_1 = require("../util/check-auth");
@@ -43,7 +44,7 @@ let TimeLineResolver = class TimeLineResolver {
             return TimeLine;
         });
     }
-    CreatePost({ content, type_content, class_id, content_title, point, due }, { req }) {
+    CreatePost({ content, type_content, class_id, content_title, point, due, file }, { req }) {
         return __awaiter(this, void 0, void 0, function* () {
             const user = check_auth_1.checkAuth(req);
             const { valid, errors } = validators_1.validateTimeLinePost(content);
@@ -74,11 +75,19 @@ let TimeLineResolver = class TimeLineResolver {
                     class_id,
                     point,
                     due,
+                    file,
                     isActive: true,
                     createdAt: new Date().toISOString()
                 });
                 return TimeLine;
             }
+        });
+    }
+    DeletPost(id, { req }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            check_auth_1.checkAuth(req);
+            yield timeLine_1.TimeLineModels.findByIdAndDelete(id);
+            return true;
         });
     }
     EditPost({ id, content, content_title, point, due, isActive }, { req }) {
@@ -129,26 +138,33 @@ let TimeLineResolver = class TimeLineResolver {
     }
 };
 __decorate([
-    type_graphql_1.Query(() => timeLine_1.TimeLine),
+    type_graphql_1.Query(() => timeLine_2.TimeLine),
     __param(0, type_graphql_1.Arg("id", () => String)), __param(1, type_graphql_1.Ctx()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], TimeLineResolver.prototype, "getTimeLine", null);
 __decorate([
-    type_graphql_1.Query(() => [timeLine_1.TimeLine]),
+    type_graphql_1.Query(() => [timeLine_2.TimeLine]),
     __param(0, type_graphql_1.Arg("class_id", () => String)), __param(1, type_graphql_1.Ctx()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], TimeLineResolver.prototype, "getTimeLines", null);
 __decorate([
-    type_graphql_1.Mutation(() => timeLine_1.TimeLine),
+    type_graphql_1.Mutation(() => timeLine_2.TimeLine),
     __param(0, type_graphql_1.Arg("data")), __param(1, type_graphql_1.Ctx()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeDef_1.createTimeLine, Object]),
     __metadata("design:returntype", Promise)
 ], TimeLineResolver.prototype, "CreatePost", null);
+__decorate([
+    type_graphql_1.Mutation(() => Boolean),
+    __param(0, type_graphql_1.Arg("id")), __param(1, type_graphql_1.Ctx()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], TimeLineResolver.prototype, "DeletPost", null);
 __decorate([
     type_graphql_1.Mutation(() => Boolean),
     __param(0, type_graphql_1.Arg("data")), __param(1, type_graphql_1.Ctx()),

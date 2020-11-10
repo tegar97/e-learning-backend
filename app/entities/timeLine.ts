@@ -63,9 +63,9 @@ export class TimeLine {
     @Property()
     content?: string;
 
-    @Field(type => [fileDoc], { nullable: true })
-    @Property({type: [fileDoc]})
-    file?: fileDoc[]
+    @Field({nullable: true})
+    @Property()
+    file: string
 
     @Field()
     @Property()
@@ -106,7 +106,7 @@ export class TimeLine {
     @Field()
     @Property({required: true,default: new Date().toISOString()})
     updateAt?: string;
-    private _doc: any;
+    _doc: any;
 
    
 

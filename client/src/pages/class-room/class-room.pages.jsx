@@ -10,6 +10,8 @@ import ProfileCardMobile from '../../component/profile-card-mobile/profile-card-
 import { SectionCenter, SectionLeft, SectionRight } from './class-room-styles'
 import MenuCardClass from './../../component/Menu-side-class/Menu-Side-Class.component'
 import TimeLine from '../../component/Time-Line/time-line.component'
+import ClassInfo from '../../component/class-info/class-info.component'
+import CodeClassBox from '../../component/code-class-box/code-class-box.component'
 
 function ClassRoom({match}) {
     //Initial value / state
@@ -49,11 +51,15 @@ function ClassRoom({match}) {
             }
                
                 <SectionCenter>
+                    
                     <TimeLine match={match} />
                  
                    
                 </SectionCenter>
-                <SectionRight>{loading ? '' : data.getDetailRoom.code_class}</SectionRight>
+                <SectionRight>
+                    <ClassInfo classDetail={data} loading={loading}/>
+                    <CodeClassBox  classDetail={data} loading={loading} />
+                </SectionRight>
             </Content>
             </React.Fragment>
         )

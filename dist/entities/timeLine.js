@@ -85,9 +85,9 @@ __decorate([
     __metadata("design:type", String)
 ], TimeLine.prototype, "content", void 0);
 __decorate([
-    type_graphql_1.Field(type => [fileDoc], { nullable: true }),
-    typegoose_1.prop({ type: [fileDoc] }),
-    __metadata("design:type", Array)
+    type_graphql_1.Field({ nullable: true }),
+    typegoose_1.prop(),
+    __metadata("design:type", String)
 ], TimeLine.prototype, "file", void 0);
 __decorate([
     type_graphql_1.Field(),

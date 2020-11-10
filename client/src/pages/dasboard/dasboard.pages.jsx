@@ -42,7 +42,7 @@ function Dasboard({history}) {
                 </ContentInfo>
 
                 
-
+                    
               </ContentRight>
                 <div>
                 

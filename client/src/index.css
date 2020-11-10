@@ -111,3 +111,7 @@ color: #000000;
 .MuiIcon-fontSizeLarge{
   font-size: 1.6rem !important;
 }
+.download-table-xls-butto{
+  margin-left: 0;
+  color: red;
+}

@@ -14,9 +14,11 @@ import { FormGroup } from '../create-task/create-task-ui/create-task-ui.styles';
 import { ModalUserContainer } from './modal-view-user-collect-styles';
 import ReactHtmlParser from 'react-html-parser';
 import { useMutation } from '@apollo/client';
-import { GET_TIMELINE, GIVE_SCORE } from '../../graphql/TimeLine';
+import { GET_TIMELINE } from '../../graphql/TimeLine';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { GIVE_SCORE } from '../../graphql/Task';
+
 const styles = (theme) => ({
   root: {
     margin: 0,
@@ -58,6 +60,7 @@ const DialogActions = withStyles((theme) => ({
 }))(MuiDialogActions);
 
  function ModalViewUserCollect({data,postId}) {
+   console.log(postId)
     const [open, setOpen] = React.useState(false);
     const [score,setScore] = React.useState(data.point)
     const [feedBack,setFeedBack] = React.useState('')
@@ -66,8 +69,8 @@ const DialogActions = withStyles((theme) => ({
             setOpen(false)
         },
         variables:{
-            timeLineId : postId,
-            userCollectId : data.id,
+          timeLineId : postId,
+          userCollectionId: data.id,
             point: parseInt(score),
             feedBack: feedBack
         },
@@ -82,10 +85,9 @@ const DialogActions = withStyles((theme) => ({
     };
     const onSubmit = (e) =>{
         e.preventDefault();
-        console.log(typeof score)
         giveScore()
-    }
-
+      }
+      
   return (
     <div>
       <Button variant="text" color="secondary" onClick={handleClickOpen}>
@@ -115,21 +117,29 @@ const DialogActions = withStyles((theme) => ({
                             } }} fullWidth/>
                     </FormGroup>
                     <FormGroup>
+                        <Paragraph  >Telat Mengumpulkan ? </Paragraph> 
+                        <Typography>{data.isLate === false ? <p style={{color: 'green'}}>Tidak</p> :  <p style={{color: 'red'}}>TELAT</p>}</Typography>
+                    </FormGroup>
+                    <FormGroup>
                         <Paragraph  >Jawaban </Paragraph> 
                         <Typography>{ReactHtmlParser(data.task_message_online)}</Typography>
+                    </FormGroup>
+                    <FormGroup>
+                        <Paragraph  >Berkas </Paragraph> 
+                        <a href={`http://localhost:5000/images/${data.file}`} download>{data.file}</a>
                     </FormGroup>
                     <FormGroup>
                         <Paragraph  >Jawaban(Via Berkas) </Paragraph> 
                         <Typography>-</Typography>
                     </FormGroup>
                     <FormGroup>
-                    <Paragraph  >Nama</Paragraph> 
-                    <TextField  id="score"  value={score} onChange={(e) => setScore(e.target.value)} name="score" style={{marginTop: '1rem'}} size="medium" id="standard-basic" variant="outlined"  label="Nilai"   type="number"  inputProps={{style: {fontSize: 15}}} // font size of input text
+                    <Paragraph  >Nilai</Paragraph> 
+                    <TextField  id="score"   maxLength="100"   value={score} onChange={(e) => setScore(e.target.value)} name="score" style={{marginTop: '1rem',marginBottom: '1rem'}} size="medium" id="standard-basic" variant="outlined"  label="Nilai"   type="number"  inputProps={{style: {fontSize: 15}}} // font size of input text
                         InputLabelProps={{
                         style: {
                         fontSize: '1.3rem'
                         } }} fullWidth/>
-
+                    <Paragraph  >FeedBack</Paragraph> 
                     <CKEditor name="content"
                         editor={ ClassicEditor }
                         data={feedBack}

@@ -7,6 +7,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { useMutation } from '@apollo/client';
 import { CREATE_TASK, GET_TIMELINES } from '../../../graphql/TimeLine';
+import { UPLOAD_FILE } from '../../../graphql/upload';
 function CreateTaskUi({match,setOpen}) {
     const id = match.params.id
     
@@ -18,7 +19,7 @@ function CreateTaskUi({match,setOpen}) {
     const [taskField,setTaskField] = useState({name_task : '',description_task : '', point : 100,task_file: ``,due: ``})
     const [selectedFile, setSelectedFile] = useState()
     const [preview, setPreview] = useState()
-    const [imageType,setImageType] = useState(['jpg','png','jfif'])
+    const [imageType,setImageType] = useState(['jpg','png','jfif',"jpeg"])
     
      // create a preview as a side effect, whenever selected file is changed
      useEffect(() => {
@@ -72,15 +73,20 @@ function CreateTaskUi({match,setOpen}) {
             type_content: 'task',
             point : point,
             due: due,
-            class_id: id
+            class_id: id,
+            file: taskField.task_file
         }
     })
+
+    const [uploadFile] = useMutation(UPLOAD_FILE)
     const handleSubmit  = async (e) => {
         e.preventDefault();
-        console.log(taskField)
         CreateTask()
-      
-    
+        if(taskField.task_file) {
+            uploadFile({variables: {file }})
+
+        }
+
     }
   
     return (

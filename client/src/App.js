@@ -40,7 +40,7 @@ function App() {
           <Route exact path="/login" component={Login}/>
           <Route exact path="/register" component={Register}/>
           <PrivateRoute  exact path="/"  layout={RouteWithNavbar} component={Dasboard}/>
-          <Route exact path="/class" component={Classes}/>
+          <PrivateRoute exact path="/class"   layout={RouteWithNavbar} component={Classes}/>
           <PrivateRoute exact  path="/class/:id" layout={RouteWithNavbar} component={ClassRoom}/>
           <PrivateRoute exact path="/class/:id/d/:postId" layout={RouteWithNavbar}  component={DetailTimeLine}/>
           <Route exact path="/menu-mobile" component={MenuMobile}/>

@@ -5,8 +5,13 @@ import { Link} from 'react-router-dom'
 export const  ContentInfo = styled.div`
 
    margin-top: 5rem;
-   width: 100%
-    
+   width: 100%;
+   @media only screen and (max-width:  960px) {
+      margin-top: 1rem;
+
+
+
+    }
 
 
         

@@ -77,6 +77,16 @@ __decorate([
     typegoose_1.prop({ default: null }),
     __metadata("design:type", Number)
 ], UserTaskCollection.prototype, "point", void 0);
+__decorate([
+    type_graphql_1.Field({ nullable: true }),
+    typegoose_1.prop({ default: null }),
+    __metadata("design:type", String)
+], UserTaskCollection.prototype, "feedBack", void 0);
+__decorate([
+    type_graphql_1.Field({ nullable: true }),
+    typegoose_1.prop(),
+    __metadata("design:type", String)
+], UserTaskCollection.prototype, "file", void 0);
 UserTaskCollection = __decorate([
     type_graphql_1.ObjectType({ description: "The UserTaskCollection model" })
 ], UserTaskCollection);

@@ -1,0 +1,20 @@
+1.terlebih dahulu install file ireportnya
+2.buka netbeas
+3.buka menu tools -> plugin -> download -> add plugins 
+4.setelah itu select semua file yang telah didownload tadi
+5.buat project baru
+6.buat form sederhana
+7.import file jar yang telah didownload dengan cara klik kanan di folder library select jar/folder seleteah itu pilih file library yang telah didownload
+8.jika sudah klik kanan di package project setelah itu pilihn ew dan klik other
+8.setelah itu akan muncul modal untuk setting ireport
+9.pilih layour yang mau udah jadi atau template klik next
+10.sesuaikan nama dan lokasi penyimpanan filenya klik next
+11.klik new disebalah form field
+12.masukan nama database , jdbc driver ,url database, username,password , jika sudah klik next
+13.masuka query sql ,sesuaikan dengan tabel yang telah dibuat di database klik next 2x
+14.finish
+15.setelah itu akan otomatis terbuat file jrxml dan jasper
+16.kembali ke form , klik 2 kali ditombol submit 19.
+17.masukan codingan yang telah disediakan
+18.buat class koneksi 
+18.success

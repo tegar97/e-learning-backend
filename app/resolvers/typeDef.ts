@@ -110,6 +110,10 @@ export class createTimeLine implements Partial<TimeLine>{
     @Field()
     content?: string;
 
+    
+    @Field({nullable: true})
+    file?: String;
+
     @Field({nullable: true})
     type_content!: string;
 
@@ -121,6 +125,7 @@ export class createTimeLine implements Partial<TimeLine>{
 
     @Field({nullable: true})
     due?: String;
+
 
 
 
@@ -167,6 +172,10 @@ export class collectAssigment implements Partial<UserTaskCollection>{
    
     @Field()
     timeLineId?: string;
+
+
+    @Field()
+    file?: string;
 
     
 

@@ -61,3 +61,18 @@ export const PostTaskInfo = styled.div`
     
 
 `
+
+export const PostImageContainer = styled.div`
+    margin-top: 1rem;
+
+`
+
+export const PostFileContainer = styled.div`
+    display: flex;
+    height: 5rem;
+    padding: 0.5rem;
+    background-color:#e2e7ff;
+    border-radius: 4px;
+    align-items: center;
+    margin-top: 1rem;
+`

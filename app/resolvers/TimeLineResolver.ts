@@ -1,3 +1,4 @@
+import { TimeLineModels } from './../entities/timeLine';
 import { TimeLine, TimeLineModels } from '../entities/timeLine';
 import { createTimeLine, getDetailClass, getDetailsData, EditTimeLine } from './typeDef';
 import { MyContext } from '../util/types';
@@ -34,13 +35,15 @@ export class TimeLineResolver {
         return TimeLine
     }
     @Mutation(() => TimeLine)
-    async CreatePost(@Arg("data"){content,type_content,class_id,content_title,point,due}: createTimeLine,@Ctx(){req} : MyContext ) : Promise<TimeLine>{
+    async CreatePost(@Arg("data"){content,type_content,class_id,content_title,point,due,file}: createTimeLine,@Ctx(){req} : MyContext ) : Promise<TimeLine>{
         const user : userData  = checkAuth(req)  
         const {valid,errors} = validateTimeLinePost(content)
         console.log(content_title)
         if(!valid){
             throw new UserInputError('Errors',{errors})
         }   
+
+        
         //TODO : check type time line 
         if(type_content == 'announcement'){
             console.log('1')
@@ -65,6 +68,7 @@ export class TimeLineResolver {
                 class_id,
                 point,
                 due,
+                file,
                 isActive: true,
                 createdAt: new Date().toISOString()
             })
@@ -72,6 +76,13 @@ export class TimeLineResolver {
             return TimeLine  
         }
        
+    }
+    @Mutation(() => Boolean)
+    async DeletPost(@Arg("id")id : string,@Ctx(){req} : MyContext ) : Promise<Boolean>{
+        checkAuth(req)  
+        await TimeLineModels.findByIdAndDelete(id)
+        return true
+        
     }
     @Mutation(() => Boolean)
     async EditPost(@Arg("data"){id,content,content_title,point,due,isActive}: EditTimeLine,@Ctx(){req} : MyContext ) : Promise<Boolean>{
