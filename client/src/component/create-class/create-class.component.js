@@ -17,7 +17,7 @@ const CreateClass = ({history}) => {
     const [errors,setErrors] = useState('')
    
     const {value,onChange,onSubmit} = useForm(CreateClassCallBack,initialState)
-    const [CreateClass] = useMutation(CREATE_CLASS,{
+    const [CreateClass,{loading}] = useMutation(CREATE_CLASS,{
         update(proxy,{data}){
             history.push(`/class/${data.createClass.id}`)
         },
@@ -74,7 +74,7 @@ const CreateClass = ({history}) => {
       </FormGroup>
 
                 {name.length > 0 ?  <Button  type="submit" variant="contained" color="primary" fullWidth size="large" style={{color: '#fff',height: '4rem',fontSize: '1.3rem',fontWeight: "400"}}>Submit</Button>
-                :  <Button  variant="contained" disabled fullWidth size="large"  style={{height: '4rem',fontSize: '1.3rem',fontWeight: "400"}}>Gabung</Button>}
+                :  <Button  variant="contained" disabled fullWidth size="large"  style={{height: '4rem',fontSize: '1.3rem',fontWeight: "400"}}>{loading ? 'loading' : 'submit'}</Button>}
              </CodeClassHeader>
           
            

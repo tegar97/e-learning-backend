@@ -5,7 +5,7 @@ export const IconAdd = styled(Fab)`
      position: fixed;
 
    @media only screen and (max-width: 56.25em) {
-      top: 70%;
+      top: 80%;
       padding: 0;
      right: 0;
      position: fixed

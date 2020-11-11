@@ -16,7 +16,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const connectDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // mongodb+srv://tegar:tegar123xx@cluster0.xfdkb.mongodb.net/e-learning2?retryWrites=true&w=majority
-        const conn = yield mongoose_1.default.connect('mongodb+srv://tegar:tegar123xx@cluster0.xfdkb.mongodb.net/e-learning2?retryWrites=true&w=majority', {
+        const conn = yield mongoose_1.default.connect('mongodb+srv://tegar:tegar123xx@cluster0.s4ukf.mongodb.net/e-learning?retryWrites=true&w=majority', {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });

@@ -59,7 +59,7 @@ function Login({history}) {
                     <Paragraph><Link component={RouterLink} to="/forgot-password">Lupa Password ?</Link></Paragraph>
                 </div>
 
-                <Button  type="submit" variant="contained" color="primary" fullWidth size="large" style={{color: '#fff',height: '4rem',fontSize: '1.3rem',fontWeight: "400"}}>Submit</Button>
+                <Button  type="submit" variant="contained" color="primary" fullWidth size="large" style={{color: '#fff',height: '4rem',fontSize: '1.3rem',fontWeight: "400"}}>{loading ? 'loading .... ': 'submit'}</Button>
             </Form>
             <Paragraph>Belum Punya Akun ? <Link component={RouterLink} to="/register">Daftar Sekarang</Link></Paragraph>
          </SidePageLoginRegister>

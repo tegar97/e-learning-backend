@@ -11,7 +11,7 @@ function ToolTipIcon() {
         
         absolute: {
           position: 'fixed',
-          bottom: theme.spacing(2),
+          bottom: theme.spacing(5),
           right: theme.spacing(5),
           color: '#fff',
           backgroundColor: '#4BA8CE'

@@ -51,7 +51,7 @@ export const Content = styled.div`
         flex-direction: column;
         background-color: #fff;
         padding: 4rem 1rem;
-        border-radius: 30px 30px 0 0;
+        border-radius: 25px 25px 0 0;
         height: 100%;
     }
 

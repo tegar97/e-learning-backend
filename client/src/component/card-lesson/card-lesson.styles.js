@@ -17,7 +17,7 @@ export const CardLessonContainer = styled.div`
         align-items: center;
         border: 2px solid rgba(194, 194, 194,.5);
         height: 100%;
-        padding: 1rem;
+        padding: 0.5rem;
 
 
 

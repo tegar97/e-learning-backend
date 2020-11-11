@@ -47,7 +47,7 @@ const CardLesson = ({theory,assignment,isClass,classData,data}) => {
         
         
                 {lg && !md && <Link to={`/class/${data.id}`} style={{display: 'flex',alignItems: 'center',marginTop: '5rem',marginRight: '2rem'}}><Button  color="primary" variant="contained" style={{color: '#fff',fontSize:"1rem",padding: '1rem 2rem'}}>Lihat Kelas </Button></Link>}
-                {md && !lg && <ChevronRightIcon style={{color: 'var(--color-primary)'}}/>}
+                {md && !lg && <Link to={`/class/${data.id}`}><ChevronRightIcon style={{color: 'var(--color-primary)'}}/></Link> }
         </CardLessonContainer>
         
       

@@ -56,10 +56,14 @@ function ClassRoom({match}) {
                  
                    
                 </SectionCenter>
-                <SectionRight>
-                    <ClassInfo classDetail={data} loading={loading}/>
-                    <CodeClassBox  classDetail={data} loading={loading} />
-                </SectionRight>
+                {
+                    lg && 
+                    <SectionRight>
+                   
+                        <ClassInfo classDetail={data} loading={loading}/>
+                        <CodeClassBox  classDetail={data} loading={loading} />
+                    </SectionRight>
+                }
             </Content>
             </React.Fragment>
         )

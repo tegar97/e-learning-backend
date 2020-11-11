@@ -43,7 +43,7 @@ function App() {
           <PrivateRoute exact path="/class"   layout={RouteWithNavbar} component={Classes}/>
           <PrivateRoute exact  path="/class/:id" layout={RouteWithNavbar} component={ClassRoom}/>
           <PrivateRoute exact path="/class/:id/d/:postId" layout={RouteWithNavbar}  component={DetailTimeLine}/>
-          <Route exact path="/menu-mobile" component={MenuMobile}/>
+          <PrivateRoute exact path="/menu-mobile" layout={RouteWithNavbar}  component={MenuMobile}/>
           <Route exact path="/forgot-password" component={ForgotPassword}/>
           <Route exact path="/reset-password/:token" component={ResetPassword}/>
        </Switch>
