@@ -20,7 +20,6 @@ export const CardLessonContainer = styled.div`
         padding: 0.5rem;
 
 
-
     }
     
     &:hover{
@@ -45,6 +44,8 @@ export const CardIconContainer = styled.div`
         height: 3rem;
         border-radius: 100%;
         flex-basis: 10%;
+        margin-left: .7rem;
+
 
 
     }

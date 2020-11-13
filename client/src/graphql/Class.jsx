@@ -26,6 +26,7 @@ export const GET_CLASS_TODAY = gql`
         getClassNow{
                 id
                 name
+
             }
     }
        
@@ -40,6 +41,8 @@ export const GET_CLASS = gql`
             id
             name
             code_class
+            subjects
+            description
             user{
                 name
                 id
@@ -57,3 +60,13 @@ export const CHECK_ADMIN = gql`
         CheckAdmin(id:$id)
     }
 `
+export const FIND_ALL_CLASS = gql`
+    query findAllClass{
+        findAllClass{
+            name
+            id
+
+        }
+    }
+`
+

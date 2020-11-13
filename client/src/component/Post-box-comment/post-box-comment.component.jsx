@@ -10,7 +10,7 @@ function PostBoxComment({data : {id,content ,user_id,user_name,createdAt,user_ph
             <PostBoxContent>
                 <PostBoxCommentImage src={'https://image.freepik.com/free-vector/man-avatar-profile-round-icon_24640-14044.jpg'}  alt="user photo"  />
                 <PostBoxCommentInfo>
-                    <Paragraph bold="700" size="1rem">{user_name} <small>{moment.tz(createdAt,"Asia/Jakarta").fromNow()}</small></Paragraph>
+                    <Paragraph  size="1rem">{user_name} <small>{moment.tz(createdAt,"Asia/Jakarta").fromNow()}</small></Paragraph>
                     <p style={{fontSize : '1.1rem'}}>{content}</p>
                  </PostBoxCommentInfo>
                 

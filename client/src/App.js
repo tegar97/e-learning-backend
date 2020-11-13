@@ -14,17 +14,27 @@ import PrivateRoute from './route/PrivateRoute';
 import RouteWithNavbar from './route/RouteWithNavbar';
 import { ModalProvider } from './context/setModal';
 
+
+import Login from './pages/login/login.pages'
+import Register from './pages/register/register.pages'
+import Dasboard from './pages/dasboard/dasboard.pages'
+import DetailTimeLine from './pages/detail-timeline/detail-timeline.pages'
+import Classes from './pages/classes/classes.pages'
+import ClassRoom from './pages/class-room/class-room.pages'
+import MenuMobile from './pages/menu-mobile/menu-mobile.pages'
+import ForgotPassword from './pages/forgot-password/forgot-password'
+import ResetPassword from './pages/reset-password/reset-password'
 function App() {
   //Lazy React Component
-  const Login = lazy(() => import('./pages/login/login.pages'))
-  const Register = lazy(() => import('./pages/register/register.pages'))
-  const Dasboard = lazy(() => import('./pages/dasboard/dasboard.pages'))
-  const DetailTimeLine = lazy(() => import('./pages/detail-timeline/detail-timeline.pages'))
-  const Classes = lazy(() => import('./pages/classes/classes.pages'))
-  const ClassRoom = lazy(() => import('./pages/class-room/class-room.pages'))
-  const MenuMobile = lazy(() => import('./pages/menu-mobile/menu-mobile.pages'))
-  const ForgotPassword = lazy(() => import('./pages/forgot-password/forgot-password'))
-  const ResetPassword = lazy(() => import('./pages/reset-password/reset-password'))
+  // const Login = lazy(() => import('./pages/login/login.pages'))
+  // const Register = lazy(() => import('./pages/register/register.pages'))
+  // const Dasboard = lazy(() => import('./pages/dasboard/dasboard.pages'))
+  // const DetailTimeLine = lazy(() => import('./pages/detail-timeline/detail-timeline.pages'))
+  // const Classes = lazy(() => import('./pages/classes/classes.pages'))
+  // const ClassRoom = lazy(() => import('./pages/class-room/class-room.pages'))
+  // const MenuMobile = lazy(() => import('./pages/menu-mobile/menu-mobile.pages'))
+  // const ForgotPassword = lazy(() => import('./pages/forgot-password/forgot-password'))
+  // const ResetPassword = lazy(() => import('./pages/reset-password/reset-password'))
 
 
 
@@ -32,7 +42,7 @@ function App() {
     <Router>
     
     <ThemeProvider theme={theme}>
-      <Suspense fallback={<Spinner/>}>
+
      <AuthProvider>
       <ModalProvider>
       
@@ -49,7 +59,7 @@ function App() {
        </Switch>
       </ModalProvider>
          </AuthProvider>
-      </Suspense> 
+ 
     </ThemeProvider>
     
     </Router>

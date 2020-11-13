@@ -27,6 +27,7 @@ const CreateClass = ({history}) => {
         refetchQueries: [{query : GET_CLASS_TODAY}],
         variables : value
     })
+    
     function CreateClassCallBack() {
         CreateClass()
     }
@@ -73,8 +74,8 @@ const CreateClass = ({history}) => {
             </Select>
       </FormGroup>
 
-                {name.length > 0 ?  <Button  type="submit" variant="contained" color="primary" fullWidth size="large" style={{color: '#fff',height: '4rem',fontSize: '1.3rem',fontWeight: "400"}}>Submit</Button>
-                :  <Button  variant="contained" disabled fullWidth size="large"  style={{height: '4rem',fontSize: '1.3rem',fontWeight: "400"}}>{loading ? 'loading' : 'submit'}</Button>}
+                {name.length > 0 ?  <Button  type="submit" variant="contained" color="primary" fullWidth size="large" style={{color: '#fff',height: '4rem',fontSize: '1.3rem',fontWeight: "400"}}>{loading ? 'loading' : 'submit'}</Button>
+                :  <Button  variant="contained" disabled fullWidth size="large"  style={{height: '4rem',fontSize: '1.3rem',fontWeight: "400"}}>SUBMIT</Button>}
              </CodeClassHeader>
           
            

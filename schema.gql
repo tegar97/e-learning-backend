@@ -101,6 +101,7 @@ type Query {
   CheckFinishTask(id: String!): Boolean!
   checkPageResetPassword(token: String!): Boolean!
   createClass(data: createClass!): String!
+  findAllClass: [Classes!]!
   getClassNow: [your_class!]!
   getDetailRoom(id: String!): Classes!
   GetScore(timeLineId: String!): UserTaskCollection!

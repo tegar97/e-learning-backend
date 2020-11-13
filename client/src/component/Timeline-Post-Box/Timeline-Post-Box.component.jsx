@@ -6,11 +6,13 @@ import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import ModalCostum from '../modal/modal.component';
 import FormInfo from './../Form-Info/form-info.compoenent'
 import CreateTask from '../create-task/create-task.component';
+import { useMediaQuery } from '@material-ui/core';
 function TimeLinePostBox({match}) {
+    const lg = useMediaQuery('(min-width:961px)');
 
 
     return (
-        <TimeLinePost>
+        <TimeLinePost border={lg ? true : false}>
         <Paragraph size="1rem">Buat Tugas</Paragraph>
         <BoxContainer>
             <ModalCostum fullWidth HeaderTitle="Buat Tugas"  size="false" width="sm" ButtonComponent={

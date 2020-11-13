@@ -6,6 +6,7 @@ export const TimeLinePost = styled.div`
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.04) !important;
     padding: 2rem;
+    border: ${props => props.border ? props.border : '1px solid rgba(0,0,0,0.1)'}
 
 `
 export const BoxContainer = styled.div`

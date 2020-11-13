@@ -10,6 +10,7 @@ import DetailTimeLineBox from '../../component/detail-timeline-box/detail-timeli
 import ClassInfo from '../../component/class-info/class-info.component';
 import CodeClassBox from '../../component/code-class-box/code-class-box.component';
 import { GET_CLASS } from '../../graphql/Class';
+import AppBarClass from '../../component/app-bar-class/app-bar-class.component';
 
 function DetailTimeLine({match,history}) {
     const lg = useMediaQuery('(min-width:961px)');
@@ -26,8 +27,8 @@ function DetailTimeLine({match,history}) {
     
     return (
         <React.Fragment>
-        {md && <ProfileCardMobile/>}
-        <Content> 
+
+        <Content border="false"> 
         {
             lg  &&  (
                 <SectionLeft >
@@ -45,10 +46,13 @@ function DetailTimeLine({match,history}) {
              
                
             </SectionCenter>
-            <SectionRight>
-            <ClassInfo classDetail={timelines} loading={loadingTimeLines}/>
-            <CodeClassBox  classDetail={timelines} loading={loadingTimeLines} />
-            </SectionRight>
+            {
+                lg && 
+                <SectionRight>
+                    <ClassInfo classDetail={timelines} loading={loadingTimeLines}/>
+                    <CodeClassBox  classDetail={timelines} loading={loadingTimeLines} />
+                </SectionRight>
+            }
         </Content>
         </React.Fragment>
     )

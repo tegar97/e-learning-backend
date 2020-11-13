@@ -9,6 +9,10 @@ export const LOGIN_USER = gql`
             email
             photo
             token
+            your_class{
+                id
+                name
+            }
         }
     }
 

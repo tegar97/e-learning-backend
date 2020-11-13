@@ -12,6 +12,7 @@ import MenuCardClass from './../../component/Menu-side-class/Menu-Side-Class.com
 import TimeLine from '../../component/Time-Line/time-line.component'
 import ClassInfo from '../../component/class-info/class-info.component'
 import CodeClassBox from '../../component/code-class-box/code-class-box.component'
+import AppBarClass from '../../component/app-bar-class/app-bar-class.component'
 
 function ClassRoom({match}) {
     //Initial value / state
@@ -40,8 +41,9 @@ function ClassRoom({match}) {
     }else{
         classPage = (
             <React.Fragment>
-            {md && <ProfileCardMobile/>}
-            <Content> 
+           
+            <Content border="0"> 
+            {md && <AppBarClass classDetail={data} loading={loading}/>}
             {
                 lg  &&  (
                     <SectionLeft >

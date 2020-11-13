@@ -9,6 +9,7 @@ export const PostBoxContainer = styled.div`
     padding: 1rem;
     box-shadow: 0 2px 10px rgba(0,0,0,0.04) !important;
     margin-top: 1.5rem;
+    border: ${props => props.border ? props.border : '1px solid rgba(0,0,0,.1)'}
 
 
 `

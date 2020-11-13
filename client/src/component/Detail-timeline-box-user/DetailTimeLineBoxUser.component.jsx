@@ -15,7 +15,6 @@ import { UPLOAD_FILE } from '../../graphql/upload'
 function DetailTimeLineBoxUser({match,post}) {
     const [taskMessageOnline,settaskMessageOnline] = useState('')
     const [file,setFile] = useState('')
-
     const {data,loading} = useQuery(CHECK_FINISH_TASK,{
      
           variables : {
@@ -28,7 +27,7 @@ function DetailTimeLineBoxUser({match,post}) {
         }
     })
 
-    const [sendTask] = useMutation(SEND_TASK,{
+    const [sendTask,{loading :loadingSendData}] = useMutation(SEND_TASK,{
         
         variables:{
             task_message_online : taskMessageOnline,
@@ -36,7 +35,7 @@ function DetailTimeLineBoxUser({match,post}) {
             file: file.name
 
         },
-        refetchQueries : [,{query: GET_SCORE,variables : {timeLineId: post.id} },{query: CHECK_FINISH_TASK,variables : {id : post.id} }]
+        refetchQueries : [{query: GET_SCORE,variables : {timeLineId: post.id} },{query: CHECK_FINISH_TASK,variables : {id : post.id} }]
     })
 
     const [uploadFile] = useMutation(UPLOAD_FILE)
@@ -54,17 +53,21 @@ function DetailTimeLineBoxUser({match,post}) {
 
     const onSubmit =(e) =>{
         e.preventDefault();
+     
         uploadFile({variables: {
             file
         }})
+
+
         sendTask()
+        
 
     }
     return (
         <React.Fragment>
 
         {
-            loading ? "Loading.." : 
+            loadingGetScore ? "Loading.." : 
             <div>
                 <BoxContainer>
                     <Paragraph style={{marginRight: 'auto'}}><Link component={RouterLink} to={`/class/${match.params.id}`}>Kembali</Link></Paragraph>
@@ -89,7 +92,7 @@ function DetailTimeLineBoxUser({match,post}) {
                     
                 </BoxContainer>
                 {
-                    loadingGetScore ? 'loading'  :  data.CheckFinishTask || post.isActive === false ?    
+                   loading ? 'loading' : data.CheckFinishTask ?    
                     <React.Fragment>
                         <BoxContainer>
                             <BoxContainerHeader>
@@ -99,7 +102,7 @@ function DetailTimeLineBoxUser({match,post}) {
                                 <p style={{marginRight: 'auto'}}>{ReactHtmlParser(getScore.GetScore.task_message_online)}</p>
                                 <BoxScore>
                                     <Paragraph size="1.1rem">Nilai</Paragraph>
-                                    <Paragraph size="2rem">{loadingGetScore ? '' : getScore.GetScore.point}</Paragraph>
+                                    <Paragraph size="2rem">{loadingGetScore ? '' :  getScore.GetScore.point ? getScore.GetScore.point : '-'}</Paragraph>
                                 </BoxScore>
                             
                             </div>
@@ -127,10 +130,17 @@ function DetailTimeLineBoxUser({match,post}) {
                         <Paragraph style={{marginTop: '1rem',marginButton: '1rem'}}>
                                 File (pdf,word,photo,dll)
                             </Paragraph>
-                            <input type="file"  onChange={onSelectFile}/>
+                            <input type="file"  required onChange={onSelectFile}/>
                         </div>
-        
-                <Button type="submit" variant="contained" color="primary" style={{marginTop: '1rem',color :'#ffff'}}>Submit</Button>
+                {
+                    loadingSendData ? 
+                    <Button type="submit" disabled variant="contained" color="primary" style={{marginTop: '1rem',color :'#ffff'}}>Loading ...</Button>
+                        :
+                        post.isActive ? 
+                    <Button type="submit" variant="contained" color="primary" style={{marginTop: '1rem',color :'#ffff'}}>submit</Button>
+                        :
+                    <Button disabled type="submit" variant="contained" color="primary" style={{marginTop: '1rem',color :'#ffff'}}>Tugas Telah Ditutup</Button>
+                }
                 </form>
             </BoxContainer> 
                 }

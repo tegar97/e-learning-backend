@@ -25,6 +25,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserResolver = void 0;
+const check_auth_1 = require("./../util/check-auth");
+const Class_1 = require("./../entities/Class");
 const email_1 = require("./../util/email");
 const validators_1 = require("./../util/validators");
 const type_graphql_1 = require("type-graphql");
@@ -166,6 +168,39 @@ let UserResolver = class UserResolver {
             return Object.assign(Object.assign({}, user._doc), { token });
         });
     }
+    resetPassword({ password, passwordConfirm, tokenParams }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const hashedToken = crypto_1.default.createHash('sha256').update(tokenParams).digest('hex');
+            if (password !== passwordConfirm) {
+                throw new apollo_server_express_1.UserInputError('Password Confirm Salah', {
+                    error: {
+                        passwordConfirm: 'Password Confirm Tidak Sama Dengan Pssword'
+                    }
+                });
+            }
+            const user = yield User_1.UserModel.findOne({ passwordResetToken: hashedToken, passwordResetExpire: { $gt: Date.now() } });
+            if (!user) {
+                throw new apollo_server_express_1.UserInputError('Token Tidak Valid', {
+                    error: {
+                        tokenParams: 'Token Tidak Valid'
+                    }
+                });
+            }
+            user.password = yield bcrypt_1.default.hash(password, 12);
+            user.passwordResetToken = undefined;
+            user.passwordResetExpire = undefined;
+            yield user.save();
+            const token = genereteToken(user);
+            return Object.assign(Object.assign({}, user._doc), { token });
+        });
+    }
+    findAllClass({ req }) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const User = check_auth_1.checkAuth(req);
+            const AllClass = yield Class_1.ClassModels.find({ "user": { $elemMatch: { id: User.id } } });
+            return AllClass;
+        });
+    }
 };
 __decorate([
     type_graphql_1.Query(() => [User_1.User]),
@@ -208,6 +243,20 @@ __decorate([
     __metadata("design:paramtypes", [typeDef_1.ResetPassword]),
     __metadata("design:returntype", Promise)
 ], UserResolver.prototype, "resetPassword", null);
+__decorate([
+    type_graphql_1.Mutation(() => User_1.User),
+    __param(0, type_graphql_1.Arg("data")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeDef_1.ResetPassword]),
+    __metadata("design:returntype", Promise)
+], UserResolver.prototype, "resetPassword", null);
+__decorate([
+    type_graphql_1.Query(() => [Class_1.Classes]),
+    __param(0, type_graphql_1.Ctx()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UserResolver.prototype, "findAllClass", null);
 UserResolver = __decorate([
     type_graphql_1.Resolver()
 ], UserResolver);

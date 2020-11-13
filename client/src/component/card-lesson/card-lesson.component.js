@@ -19,6 +19,7 @@ const CardLesson = ({theory,assignment,isClass,classData,data}) => {
     return(
      
         <CardLessonContainer>
+         
             <CardIconContainer>
                 {theory && <MenuBookIcon style={{color: '#fff' }} fontSize="small"  /> }
                 {assignment && <AssignmentTurnedInIcon style={{color: '#fff'}}/> }

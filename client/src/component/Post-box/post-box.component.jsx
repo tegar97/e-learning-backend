@@ -7,7 +7,7 @@ import moment from 'moment-timezone'
 import  PostBoxComment  from '../Post-box-comment/post-box-comment.component';
 import PostBoxCommentInput from '../post-box-comment-input/post-box-comment-input.component';
 import BookIcon from '@material-ui/icons/Book';
-import { Button } from '@material-ui/core';
+import { Button, useMediaQuery } from '@material-ui/core';
 import { AuthContext } from '../../context/auth';
 import {Link} from 'react-router-dom'
 import FileCopyIcon from '@material-ui/icons/FileCopy';
@@ -26,9 +26,10 @@ function PostBox({match,data : {id,content,content_title,created_by,file,created
     const [loadMore ,setLoadMore] = useState(commentsCount)
     const {user} = useContext(AuthContext)
     const [imageType,setImageType] = useState(['jpg','png','jfif',"jpeg"])
+    const lg = useMediaQuery('(min-width:961px)');
 
     return (
-        <PostBoxContainer>
+        <PostBoxContainer border={lg ? true : false}>
             <PostHeader>
                 <UserImage src={'https://image.freepik.com/free-vector/man-avatar-profile-round-icon_24640-14044.jpg'}  alt="user photo" />
                 <Postinfo>
@@ -43,7 +44,7 @@ function PostBox({match,data : {id,content,content_title,created_by,file,created
                     <PostTaskContainer>
                             <BookIcon fontSize="large"  />
                             <PostTaskInfo>
-                                <Paragraph size="1.3rem"  bold="700" >{content_title}</Paragraph>
+                                <Paragraph size="1.3rem"  >{content_title}</Paragraph>
                                 <Paragraph size="1rem" >Batas Waktu Pengumpulan {moment(due).calendar()}</Paragraph>
                                 <Paragraph style={{marginTop: '1rem'}}size="1.1rem">{ReactHtmlParser(content, {replace})}</Paragraph>
                             </PostTaskInfo>
@@ -74,7 +75,7 @@ function PostBox({match,data : {id,content,content_title,created_by,file,created
                 </React.Fragment>
                 : (
                     <React.Fragment>
-                        <Paragraph size="1.3rem"  bold="700" >{content_title}</Paragraph>
+                        <Paragraph size="1.3rem"  >{content_title}</Paragraph>
                         <Paragraph style={{marginTop: '1rem'}}size="1.1rem">{ReactHtmlParser(content, {replace})}</Paragraph>
                         
                     </React.Fragment>
@@ -85,9 +86,9 @@ function PostBox({match,data : {id,content,content_title,created_by,file,created
             </PostBoxBody>
             <PostBoxFooter>
                 {
-                    loadMore === 1 ? <Paragraph  onClick={() => setLoadMore(commentsCount)} style={{marginTop: '1rem',cursor:"pointer"}}> Sembunyikan Komentar  </Paragraph>
+                    loadMore > 1 ? <Paragraph   onClick={() => setLoadMore(1)}  style={{marginTop: '1rem',cursor:"pointer"}}> Sembunyikan Komentar  </Paragraph>
                     :
-                    <Paragraph  onClick={() => setLoadMore(1)} style={{marginTop: '1rem',cursor:"pointer"}}> {commentsCount} Komentar </Paragraph>
+                    <Paragraph  onClick={() => setLoadMore(commentsCount)} style={{marginTop: '1rem',cursor:"pointer"}}> {commentsCount} Komentar </Paragraph>
                 }
                 {
                     comments.filter((item ,idx) => idx+1 >= loadMore )

@@ -10,6 +10,7 @@ import {useMutation} from '@apollo/client'
 import { REGISTER_USER } from '../../graphql/register';
 import Alert from '@material-ui/lab/Alert';
 import { AuthContext } from '../../context/auth';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 function Register({history}) {
@@ -69,7 +70,7 @@ function Register({history}) {
               <FormInput error={errors.email ? true : false}  name="email" type="email" id="email" value={email} onChange={onChange} label="Email" IconName={'MailOutlineIcon'}  />
               <FormInput  error={errors.password ? true : false}  name="password" type='password'  id="password"  value={password} onChange={onChange} IconName={'VpnKeyIcon'}    label="password"    />
               <FormInput error={errors.confirmPassword ? true : false}   name="confirmPassword" type='password'  id="confirmPassword"  value={confirmPassword} onChange={onChange} IconName={'VpnKeyIcon'}     label="Ulangi Password"    />
-              <Button type="submit"  variant="contained" color="primary" fullWidth size="large" style={{color: '#fff',height: '4rem',fontSize: '1.3rem',fontWeight: "400"}}>{loading ? 'Loading ...' : 'Submit' }</Button>
+              <Button type="submit"  variant="contained" color="primary" fullWidth size="large" style={{color: '#fff',height: '4rem',fontSize: '1.3rem',fontWeight: "400"}}>{loading ? <CircularProgress/> : 'Submit' }</Button>
             </Form>
             <Paragraph>Sudah Punya Akun ? <Link component={RouterLink} to="/login">Login Sekarang</Link></Paragraph>
          </SidePageLoginRegister>

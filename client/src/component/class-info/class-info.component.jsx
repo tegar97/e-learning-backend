@@ -22,7 +22,7 @@ function ClassInfo({classDetail,loading}) {
                 </ClassInfoBox>
 
                 <ClassRoles>
-                    <Paragraph bold="500" style={{color: '#000'}}>Guru</Paragraph>
+                    <Paragraph bold="500" style={{color: '#000'}}>-</Paragraph>
                  </ClassRoles>
 
             </ClassInfoContent>

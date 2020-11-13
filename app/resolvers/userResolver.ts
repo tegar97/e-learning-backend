@@ -1,6 +1,10 @@
+import { checkAuth } from './../util/check-auth';
+import { userData } from './classResolver';
+import { MyContext } from './../util/types';
+import { Classes, ClassModels } from './../entities/Class';
 import { Email } from './../util/email';
 import { validateRegister, validateLogin } from './../util/validators';
-import {Resolver,Mutation,Arg,Query} from 'type-graphql'
+import {Resolver,Mutation,Arg,Query,Ctx} from 'type-graphql'
 import {RegisterInput,LoginInput,ForgotPassword,ResetPassword} from './typeDef'
 import {User,UserModel} from './../entities/User'
 import { AuthenticationError, UserInputError } from 'apollo-server-express'
@@ -159,6 +163,45 @@ export class UserResolver {
 
         
     }
+     @Mutation(() => User)
+    async resetPassword(@Arg("data"){password,passwordConfirm,tokenParams} : ResetPassword ): Promise<User> {
+        const hashedToken = crypto.createHash('sha256').update(tokenParams).digest('hex')        
+        if(password !== passwordConfirm) {
+            throw new UserInputError('Password Confirm Salah',{
+                error:{
+                    passwordConfirm: 'Password Confirm Tidak Sama Dengan Pssword'
+                }
+            })
+
+        }
+        const user:any = await UserModel.findOne({passwordResetToken: hashedToken,passwordResetExpire: {$gt: Date.now()}})
+        if(!user){
+            throw new UserInputError('Token Tidak Valid',{
+                error:{
+                    tokenParams: 'Token Tidak Valid'
+                }
+            })
+        }
+        user.password = await bcrypt.hash(password,12)
+        user.passwordResetToken = undefined;
+        user.passwordResetExpire = undefined
+        await user.save();
+        const token = genereteToken(user)
+        return{
+            ...user._doc,
+             token
+        }
+
+        
+    }
+    @Query(() => [Classes])
+    async findAllClass(@Ctx(){req} : MyContext  ) : Promise<Classes[]>{
+        const User : userData  = checkAuth(req)  
+        const AllClass = await ClassModels.find({"user": {$elemMatch : {id: User.id}}})
+        return AllClass
+
+    }
+   
 
     
     
