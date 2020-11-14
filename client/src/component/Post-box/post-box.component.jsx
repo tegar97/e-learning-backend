@@ -63,7 +63,7 @@ function PostBox({match,data : {id,content,content_title,created_by,file,created
                      <PostFileContainer>
                         <FileCopyIcon/>
                         <p style={{marginRight: 'auto'}}>{file}</p>
-                        <a download href={`https://boiling-harbor-50123.herokuapp.com//images/${file}`}>download</a>
+                        <a download href={`https://boiling-harbor-50123.herokuapp.com/images/${file}`}>download</a>
                      </PostFileContainer>   
                     :
                     ''

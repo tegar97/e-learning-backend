@@ -1,14 +1,15 @@
-import React from 'react'
+import React,{Suspense} from 'react'
 import { Paragraph } from '../../Global-Style/Typography'
 import {BoxContainer,TimeLinePost,BoxItem} from './Timeline-post.styled'
 import InfoIcon from '@material-ui/icons/Info';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import ModalCostum from '../modal/modal.component';
 import FormInfo from './../Form-Info/form-info.compoenent'
-import CreateTask from '../create-task/create-task.component';
 import { useMediaQuery } from '@material-ui/core';
 function TimeLinePostBox({match}) {
     const lg = useMediaQuery('(min-width:961px)');
+    const CreateTask = React.lazy(() => import('../create-task/create-task.component'));
+    const FormInfo = React.lazy(() => import('./../Form-Info/form-info.compoenent'));
 
 
     return (
@@ -21,11 +22,15 @@ function TimeLinePostBox({match}) {
                     <Paragraph size='1.1rem'> Pengumuman</Paragraph>
                 </BoxItem>
             }>
-                <FormInfo match={match}/>
+            <Suspense fallback={<div>Loading...</div>}>
+             <FormInfo match={match}/>
+            
+            </Suspense>
             </ModalCostum>
              <BoxItem>
-              
+             <Suspense fallback={<div>Loading...</div>}>
                 <CreateTask match={match}/>
+            </Suspense>
              </BoxItem>
              <BoxItem>
                 <AssignmentIndIcon style={{color: 'var(--color-primary)',fontSize: "4rem"}}/>

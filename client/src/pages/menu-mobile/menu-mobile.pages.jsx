@@ -14,7 +14,7 @@ const MenuMobile = () => {
         <React.Fragment>
         {
             md &&  
-            <ContainerMobile>
+            <ContainerMobile >
                 <ContainerMobileHeader>
                     <MoreMobileHeaderTitle >Lainnya</MoreMobileHeaderTitle>
                 </ContainerMobileHeader>

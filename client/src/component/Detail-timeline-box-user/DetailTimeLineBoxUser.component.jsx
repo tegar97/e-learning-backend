@@ -35,7 +35,7 @@ function DetailTimeLineBoxUser({match,post}) {
             file: file.name
 
         },
-        refetchQueries : [{query: GET_SCORE,variables : {timeLineId: post.id} },{query: CHECK_FINISH_TASK,variables : {id : post.id} }]
+        refetchQueries : [{query: CHECK_FINISH_TASK,variables : {id : post.id} },{query: GET_SCORE,variables : {timeLineId: post.id} }]
     })
 
     const [uploadFile] = useMutation(UPLOAD_FILE)
@@ -67,7 +67,7 @@ function DetailTimeLineBoxUser({match,post}) {
         <React.Fragment>
 
         {
-            loadingGetScore ? "Loading.." : 
+            loading ? "Loading.." : 
             <div>
                 <BoxContainer>
                     <Paragraph style={{marginRight: 'auto'}}><Link component={RouterLink} to={`/class/${match.params.id}`}>Kembali</Link></Paragraph>
@@ -92,7 +92,7 @@ function DetailTimeLineBoxUser({match,post}) {
                     
                 </BoxContainer>
                 {
-                   loading ? 'loading' : data.CheckFinishTask ?    
+                    loadingGetScore ? 'loading' : data.CheckFinishTask ?    
                     <React.Fragment>
                         <BoxContainer>
                             <BoxContainerHeader>

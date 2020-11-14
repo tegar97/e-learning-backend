@@ -7,7 +7,7 @@ export const  ContentInfo = styled.div`
    margin-top: 5rem;
    width: 100%;
    @media only screen and (max-width:  960px) {
-      margin-top: 1rem;
+      margin-top: 0;
 
 
 

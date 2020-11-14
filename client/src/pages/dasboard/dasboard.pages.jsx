@@ -12,6 +12,8 @@ import ProfileCardDekstop from '../../component/Profile-card-dekstop/profile-car
 import { Paragraph } from '../../Global-Style/Typography';
 import { useQuery } from '@apollo/client';
 import CardLesson from '../../component/card-lesson/card-lesson.component';
+import Skeleton from '@material-ui/lab/Skeleton';
+
 function Dasboard({history}) {
      const {user} = useContext(AuthContext)
      const lg = useMediaQuery('(min-width:961px)');
@@ -30,7 +32,8 @@ function Dasboard({history}) {
                 <ContentInfo>
                     <Paragraph size="1.8rem" style={{marginBottom: '1rem'}}>Kelas Hari ini</Paragraph>
                     {
-                        loading ? <p>Loading .....</p> :  
+                        loading ?   <Skeleton w={100} height={100} animation="wave" />
+                        :  
                         data.getClassNow.length > 0 ?  data.getClassNow.map(data => (
                            <CardLesson isClass key={data.id} data={data}/>
 

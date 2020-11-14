@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import {Link} from 'react-router-dom'
 export const ContainerMobile = styled.div`
     width: 100%;
-
+    
  
     background-color: var(--primary-bg);
     

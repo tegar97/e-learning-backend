@@ -11,13 +11,13 @@ const NavMobile = () =>{
     let location = useLocation();
 
     return(
-        <AppBar>
+        <AppBar style={{zIndex: '1124124124124124'}}>
             <NavList>
                 
                 <NavItems to="/" style={{color: location.pathname === '/' ? '#4BA8CE' : ''}}   className={location.pathname === '/dasboard' ? 'active' : ''} ><HomeIcon  fontSize="large" 	/>Beranda</NavItems>
                 <NavItems to="/class" className={location.pathname === '/class' ? 'active' : ''}><SchoolIcon  fontSize="large" 	/>Kelas</NavItems>
-                <NavItems to="/chat"  className={location.pathname === '/chat' ? 'active' : ''}><HomeIcon  fontSize="large" 	/>Message</NavItems>
-                <NavItems  to="/dasboard">  
+                <NavItems to="/#"  className={location.pathname === '/chat' ? 'active' : ''}><HomeIcon  fontSize="large" 	/>Message</NavItems>
+                <NavItems  to="/notify" className={location.pathname === '/notify' ? 'active' : ''}>  
                     <Badge badgeContent={4} color="error" >
                     <NotificationsActiveIcon  fontSize="large"/>
 

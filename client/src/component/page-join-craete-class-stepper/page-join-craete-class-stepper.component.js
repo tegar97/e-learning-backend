@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{Suspense} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -7,11 +7,11 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Container } from '@material-ui/core';
-import CodeClass from '../code-class-form/code-class.component';
-import CreateClass from '../create-class/create-class.component';
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
+ 
 
   return (
     <div
@@ -56,7 +56,8 @@ const useStyles = makeStyles((theme) => ({
 const  PageJoinAndCreateClass = ({history}) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-
+  const CodeClass = React.lazy(() => import('../code-class-form/code-class.component'));
+  const CreateClass = React.lazy(() => import('../create-class/create-class.component'));
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -71,12 +72,16 @@ const  PageJoinAndCreateClass = ({history}) => {
       </AppBar>
       <TabPanel  as="div" value={value} index={0}>
         <Container maxWidth="sm">
+          <Suspense fallback={<div>Loading...</div>}>
             <CodeClass history={history}/>
+          </Suspense>
         </Container>
       </TabPanel>
       <TabPanel  as="div" value={value} index={1}>
         <Container maxWidth="sm">
+        <Suspense fallback={<div>Loading...</div>}>
             <CreateClass history={history}/>
+        </Suspense>
 
         </Container>
       </TabPanel>

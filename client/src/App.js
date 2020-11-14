@@ -24,6 +24,7 @@ import ClassRoom from './pages/class-room/class-room.pages'
 import MenuMobile from './pages/menu-mobile/menu-mobile.pages'
 import ForgotPassword from './pages/forgot-password/forgot-password'
 import ResetPassword from './pages/reset-password/reset-password'
+import notifyPages from './pages/notify/notify.pages';
 function App() {
   //Lazy React Component
   // const Login = lazy(() => import('./pages/login/login.pages'))
@@ -54,6 +55,7 @@ function App() {
           <PrivateRoute exact  path="/class/:id" layout={RouteWithNavbar} component={ClassRoom}/>
           <PrivateRoute exact path="/class/:id/d/:postId" layout={RouteWithNavbar}  component={DetailTimeLine}/>
           <PrivateRoute exact path="/menu-mobile" layout={RouteWithNavbar}  component={MenuMobile}/>
+          <PrivateRoute exact path="/notify" layout={RouteWithNavbar}  component={notifyPages}/>
           <Route exact path="/forgot-password" component={ForgotPassword}/>
           <Route exact path="/reset-password/:token" component={ResetPassword}/>
        </Switch>

@@ -1,4 +1,4 @@
-import React,{useState,useEffect,useContext} from 'react';
+import React,{useState,useEffect,useContext,Suspense } from 'react';
 //logo
 import Logo from './../../assets/logo_small.png'
 ///icon
@@ -10,7 +10,6 @@ import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import {AppBar,NavImage,NavList,NavItems,UserMenuContainer,UserContainer,UserName,UserRole} from './navbar.styles'
 import Badge from '@material-ui/core/Badge';
 //component
-import CardDropdown from './../card-dropdown/card-dropdown.component';
 import NotifyItem from './../notify-item/notify-item.component'
 import UserMenuCard  from './../user-menu-card/user-menu-card.component'
 
@@ -25,6 +24,7 @@ const Navbar = () => {
   const {user}  = useContext(AuthContext)
   const [notify,setNotify] = useState(false)
   const [DropDownUser,setDropDownUser] = useState(false)
+  const CardDropdown = React.lazy(() => import('./../card-dropdown/card-dropdown.component'));
 
   
    
@@ -34,12 +34,12 @@ const Navbar = () => {
   
     
     return (
-        <AppBar >
+        <AppBar style={{zIndex: '100'}} >
             <NavImage src={Logo}  alt="logo e-learning"/>
             <NavList>
                 <NavItems to="/"  style={{borderTop: location.pathname === '/' ? '3px solid #4BA8CE' : ''}}><HomeIcon style={{marginRight: '.7rem',color: location.pathname === '/' ? '#4BA8CE' : '',fontSize: "2.7rem"}}  	/>Beranda</NavItems>
                 <NavItems to="/class" style={{borderTop: location.pathname === '/class' ? '3px solid #4BA8CE' : ''}}><SchoolIcon style={{marginRight: '.7rem', color : location.pathname === '/class' ? '#4BA8CE' : '',fontSize: "2.7rem"}}  	/>Kelas</NavItems>
-                <NavItems to="/message" style={{borderTop: location.pathname === '/message' ? '3px solid #4BA8CE' : ''}}><HomeIcon style={{marginRight: '.7rem',color:  location.pathname === '/chat' ? '#4BA8CE' : '',fontSize: "2.7rem"}}  	/>Message</NavItems>
+                <NavItems to="/#" style={{borderTop: location.pathname === '/message' ? '3px solid #4BA8CE' : ''}}><HomeIcon style={{marginRight: '.7rem',color:  location.pathname === '/chat' ? '#4BA8CE' : '',fontSize: "2.7rem"}}  	/>Message</NavItems>
             </NavList>
             <UserMenuContainer>
                 <Badge  badgeContent={4} color="error" style={{marginRight: '1.5rem'}} onClick={ () => setNotify(!notify)}>
@@ -47,7 +47,10 @@ const Navbar = () => {
                 </Badge>
                   {
                   notify ?
-                  <CardDropdown component="notify" content={notifyItemData.map(data => <NotifyItem key={data.id} notifyData={data}/>)}/>
+                  <Suspense fallback={<div>Loading...</div>}>
+                     <CardDropdown component="notify" content={notifyItemData.map(data => <NotifyItem key={data.id} notifyData={data}/>)}/>
+                  
+                  </Suspense>
                   :
                   ''
                     }
@@ -56,7 +59,11 @@ const Navbar = () => {
                    <UserName variant="subtitle2">{user.name}</UserName>
                    <UserRole>Student</UserRole>
                 </UserContainer>
-                   {  DropDownUser ? <CardDropdown component="user" content={<UserMenuCard/>}/> : '' }
+                   {  DropDownUser ? 
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <CardDropdown component="user" content={<UserMenuCard/>}/>
+                    </Suspense>
+                    : '' }
              </UserMenuContainer>
         </AppBar>
     )
