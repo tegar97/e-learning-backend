@@ -6,6 +6,7 @@
   "scripts": {
     "client": "cd client && npm start",
     "start": "node server.js",
+    "start:prod1": "node server.js",
   
     "serve": "cross-env NODE_ENV=production node dist/server.js",
     "watch-node": "cross-env NODE_ENV=development nodemon dist/server.js",
