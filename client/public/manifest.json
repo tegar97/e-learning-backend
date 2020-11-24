@@ -3,9 +3,9 @@
   "name": "E-learning",
   "icons": [
     {
-      "src": "logo.png",
+      "src": "./logo.png",
       "sizes": "240x240",
-      "type": "image/x-icon"
+      "type": "image/png"
     }
   ],
   "start_url": ".",

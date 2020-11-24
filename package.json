@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "client": "cd client && npm start",
-    "start": "node dist/server.js",
+    "start": "node server.js",
+  
     "serve": "cross-env NODE_ENV=production node dist/server.js",
     "watch-node": "cross-env NODE_ENV=development nodemon dist/server.js",
     "build-ts": "tsc",

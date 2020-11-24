@@ -54,20 +54,21 @@ function DetailTimeLineBoxUser({match,post}) {
     const onSubmit =(e) =>{
         e.preventDefault();
      
+        
+   
+        sendTask()
+             
         uploadFile({variables: {
             file
-        }})
-
-
-        sendTask()
-        
+        }
+        })
 
     }
     return (
         <React.Fragment>
 
         {
-            loading ? "Loading.." : 
+            loading  ? "Loading.." : 
             <div>
                 <BoxContainer>
                     <Paragraph style={{marginRight: 'auto'}}><Link component={RouterLink} to={`/class/${match.params.id}`}>Kembali</Link></Paragraph>
@@ -92,14 +93,14 @@ function DetailTimeLineBoxUser({match,post}) {
                     
                 </BoxContainer>
                 {
-                    loadingGetScore ? 'loading' : data.CheckFinishTask ?    
+                    loading ? 'loading' : data.CheckFinishTask ?    
                     <React.Fragment>
                         <BoxContainer>
                             <BoxContainerHeader>
                                 <Paragraph>Jawaban Anda</Paragraph>
                             </BoxContainerHeader>
                             <div style={{display: 'flex',marginTop: '1rem'}}>
-                                <p style={{marginRight: 'auto'}}>{ReactHtmlParser(getScore.GetScore.task_message_online)}</p>
+                                <p style={{marginRight: 'auto'}}>{loadingGetScore ? 'Loading' :ReactHtmlParser(getScore.GetScore.task_message_online)}</p>
                                 <BoxScore>
                                     <Paragraph size="1.1rem">Nilai</Paragraph>
                                     <Paragraph size="2rem">{loadingGetScore ? '' :  getScore.GetScore.point ? getScore.GetScore.point : '-'}</Paragraph>
@@ -111,7 +112,7 @@ function DetailTimeLineBoxUser({match,post}) {
                             <BoxContainerHeader>
                                 <Paragraph>FeedBack Guru</Paragraph>
                             </BoxContainerHeader>
-                            <Paragraph  style={{marginRight: 'auto'}}>{ReactHtmlParser(getScore.GetScore.feedBack)}</Paragraph>
+                            <Paragraph  style={{marginRight: 'auto'}}>{loadingGetScore ? 'loading' : ReactHtmlParser(getScore.GetScore.feedBack)}</Paragraph>
 
                         </BoxContainer> 
                     </React.Fragment>

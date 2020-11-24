@@ -128,7 +128,7 @@ let UserResolver = class UserResolver {
             yield user.save();
             //3.Send Email
             try {
-                const resetUrl = `http://localhost:3000/reset-password/${resetToken}`;
+                const resetUrl = `http://localhost:3001/reset-password/${resetToken}`;
                 yield new email_1.Email(user, resetUrl).sendPasswordReset();
                 return 'Check Email';
             }

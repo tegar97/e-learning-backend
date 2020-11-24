@@ -13,10 +13,12 @@ export class Email {
     form: string 
     constructor(public user : User ,public url :string) {
         try {
+            console.log(this.to)
             this.to = user.email;
             this.firstname = user.name;
             this.url = url;
             this.form = 'Tegar <tegar@gmai.com>'
+            console.log(this.to)
             console.log(user.email)
             console.log(process.env.NODE_ENV)
 
@@ -28,7 +30,7 @@ export class Email {
 
     }
     newTransport() : any {
-        if(process.env.NODE_ENV === 'development') {
+
             const mailOption = {
                 host :  "smtp.mailtrap.io",
                 port : 2525,
@@ -39,7 +41,7 @@ export class Email {
 
             } as SMTPTransport.Options
             return nodemailer.createTransport(mailOption) 
-        }
+        
     }
     async send(template:string,subject:string) : Promise<void>{
         try {
@@ -55,17 +57,10 @@ export class Email {
                 html :html,
                 text : htmlToText.fromString(html)
             }
-            if(process.env.NODE_ENV === 'production') {
-                mailgun.messages().send(mailOptions, function (error:any) {
-                    if(error){
-                        console.log(error)
-                    }
-                    console.log(error)
-                });
-            }else{
-                await this.newTransport().sendMail(mailOptions)
+          
+            await this.newTransport().sendMail(mailOptions)
 
-            }
+            
         } catch (error) {
             console.log(error)
         }

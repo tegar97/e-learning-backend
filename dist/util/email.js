@@ -24,10 +24,12 @@ class Email {
         this.user = user;
         this.url = url;
         try {
+            console.log(this.to);
             this.to = user.email;
             this.firstname = user.name;
             this.url = url;
             this.form = 'Tegar <tegar@gmai.com>';
+            console.log(this.to);
             console.log(user.email);
             console.log(process.env.NODE_ENV);
         }
@@ -36,17 +38,15 @@ class Email {
         }
     }
     newTransport() {
-        if (process.env.NODE_ENV === 'development') {
-            const mailOption = {
-                host: "smtp.mailtrap.io",
-                port: 2525,
-                auth: {
-                    user: "06e7adc3c737a5",
-                    pass: "6e2348cd3e1891"
-                }
-            };
-            return nodemailer_1.default.createTransport(mailOption);
-        }
+        const mailOption = {
+            host: "smtp.mailtrap.io",
+            port: 2525,
+            auth: {
+                user: "06e7adc3c737a5",
+                pass: "6e2348cd3e1891"
+            }
+        };
+        return nodemailer_1.default.createTransport(mailOption);
     }
     send(template, subject) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -63,17 +63,7 @@ class Email {
                     html: html,
                     text: html_to_text_1.default.fromString(html)
                 };
-                if (process.env.NODE_ENV === 'production') {
-                    mailgun.messages().send(mailOptions, function (error) {
-                        if (error) {
-                            console.log(error);
-                        }
-                        console.log(error);
-                    });
-                }
-                else {
-                    yield this.newTransport().sendMail(mailOptions);
-                }
+                yield this.newTransport().sendMail(mailOptions);
             }
             catch (error) {
                 console.log(error);

@@ -49,7 +49,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     app.set('view engine', 'ejs');
     app.use(express_1.default.static(__dirname + '/public'));
     app.use(cors_1.default());
-    app.listen({ port: process.env.PORT || 5000 }, () => console.log(`🚀 Server ready and listening at ==> http://localhost:5000${server.graphqlPath}`));
+    app.listen({ port: process.env.PORT || 80 }, () => console.log(`🚀 Server ready and listening at ==> http://localhost${server.graphqlPath}`));
 });
 main().catch((error) => {
     console.log(error, 'error');

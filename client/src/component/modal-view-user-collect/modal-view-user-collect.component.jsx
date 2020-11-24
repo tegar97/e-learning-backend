@@ -126,7 +126,7 @@ const DialogActions = withStyles((theme) => ({
                     </FormGroup>
                     <FormGroup>
                         <Paragraph  >Berkas </Paragraph> 
-                        <a download href={`https://boiling-harbor-50123.herokuapp.com/images/${data.file}`} >{data.file}</a>
+                        <a download href={process.env.NODE_ENV === "production" ? `https://boiling-harbor-50123.herokuapp.com/images/${data.file}` : `http://localhost:5000/images/${data.file}`} >{data.file}</a>
                     </FormGroup>
                     <FormGroup>
                         <Paragraph  >Jawaban(Via Berkas) </Paragraph> 
