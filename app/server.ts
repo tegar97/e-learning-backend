@@ -49,7 +49,7 @@ app.use(express.static(__dirname+'/public'))
 
 app.use(cors())
 
-app.listen({ port:  process.env.PORT || 80  }, () =>
+app.listen({ port:  process.env.PORT || 5000  }, () =>
   console.log(`🚀 Server ready and listening at ==> http://localhost${server.graphqlPath}`))
 };
 
