@@ -58,12 +58,12 @@ function PostBox({match,data : {id,content,content_title,created_by,file,created
                     </PostTaskContainer> 
                     <PostImageContainer>
                     {imageType.includes(file.split('.').pop().toLowerCase()) ?
-                     <img src={ `http://localhost:5000/images/${file}` } alt="image" width="100%" height="400" style={{objectFit: 'cover'}}/>
+                     <img src={ `http://e-learning-lb-1710524447.ap-southeast-1.elb.amazonaws.com/images/${file}` } alt="image" width="100%" height="400" style={{objectFit: 'cover'}}/>
                     : file ?
                      <PostFileContainer>
                         <FileCopyIcon/>
                         <p style={{marginRight: 'auto'}}>{file}</p>
-                        <a download href={`http://localhost:5000/images/${file}`}>download</a>
+                        <a download href={`http://e-learning-lb-1710524447.ap-southeast-1.elb.amazonaws.com/images/${file}`}>download</a>
                      </PostFileContainer>   
                     :
                     ''

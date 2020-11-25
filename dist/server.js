@@ -27,7 +27,7 @@ const TimeLineResolver_1 = require("./resolvers/TimeLineResolver");
 const cors_1 = __importDefault(require("cors"));
 const userTaskCollectionResolver_1 = require("./resolvers/userTaskCollectionResolver");
 const pubsub = new apollo_server_express_1.PubSub();
-dotenv_1.default.config({ path: "../config.env" });
+dotenv_1.default.config({ path: "./config.env" });
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     const schema = yield type_graphql_1.buildSchema({
         resolvers: [
@@ -49,7 +49,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     app.set('view engine', 'ejs');
     app.use(express_1.default.static(__dirname + '/public'));
     app.use(cors_1.default());
-    app.listen({ port: process.env.PORT || 80 }, () => console.log(`🚀 Server ready and listening at ==> http://localhost${server.graphqlPath}`));
+    app.listen({ port: process.env.PORT || 5000 }, () => console.log(`🚀 Server ready and listening at ==> http://localhost${server.graphqlPath}`));
 });
 main().catch((error) => {
     console.log(error, 'error');

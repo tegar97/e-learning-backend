@@ -16,7 +16,7 @@ import { UserTaskCollectResolver } from "./resolvers/userTaskCollectionResolver"
 const pubsub = new PubSub();
 
 
-dotenv.config({path: "../config.env"})
+dotenv.config({path: "./config.env"})
 
 const main = async () => {
 
