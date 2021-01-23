@@ -64,6 +64,9 @@ export const FIND_ALL_CLASS = gql`
     query findAllClass{
         findAllClass{
             name
+            user{
+                name
+            }
             id
 
         }
