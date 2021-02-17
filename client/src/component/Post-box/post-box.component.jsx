@@ -58,12 +58,12 @@ function PostBox({match,data : {id,content,content_title,created_by,file,created
                     </PostTaskContainer> 
                     <PostImageContainer>
                     {imageType.includes(file.split('.').pop().toLowerCase()) ?
-                     <img src={ `https://backend.tegar.cyou/images/${file}` } alt="image" width="100%" height="400" style={{objectFit: 'cover'}}/>
+                     <img src={ `${process.env.api}images/${file}` } alt="image" width="100%" height="400" style={{objectFit: 'cover'}}/>
                     : file ?
                      <PostFileContainer>
                         <FileCopyIcon/>
                         <p style={{marginRight: 'auto'}}>{file}</p>
-                        <a download href={`https://backend.tegar.cyou/images/${file}`}>download</a>
+                        <a download href={`${process.env.api}images/${file}`}>download</a>
                      </PostFileContainer>   
                     :
                     ''
