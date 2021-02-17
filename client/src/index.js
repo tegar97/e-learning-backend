@@ -9,7 +9,7 @@ import { setContext } from '@apollo/client/link/context';
 import {createUploadLink} from 'apollo-upload-client'
 
 const httpLink = createUploadLink({
-  uri:  process.env.NODE_ENV === "production" ? 'https://backend.tegar.cyou/graphql' : 'https://backend.tegar.cyou/graphql',
+  uri:  process.env.NODE_ENV === "production" ? 'http://localhost:5000/graphql' : 'http://localhost:5000/graphql',
 });
 
 const authLink = setContext((_, { headers }) => {

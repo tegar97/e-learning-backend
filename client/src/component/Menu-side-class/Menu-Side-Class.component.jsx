@@ -23,14 +23,7 @@ function MenuSideClass({match}) {
                         <ChatBubbleIcon />
                          <Paragraph size="1.5rem" style={{marginLeft: '1rem'}}>Diskusi</Paragraph> 
                     </ListItems>
-                    <ListItems  active={`${match.url}/anggota` === location.pathname ? true : false }>   
-                         <PeopleIcon />
-                        <Paragraph size="1.5rem" style={{marginLeft: '1rem'}}>Anggota</Paragraph> 
-                    </ListItems>
-                    <ListItems   active={`${match.url}/absensi` === location.pathname ? true : false}>   
-                        <ChatBubbleIcon />
-                        <Paragraph size="1.5rem" style={{marginLeft: '1rem'}}>Absensi</Paragraph> 
-                 </ListItems>
+                   
                 </ListContainer>
                 </CardBody>
             </MenuCard>
