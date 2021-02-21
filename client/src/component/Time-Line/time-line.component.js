@@ -80,7 +80,7 @@ function TimeLine({match,classDetail,classLoading}) {
                     ))
                 }
             </TimeLineContent>
-            <TimeLineFooter>
+            <TimeLineFooter>1
                 
             </TimeLineFooter>
 
